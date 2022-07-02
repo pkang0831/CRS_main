@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-      <link rel="stylesheet" href="./../css/style.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
       <script src="http://code.jquery.com/jquery.min.js"></script>
     </head>
 
@@ -17,7 +17,7 @@
       /* TO CSS FILE AFTER */
      .bg{
         height:100%;
-        background-image:url("./../image/start_bg.png");
+        background-image:url("{{ url_for('static', filename = 'image/start_bg.png')}}");
         background-position: center;
         background-repeat:no-repeat;
         background-size:cover;
@@ -68,7 +68,7 @@
         <!-- Top container -->
         <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
           <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
-          <img src="./../image/logo.png" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+          <img src="{{ url_for('static', filename = 'image/logo.png')}}" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
           <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
         </div>
         <div class="w3-display-middle">
@@ -106,9 +106,9 @@
       you have the ability to modify your browser to either accept all cookies, notify you when a cookie is sent, or reject all cookies, it may not be possible to utilize our services if you reject cookies.
       <br><br>
     </p>
-    <button class = "w3-button w3-xlarge w3-text-black w3-hover-blue" style = "margin-left:30px;" onclick = "location.href = 'question.html'">
+    <a class = "w3-button w3-xlarge w3-text-black w3-hover-blue" style = "margin-left:30px;" href = "{{ url_for('question')}}">
         I agree to the terms of conditions
-      </button>
+    </a>
   </div>
 
 </div>

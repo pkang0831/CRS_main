@@ -7,9 +7,9 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="./../css/style.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="./../js/data.js"></script>
+<script src="{{ url_for('static', filename='/js/data.js')}}"></script>
 
 
 <style>
@@ -21,7 +21,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <!-- Top container -->
     <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
         <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
-        <img src="./../image/logo.png" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+        <img src="{{ url_for('static', filename = 'image/logo.png')}}" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
         <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
     </div>
 
@@ -42,12 +42,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         </div>
 
         <div class="w3-bar-block">
-          <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-          <a href="summary.html#My_Score_Analysis" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
-          <a href="summary.html#My_Score_Examination" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
-          <a href="summary.html#path_tree" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
-          <a href="Improve_My_CRS.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
-          <a href="question.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Assessment</a>
+            <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+            <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
+            <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
+            <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
+            <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
+            <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Assessment</a>
         </div>
     </nav>
 
@@ -445,7 +445,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <!-- Design Success Message @@@@@ NEED TO MODIFY-->
             <div id = "Finish-message" class = "w3-container w3-padding-16">
                 <h5> Application finished. Submit the form to see the points. </h5>
-                <button class = "w3-button w3-dark-grey w3-light-grey" onclick = "calculate(); location.href = 'summary.html'">Submit</button>
+                <a class = "w3-button w3-dark-grey w3-light-grey" onclick = "calculate();" href = "{{ url_for('summary')}}">Submit</a>
             </div>
         </div>
 
@@ -457,6 +457,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div> <!-- End page content -->
 </body>
 
-<script type="text/javascript" charset="UTF-8" src="./../js/questions_functions.js" ></script>
-
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static', filename='/js/questions_functions.js')}}" ></script>
+<!-- ./../js/questions_functions.js -->
 </html>

@@ -8,7 +8,7 @@
 from flask import Flask, redirect, url_for,render_template,request, jsonify, make_response
 from flask.templating import render_template_string
 from werkzeug import datastructures
-import pyodbc
+from flask_sqlalchemy import SQLAlchemy
 
 app2 = Flask(__name__)
 
@@ -19,6 +19,14 @@ def welcome():
 @app2.route('/question')
 def question():
     return render_template('question.html')
+
+@app2.route('/summary')
+def summary():
+    return render_template('summary.html')
+
+@app2.route('/Improve_My_CRS')
+def Improve_My_CRS():
+    return render_template('Improve_My_CRS.html')
 
 # @app2.route('/')
 # def practice_passing_num():
