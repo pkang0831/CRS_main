@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<title>Canada PR Estimator</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="./../css/style.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['line','corechart','bar','gantt']});
+  google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        //Misc variable creation
+        var CRS_Predict = 440;
+        var last_CRS = 445;
+        var Core = parseInt(localStorage.getItem('Core_factors'));
+        var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
+        var Skill = parseInt(localStorage.getItem('Skill_factors'));
+        var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
+        var total = Core + Spouse + Skill + Bonus;
+        function DTM(Days) { //DTM = Days to Milliseconds
+          return Days*24*60*60*1000;
+        }
+        var today = new Date();
+        var ITA_start = new Date(today.setDate(today.getDate()) + DTM(3));
+        var Document_start = new Date(today.setDate(today.getDate()) + DTM(3));
+        var PR_decision_start = new Date(ITA_start.setDate(ITA_start.getDate()) + DTM(14));
+        var Med_exam_start = new Date(PR_decision_start.setDate(PR_decision_start.getDate()) + DTM(182.5));
+        var PR_landing_total = new Date(Med_exam_start.setDate(Med_exam_start.getDate()) + DTM(7));
+        // Create the data table.
+        var data1 = new google.visualization.arrayToDataTable([
+          ['Comparison','CRS_points',{ role:"style"}],
+          ['Latest CRS point',last_CRS,'blue'],
+          ['Next CRS Prediction',CRS_Predict,'green'],
+          ['Your CRS point',total,'red']
+        ]);
+        var dataview1 = new google.visualization.DataView(data1);
+        dataview1.setColumns([0,1,{calc:"stringify",sourceColumn:1,type:"string",role:"annotation"},2]);
+        var data2 = new google.visualization.arrayToDataTable([
+          ['Category', 'Points'],
+          ['A. Core Human',Core],
+          ['B. Spouse',Spouse],
+          ['C. Skill',Skill],
+          ['D. Bonus',Bonus]
+        ]);
+        var data3 = new google.visualization.arrayToDataTable([
+          ['Date','# of ITA issued','CRS cut off','CRS cut off prediction','# of ITA issuance prediction','Your CRS'],
+          [new Date(2018,0,10),2750,446,,,total],
+          [new Date(2018,0,24),2750,444,,,total],
+          [new Date(2018,1,7),3000,442,,,total],
+          [new Date(2018,1,21),3000,442,,,total],
+          [new Date(2018,2,14),3000,456,,,total],
+          [new Date(2018,2,26),3000,446,,,total],
+          [new Date(2018,3,11),3500,444,,,total],
+          [new Date(2018,3,25),3500,441,,,total],
+          [new Date(2018,4,9),3500,441,,,total],
+          [new Date(2018,4,23),3500,440,,,total],
+          [new Date(2018,5,13),3750,451,,,total],
+          [new Date(2018,5,25),3750,442,,,total],
+          [new Date(2018,6,11),3750,442,,,total],
+          [new Date(2018,6,25),3750,441,,,total],
+          [new Date(2018,7,8),3750,440,,,total],
+          [new Date(2018,7,22),3750,440,,,total],
+          [new Date(2018,8,5),3900,440,,,total],
+          [new Date(2018,8,19),3500,441,,,total],
+          [new Date(2018,9,03),3900,445,,,total],
+          [new Date(2018,9,15),3900,440,,,total],
+          [new Date(2018,9,29),3900,442,,,total],
+          [new Date(2018,10,14),3900,449,,,total],
+          [new Date(2018,10,28),3900,445,445,3900,total],
+          [new Date(2018,11,17),,,440,3900,total],
+          [new Date(2018,11,31),,,439,3900,total],
+          [new Date(2019,0,15),,,440,3900,total],
+        ]);
+        var data4 = new google.visualization.DataTable();
+        data4.addColumn('string', 'Task ID');
+        data4.addColumn('string', 'Task Name');
+        data4.addColumn('date', 'Start Date');
+        data4.addColumn('date', 'End Date');
+        data4.addColumn('number', 'Duration');
+        data4.addColumn('number', 'Percent Complete');
+        data4.addColumn('string', 'Dependencies');
+        data4.addRows ([
+          ['Step_1','1. Profile Submission',today,null,DTM(3), 0,null],
+          ['Step_2','2. ITA Issuance',ITA_start,null,DTM(14),0,null],
+          ['Step_3','3. Document Preparation',ITA_start,null,DTM(25),0,null],
+          ['Step_4','4. PR Decision Period',PR_decision_start,null,DTM(182.5),0,null],
+          ['Step_5','5. Medical Exam',Med_exam_start,null,DTM(7),0,null],
+          ['Step_6','6. PR landing',PR_landing_total,null,DTM(7),0,null]
+        ]);
+        // Set chart options
+        var options1 = {
+          height: 400,
+          width: 600,
+          backgroundColor: '#f1f1f1',
+          title: 'Recent CRS comparison',
+          bar: {groupWidth: "40%"},
+          legend: {position: "none"},
+          vAxis: {
+            minValue: 420,
+            maxValue: 460
+          }
+        };
+        var options2 = {
+          title: 'My CRS Category Contribution',
+          is3D: true,
+          height: 400,
+          width:600,
+          backgroundColor: '#f1f1f1',
+          legend: {position:'right'},
+          pieSliceTextStyle: {color:'white'},
+          slices: {
+            0: {color:'blue'},
+            1: {color:'#808000'},
+            2: {color:'red'},
+            3: {color:'green'}
+          }
+        };
+        var options3 = {
+          title: 'Past CRS cut off data with next 2 draw prediction',
+          height: 400,
+          width:1200,
+          backgroundColor: '#f1f1f1',
+          legend: {position:'top'},
+          series: {
+              // Gives each series an axis name that matches the Y-axis below.
+              0: {targetAxisIndex: 1,color:'blue'},
+              1: {targetAxisIndex: 0,color:'red'},
+              2: {targetAxisIndex: 0, lineDashStyle: [4,4], color:'green'},
+              3: {targetAxisIndex: 1, lineDashStyle: [4,4], color:'blue'},
+              4: {targetAxisIndex: 0, lineDashStyle: [14,7,7,2], color:'purple'}
+          },
+          vAxes: {
+            1: {title: 'ITA issued'},
+            0: {title: 'CRS points'}
+          },
+          vAxis: {
+              minValue: 435,
+              maxValue: 460
+          },
+          crosshair: {
+            trigger: 'both'
+          }
+        };
+        var options4 = {
+          height: 275,
+          width: 1150,
+          backgroundColor: '#f1f1f1',
+          title: 'Your plan'
+        };
+        // Instantiate and draw our chart, passing in some options.
+        var Chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+        var Chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        var Chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        if (total <= CRS_Predict - 2){
+
+        } else {
+          var Chart4 = new google.visualization.Gantt(document.getElementById('chart_div4'));
+          Chart4.draw(data4, options4);
+        }
+        Chart1.draw(dataview1, options1)
+        Chart2.draw(data2, options2);
+        Chart3.draw(data3, options3);
+      };
+</script>
+</head>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
+  <img src="./../image/logo.png" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+  <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
+</div>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong>Immigrant</strong></span><br>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="summary.html#My_Score_Analysis" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
+    <a href="summary.html#My_Score_Examination" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
+    <a href="summary.html#path_tree" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
+    <a href="Improve_My_CRS.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
+    <a href="question.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Assessment</a>
+  </div>
+</nav>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<!-- PAGE CONTENT -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <!-- Header -->
+  <hr id = "My_Score_Analysis">
+  <header class="w3-container" style="padding-top:10px">
+    <h3><b><i class="fa fa-dashboard"></i> My Score Analysis</b></h3>
+  </header>
+  <div class = "w3-container w3-padding-16">
+    <span style="font-size:30px;text-align:center;display:inline-block;background-color:skyblue;padding:20px;border-radius:15px;">Your CRS points:<b>
+      <script>
+        var Core = parseInt(localStorage.getItem('Core_factors'));
+        var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
+        var Skill = parseInt(localStorage.getItem('Skill_factors'));
+        var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
+        var total = Core + Spouse + Skill + Bonus;
+        document.write(total);
+      </script></b>
+</span>
+<span id="Prediction_decision" style="font-size:30px;text-align:center;display:inline-block;padding:20px;border-radius:15px;">
+<script>
+  var CRS_Predict = 440;
+  var Prediction_decision_java
+  if (total <= CRS_Predict - 5) {
+    Prediction_decision_java = 'Not Plausible';
+    document.getElementById("Prediction_decision").style.backgroundColor = "Red";
+    document.getElementById("Prediction_decision").style.color = "white";
+  }
+  else if (total > CRS_Predict - 5 && total <= CRS_Predict - 2) {
+    Prediction_decision_java = 'Less Plausible';
+    document.getElementById("Prediction_decision").style.backgroundColor = "Yellow";
+    document.getElementById("Prediction_decision").style.color = "black";
+  }
+  else if (total > CRS_Predict - 2 && total <= CRS_Predict + 2){
+    Prediction_decision_java = 'Maybe';
+    document.getElementById("Prediction_decision").style.backgroundColor = "Blue";
+    document.getElementById("Prediction_decision").style.color = "white";
+  }
+  else if (total > CRS_Predict + 2 && total <= CRS_Predict + 5){
+    Prediction_decision_java = 'Plausible';
+    document.getElementById("Prediction_decision").style.backgroundColor = '#7CFC00';
+    document.getElementById("Prediction_decision").style.color = "white";
+  }
+  else if (total > CRS_Predict + 5){
+    Prediction_decision_java = 'Very Plausible';
+    document.getElementById("Prediction_decision").style.backgroundColor = "green";
+    document.getElementById("Prediction_decision").style.color = "white";
+  }
+</script>
+Next draw: <b><script>document.write(Prediction_decision_java)</script></b>
+</span>
+<span style="font-size:30px;text-align:center;display:inline-block;background-color:grey;color:white;padding:20px;border-radius:15px;">
+  Next CRS Prediction: <b><script>document.write(CRS_Predict)</script></b>
+</span>
+</div>
+<p class="w3-container"> Based on the information you have provided, you have in total of <b><script>document.write(total)</script></b> for your Comprehensive Ranking System (CRS) points. </p>
+<p class="w3-container">
+<script>
+var description_message
+var Prediction_explained
+var CRS_difference = Math.abs(CRS_Predict - total);
+  if (Prediction_decision_java == 'Not Plausible') {
+    description_message = 'You certainly need to improve your CRS points to increase chance of receiving ITA and PR. Please refer to our "Improve my CRS points" page to increase your CRS points'
+    Prediction_explained = 'Based on the assessment and our predictive model on CRS estimation, Your CRS points are <b>'
+    + CRS_difference
+    + '</b> points lower than the next CRS cut off prediction.<br><br>'
+    + 'The CRS points that you have is way lower than last CRS cut off and what our model predict. We recommend you improve on your CRS before you start <br><br>'
+    + 'your PR decision process. In your CRS, <b>' + total + '</b>, ' + Math.round(Core/total*1000)/10 + '%' + "(" + Core + " points) comes from Core Human Factors (e.g. your education, age, etc) <br><br>"
+    + Math.round(Spouse/total*1000)/10 + '%' + "(" + Spouse + " points) comes from your Spouse (e.g. your Spouse's education, work experience, etc), " + Math.round(Skill/total*1000)/10 + '%' + "(" + Skill + " points) comes from Skill transferrability (e.g. work <br><br> experience, etc), "
+    + Math.round(Bonus/total*1000)/10 + '%' + "(" + Bonus + " points) comes from Bonus factors (e.g. LMIA or sister/brother who possess PR or Citizenship etc)."
+  }
+  else if (Prediction_decision_java == 'Less Plausible'){
+    description_message = 'Your CRS points are getting close to last cut-off. However, it is strongly recommended to improve on your CRS points. Please refer to our "Improve my CRS points" page to increase your CRS points'
+    Prediction_explained = 'Based on the assessment and our predictive model on CRS estimation, Your CRS points are <b>'
+    + CRS_difference
+    + '</b> points lower than the next CRS cut off prediction.<br><br>'
+    + 'The CRS points that you have is lower than last CRS cut off and what our model predict. We recommend you improve on your CRS before you start <br><br>'
+    + 'your PR decision process. In your CRS, <b>' + total + '</b>, ' + Math.round(Core/total*1000)/10 + '%' + "(" + Core + " points) comes from Core Human Factors (e.g. your education, age, etc) <br><br>"
+    + Math.round(Spouse/total*1000)/10 + '%' + "(" + Spouse + " points) comes from your Spouse (e.g. your Spouse's education, work experience, etc), " + Math.round(Skill/total*1000)/10 + '%' + "(" + Skill + " points) comes from Skill transferrability (e.g. work <br><br> experience, etc), "
+    + Math.round(Bonus/total*1000)/10 + '%' + "(" + Bonus + " points) comes from Bonus factors (e.g. LMIA or sister/brother who possess PR or Citizenship etc)."
+  }
+  else if (Prediction_decision_java == 'Maybe'){
+    description_message = 'Your CRS points are close to the last CRS cut-off. You have good chance of receiving ITA. However, it is strongly recommended to improve on your CRS points. Please refer to our "Improve my CRS points" page to increase your CRS points'
+    Prediction_explained = 'The CRS points that you have is same as the last CRS cut off. We recommend you try submitting the profile as soon as possible <br><br>'
+    + 'or improve on your CRS before you start. In your CRS, <b>' + total + '</b>, ' + Math.round(Core/total*1000)/10 + '%' + "(" + Core + " points) comes from Core Human Factors (e.g. your education, age, etc) <br><br>"
+    + Math.round(Spouse/total*1000)/10 + '%' + "(" + Spouse + " points) comes from your Spouse (e.g. your Spouse's education, work experience, etc), " + Math.round(Skill/total*1000)/10 + '%' + "(" + Skill + " points) comes from Skill transferrability (e.g. work <br><br> experience, etc), "
+    + Math.round(Bonus/total*1000)/10 + '%' + "(" + Bonus + " points) comes from Bonus factors (e.g. LMIA or sister/brother who possess PR or Citizenship etc)."
+  }
+  else if (Prediction_decision_java == 'Plausible'){
+    description_message = 'Your CRS points are higher than the last CRS cut-off. You have very good chance of receving ITA. Congratulations!'
+    Prediction_explained = 'Based on the assessment and our predictive model on CRS estimation, Your CRS points are <b>'
+    + CRS_difference
+    + '</b> points higher than the next prediction.<br><br>'
+    + 'The CRS points that you have is higher than last CRS cut off and what our model predict. We recommend you submit the profile as soon as possible <br><br>'
+    + 'and receive the ITA to start your PR decision process. In your CRS, <b>' + total + '</b>, ' + Math.round(Core/total*1000)/10 + '%' + "(" + Core + " points) comes from Core Human Factors (e.g. your education, age, etc) <br><br>"
+    + Math.round(Spouse/total*1000)/10 + '%' + "(" + Spouse + " points) comes from your Spouse (e.g. your Spouse's education, work experience, etc), " + Math.round(Skill/total*1000)/10 + '%' + "(" + Skill + " points) comes from Skill transferrability (e.g. work <br><br> experience, etc), "
+    + Math.round(Bonus/total*1000)/10 + '%' + "(" + Bonus + " points) comes from Bonus factors (e.g. LMIA or sister/brother who possess PR or Citizenship etc)."
+  }
+  else if (Prediction_decision_java == 'Very Plausible'){
+    description_message = 'Your CRS points are way higher than the last CRS cut-off. You have absolutely better chance of receving ITA within 2 weeks. Congratulations!'
+    Prediction_explained = 'Based on the assessment and our predictive model on CRS estimation, Your CRS points are <b>'
+    + CRS_difference
+    + '</b> points higher than the next prediction.<br><br>'
+    + 'The CRS points that you have is way higher than last CRS cut off and what our model predict. We recommend you submit the profile as soon as possible <br><br>'
+    + 'and receive the ITA to start your PR decision process. In your CRS, <b>' + total + '</b>, ' + Math.round(Core/total*1000)/10 + '%' + "(" + Core + " points) comes from Core Human Factors (e.g. your education, age, etc) <br><br>"
+    + Math.round(Spouse/total*1000)/10 + '%' + "(" + Spouse + " points) comes from your Spouse (e.g. your Spouse's education, work experience, etc), " + Math.round(Skill/total*1000)/10 + '%' + "(" + Skill + " points) comes from Skill transferrability (e.g. work <br><br> experience, etc), "
+    + Math.round(Bonus/total*1000)/10 + '%' + "(" + Bonus + " points) comes from Bonus factors (e.g. LMIA or sister/brother who possess PR or Citizenship etc)."
+  }
+  document.write(description_message);
+</script>
+ </p>
+ <hr id = "My_Score_Examination">
+ <h3  class = "w3-container" style = "text-align:left;"><b>My Score Examination</b></h3></hr>
+ <div id = "chart_div1" class = "w3-animate-left" style = "float:left;text-align:center;animation:animateleft 2s"></div>
+ <div id = "chart_div2" class = "w3-animate-right" style = "float:left;text-align:center;animation:animateright 2s"></div>
+ <p class = "w3-container" style = "text-align:left;">
+   <script>
+      document.write(Prediction_explained)
+   </script>
+ </p>
+ <div id = "chart_div3" class = "w3-animate-bottom" style = "float:left;text-align:center;animation:animatebottom 2s"></div>
+ <p class = "w3-container" style = "text-align:left">
+   The chart above is the recent history of CRS cut-off and number of Invitation To Apply (ITA) issued. Based on the data, we applied Neural Net Time Series Model <br></br> (Machine Learning)
+   to predict the next CRS cut-off points and # of ITA to be issued. Overall, # of ITA issuance is increasing in the year of 2018, expected to increase <br></br> more in the year of 2019 and 2020.
+   As a result, the model predicts the CRS cut-off points to yield in lower level creating better opportunity for skilled / educated <br></br> immigrants to have their Permanent Residency easier and faster.
+ </p>
+ <!-- CRS Point Distribution-->
+  <hr id = "path_tree"><h3 class = "w3-container" style = "text-align:left;"><b>My Path to PR landing</b></h3></hr>
+
+   <script>
+   function DTM(days){
+     return days*24*3600*1000;
+   }
+   var Gantt_chart_message
+   var today_gantt = new Date();
+   var receiving_gantt = new Date(today_gantt.setDate(today_gantt.getDate()) + DTM(213.5));
+   var today_dd = today_gantt.getDate();
+   var receiving_dd = receiving_gantt.getDate();
+   var today_mm = today_gantt.getMonth() + 1;
+   var receiving_mm = receiving_gantt.getMonth() + 1;
+   var today_yyyy = today_gantt.getFullYear();
+   var receiving_yyyy = receiving_gantt.getFullYear();
+   if (today_dd < 10) {
+     today_dd = '0' + today_dd;
+   }
+   if (receiving_dd < 10) {
+     receiving_dd = '0' + receiving_dd;
+   }
+   if (today_mm < 10) {
+     today_mm = '0' + today_mm;
+   }
+   if (receiving_mm <10) {
+     receiving_mm = '0' + receiving_mm;
+   }
+   today_gantt = today_mm + ' / ' + today_dd + ' / ' + today_yyyy;
+   receiving_gantt = receiving_mm + ' / ' + receiving_dd + ' / ' + receiving_yyyy;
+   if (Prediction_decision_java == 'Not Plausible') {
+     document.write('<p class = "w3-container" style = "text-align:left;">')
+     document.write("<br>We recommend improve your CRS points first to view your expected PR timeline.")
+     document.write('</p>')
+   }
+   else if (Prediction_decision_java == 'Less Plausible'){
+     document.write('<p class = "w3-container" style = "text-align:left;">')
+     document.write("<br>We recommend improve your CRS points first to view your expected PR timeline.")
+     document.write('</p>')
+   }
+   else if (Prediction_decision_java == 'Maybe'){
+     document.write('<div id = "chart_div4" class = "w3-container w3-animate-left" style = "float:left;text-align:center;animation:animateleft 2s"></div>')
+     document.write('<p class = "w3-container" style = "text-align:left;">')
+     Gantt_chart_message = "<br>From profile submission to actual PR landing (complete process) is expected to take <b>5 to 7 months</b>, depending on the government processing speed."
+     + "<br><br> We cannot give you an estimate on your PR receving date as the probability of your ITA issuance is compromised. However, let's assume the next CRS cut-off yields "
+     + "<br><br> lower point. If you start applying today (as of <b>" + today_gantt + "</b>), you are expected to receive your Permanent Residency on <b>" + receiving_gantt + "</b>. This is only for estimation for your "
+     + "<br><br> reference. Actual PR landing can be sooner or longer, depending on the government processing time."
+     document.write(Gantt_chart_message)
+     document.write('</p>')
+   }
+   else if (Prediction_decision_java == 'Plausible'){
+     document.write('<div id = "chart_div4" class = "w3-container w3-animate-left" style = "float:left;text-align:center;animation:animateleft 2s"></div>')
+     document.write('<p class = "w3-container" style = "text-align:left;">')
+     Gantt_chart_message = "<br>From profile submission to actual PR landing (complete process) is expected to take <b>5 to 7 months</b>, depending on the government processing speed."
+     + "<br><br> If you start applying today (as of <b>" + today_gantt + "</b>), you are expected to receive your Permanent Residency on <b>" + receiving_gantt + "</b>. This is only for estimation for your "
+     + "<br><br> reference. Actual PR landing can be sooner or longer, depending on the government processing time."
+     document.write(Gantt_chart_message)
+     document.write('</p>')
+   }
+   else if (Prediction_decision_java == 'Very Plausible'){
+     document.write('<div id = "chart_div4" class = "w3-container w3-animate-left" style = "float:left;text-align:center;animation:animateleft 2s"></div>')
+     document.write('<p class = "w3-container" style = "text-align:left;">')
+     Gantt_chart_message = "<br>From profile submission to actual PR landing (complete process) is expected to take <b>5 to 7 months</b>, depending on the government processing speed."
+     + "<br><br> If you start applying today (as of <b>" + today_gantt + "</b>), you are expected to receive your Permanent Residency on <b>" + receiving_gantt + "</b>. This is only for estimation for your "
+     + "<br><br> reference. Actual PR landing can be sooner or longer, depending on the government processing time."
+     document.write(Gantt_chart_message)
+     document.write('</p>')
+   }
+  </script>
+<!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-dark-grey">
+    <h4>Copyright 2018</h4>
+    <p>Powered by KWK, SMJ, JCS, DHK</p>
+  </footer>
+  <!-- End page content -->
+</div>
+</body>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+</html>
