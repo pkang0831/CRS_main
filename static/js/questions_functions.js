@@ -1,6 +1,4 @@
 
-// return true if display is block
-// return false if display is none
 function active(value){
     if (document.getElementById(value).style.display == "block"){ return true; }
     else { return false; }

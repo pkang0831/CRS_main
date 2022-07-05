@@ -7,8 +7,10 @@
 
 from flask import Flask, redirect, url_for,render_template,request, jsonify, make_response
 from flask.templating import render_template_string
+import mysql_connect, crs_scraper
 from werkzeug import datastructures
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app2 = Flask(__name__)
 
@@ -22,7 +24,8 @@ def question():
 
 @app2.route('/summary')
 def summary():
-    return render_template('summary.html')
+    data = mysql_connect.get_data()
+    return render_template('summary.html', data = data)
 
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
