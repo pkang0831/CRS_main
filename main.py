@@ -14,9 +14,20 @@ from datetime import datetime
 
 app2 = Flask(__name__)
 
+def mysql_connection():
+    
+
 @app2.route('/')
 def welcome():
     return render_template('start.html')
+
+@app2.route('/signup', methods = ['POST'])
+def signup():
+    return None
+
+@app2.route('/login', methods = ['POST'])
+def login():
+    return None
 
 @app2.route('/question')
 def question():
@@ -30,6 +41,10 @@ def summary():
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
     return render_template('Improve_My_CRS.html')
+
+@app2.context_processor()
+def context_processor():
+    return dict()
 
 # @app2.route('/')
 # def practice_passing_num():
