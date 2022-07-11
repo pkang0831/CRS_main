@@ -8,14 +8,21 @@
 from flask import Flask, redirect, url_for,render_template,request, jsonify, make_response
 from flask.templating import render_template_string
 import mysql_connect, crs_scraper
+import mysql
 from werkzeug import datastructures
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app2 = Flask(__name__)
 
-def mysql_connection():
-    
+def mysql_connection_data_db():
+    connection = mysql.connector.connect(
+        host = 'localhost',
+        user = 'root',
+        password = '@Rkdrmsdn0831',
+        database = 'data_db'
+    )
+    return connection
 
 @app2.route('/')
 def welcome():
