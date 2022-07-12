@@ -28,12 +28,26 @@ def mysql_connection_data_db():
 def welcome():
     return render_template('start.html')
 
-@app2.route('/signup', methods = ['POST'])
-def signup():
-    return None
-
 @app2.route('/login', methods = ['POST'])
 def login():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        connection = mysql_connection_data_db()
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM user_accounts WHERE username = %s AND password = %s',([username, password]))
+        account = cursor.fetchone()
+        if account:
+            msg = 'login successful'
+            return render_template('summary.html', msg = msg)
+        else:
+            msg = 'Incorrect password or username or not registered'
+
+    return render_template('start.html', msg = msg)
+
+@app2.route('/signup', methods = ['POST'])
+def signup():
     return None
 
 @app2.route('/question')

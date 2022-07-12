@@ -56,27 +56,27 @@
   <div id='login_popup' class="bg-modal" style="display:none">
     <div class="modal-content">
       <form action="{{ url_for('login') }}" method="post">
-        <label for="username"> Username</label>
-        <input id="username" type="text" , name="username" placeholder="Enter Username (Required)" required>
-        <label for="password">Password</label>
-        <input id="password" type="text" , name="password" placehodler="Enter Password (Required)" required>
-        <button type="submit" value="login"></button>
+        <label for="username" style = "font-size:20px;padding-left:20px;"> Username</label>
+        <input id="username" type="text" name="username" style="width:95%;padding-left:10px;"placeholder="Enter Username (Required)" required>
+        <label for="password" style = "font-size:20px;padding-left:20px;">Password</label>
+        <input id="password" type="text" name="password" style="width:95%;padding-left:10px;"placeholder="Enter Password (Required)" required>
+        <button type="submit" style="width:80%; display: block; margin: 10px auto;" value="login"> Log in</button>
       </form>
-      <button value="New User" onclick="signup_pop()"></button>
+      <button type = "signup" style="width:80%; display: block; margin: 10px auto;" value="New User" onclick="signup_pop()"> New User</button>
     </div>
   </div>
   <div id='signup_popup' class="bg-modal" style="display:none">
-    <div class="modal-content">
+    <div class="modal-content" style = "height:420px; width:500px;">
       <form action="{{ url_for('signup') }}" method="post">
-        <label for="new_username"> Enter New Username</label>
+        <label for="new_username" style = "font-size:20px;padding-left:20px;"> New Username</label>
         <input id="new_username" type="text" , name="new_username" placeholder="Enter New Username (Required)" required>
-        <label for="password">Enter Password</label>
-        <input id="password" type="text" name="password" placehodler="Enter Password (Required)" required>
-        <label for="email">Enter Email</label>
+        <label for="password" style = "font-size:20px;padding-left:20px;"> Password</label>
+        <input id="password" type="text" name="password" placeholder="Enter Password (Required)" required>
+        <label for="email" style = "font-size:20px;padding-left:20px;"> Email</label>
         <input id="email" type="text" name="email" placeholder="Enter Email (Required)" required>
-        <button type="submit" value="login"></button>
+        <button type="submit" style="background-color:blue; width:80%; display: block; margin: 10px auto;" value="login"> Register</button>
       </form>
-      <button value="New User" onclick="signup_pop()"></button>
+      <button type = "back_to_login" value="login_back" style="cursor:pointer; color:white; border:none; padding: 14px 20px; background-color:#04AA6D; width:80%; display: block; margin: 10px auto;" onclick="back_to_login  ()"> Back to Login</button>
     </div>
   </div>
 
