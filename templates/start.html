@@ -1,117 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <title>Canada PR Estimator</title>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-      <script src="http://code.jquery.com/jquery.min.js"></script>
-    </head>
+<title>Canada PR Estimator</title>
 
-    <style>
-      body,html {height:100%;margin:0%;}
-      h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/mystyle.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/start.js')}}" async></script>
+  <!-- Inline styling -->
+  <style>
+    .bg {
+      height: 100%;
+      background-image:url("{{ url_for('static', filename = 'image/start_bg.png')}}");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      animation: opac 1s;
+    }
+  </style>
+</head>
 
-      /* TO CSS FILE AFTER */
-     .bg{
-        height:100%;
-        background-image:url("{{ url_for('static', filename = 'image/start_bg.png')}}");
-        background-position: center;
-        background-repeat:no-repeat;
-        background-size:cover;
-        animation:opac 1s;
-      }
+<body>
+  <div class="bg w3-display-container w3-animate-opacity w3-text-black">
 
-      .bg-modal{
-        width:100%;
-        height:100%;
-        background-color:rgba(0,0,0,0.7);
-        position:absolute;
-        top:0;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .modal-content{
-        width:500px;
-        height:300px;
-        background-color: white;
-        border-radius: 25px;
-      }
-
-      .w3-button:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        transition-duration: 0.6s;
-      }
-      .w3-button{
-        text-align:center;
-        animation:animateleft 1.5s;
-        border-radius:28px;
-      }
-      .close {
-        position:absolute;
-        top:235px;
-        right:530px;
-        font-size:20px;
-        transform: rotate(45deg);
-        border:none;
-        background-color:white;
-      }
-    </style>
-
-    <body>
-      <div class = "bg w3-display-container w3-animate-opacity w3-text-black">
-
-        <!-- Top container -->
-        <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-          <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
-          <img src="{{ url_for('static', filename = 'image/logo.png')}}" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
-          <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
-        </div>
-        <div class="w3-display-middle">
-          <h1 class="w3-jumbo w3-animate-right" style = "animation:animateright 1.5s;">WELCOME</h1>
-          <button id = "start_button" class = "js-open-modal w3-animate-left w3-button w3-xlarge w3-text-black w3-hover-black" style = "margin-left:20px;" onclick = "terms_condition()">
-            Let's get you started
-          </button>
-        </div>
-      </div>
-
-<!-- Model section -->
-
-
-<script>
-  function terms_condition(){
-    document.getElementById('terms').style.display = "flex";
-  };
-  function close_terms(){
-    document.getElementById('terms').style.display = "none";
-  };
-</script>
-
-<div id = 'terms' class="bg-modal" style = "display:none">
-  <div class="modal-content">
-    <h5 class = "w3-container" style = "text-align:center"><b>Terms and Conditions</b></h5>
-    <button id = 'close_terms' class="close" onclick = "close_terms()"><b>+</b></button>
-    <p class = "w3-container" style = "width:490px;height:175px;overflow:auto;">
-      1. By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services. Any participation in this service will constitute acceptance of this agreement. If you do not agree to abide by the above, please do not use this service.
-      <br><br>
-      2. We will not disclose any personal information to any third party (excluding our contractors to whom we may provide such information for the limited purpose of providing services to us and who are obligated to keep the information confidential), unless (1) you have authorized us to do so; (2) we are legally required to do so, for example, in response to a subpoena, court order or other legal process and/or, (3) it is necessary to protect our property rights related to this website. We also may share aggregate, non-personal information about website usage with unaffiliated third parties. This aggregate information does not contain any personal information about our users.
-      <br><br>
-      3. We may use your personal information within our website: (1) to provide you with the services you request on CRS calculation; (2) to answer questions about our services or use of our website; (4) to conduct customer surveys; and (5) to contact you about the products and services that we offer.
-      <br><br>
-      4. Our website, like many other commercial sites, may use a standard technology called "cookies" to collect information about how our site is used. Cookies were designed to help a website operator determine that a particular user had visited the site previously and thus save and remember any preferences that may have been set. We may use cookies to keep track of information about your current web browsing session which will be discarded as soon as you log out or close your web browser. This information also allows us to statistically monitor how many people are using our site and for what purpose. We may also make use of “persistent or memory based” cookies, which remain on your computer’s hard drive until you delete them. Examples include our use of these cookies to pre-populate forms you complete on our website based on information you have previously provided to us, enable interest-based advertising and collect information about your web browsing history. Although
-      you have the ability to modify your browser to either accept all cookies, notify you when a cookie is sent, or reject all cookies, it may not be possible to utilize our services if you reject cookies.
-      <br><br>
-    </p>
-    <a class = "w3-button w3-xlarge w3-text-black w3-hover-blue" style = "margin-left:30px;" href = "{{ url_for('question')}}">
-        I agree to the terms of conditions
-    </a>
+    <!-- Top container -->
+    <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+      <img src="{{ url_for('static', filename = 'image/logo.png')}}"
+        style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+      <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
+    </div>
+    <div class="w3-display-middle">
+      <h1 class="w3-jumbo w3-animate-right" style="animation:animateright 1.5s;">WELCOME</h1>
+      <button id="start_button" class="js-open-modal w3-animate-left w3-button w3-xlarge w3-text-black w3-hover-black"
+        style="margin-left:20px;" onclick="terms_condition()">
+        Let's get you started
+      </button>
+    </div>
   </div>
 
-</div>
+  <div id='terms' class="bg-modal" style="display:none">
+    <div class="modal-content">
+      <h5 class="w3-container" style="text-align:center"><b>Welcome!</b></h5>
+      <p class="w3-container" style="width:490px;height:175px;overflow:auto;">
+        I hope this tool helps your PR journey. I know. its hard. lemme help u bro.
+      </p>
+      <button class="w3-button w3-xlarge w3-text-black w3-hover-blue" style="width:100%;" onclick="login_pop()">
+        Let's Get Started!!!!!!
+      </button>
+    </div>
+  </div>
+  <div id='login_popup' class="bg-modal" style="display:none">
+    <div class="modal-content">
+      <form action="{{ url_for('login') }}" method="post">
+        <label for="username"> Username</label>
+        <input id="username" type="text" , name="username" placeholder="Enter Username (Required)" required>
+        <label for="password">Password</label>
+        <input id="password" type="text" , name="password" placehodler="Enter Password (Required)" required>
+        <button type="submit" value="login"></button>
+      </form>
+      <button value="New User" onclick="signup_pop()"></button>
+    </div>
+  </div>
+  <div id='signup_popup' class="bg-modal" style="display:none">
+    <div class="modal-content">
+      <form action="{{ url_for('signup') }}" method="post">
+        <label for="new_username"> Enter New Username</label>
+        <input id="new_username" type="text" , name="new_username" placeholder="Enter New Username (Required)" required>
+        <label for="password">Enter Password</label>
+        <input id="password" type="text" name="password" placehodler="Enter Password (Required)" required>
+        <label for="email">Enter Email</label>
+        <input id="email" type="text" name="email" placeholder="Enter Email (Required)" required>
+        <button type="submit" value="login"></button>
+      </form>
+      <button value="New User" onclick="signup_pop()"></button>
+    </div>
+  </div>
+
 </body>
 
 </html>

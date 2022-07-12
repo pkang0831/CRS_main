@@ -12,15 +12,25 @@
 <script src="{{ url_for('static', filename='js/data.js')}}"></script>
 
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Raleway", sans-serif
+    }
 </style>
 
 <body class="w3-light-grey">
 
     <!-- Top container -->
     <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
-        <img src="{{ url_for('static', filename = 'image/logo.png')}}" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"
+            onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
+        <img src="{{ url_for('static', filename = 'image/logo.png')}}"
+            style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
         <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
     </div>
 
@@ -41,17 +51,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         </div>
 
         <div class="w3-bar-block">
-            <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-            <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
-            <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
-            <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
-            <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
-            <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Assessment</a>
+            <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
+                onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+            <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding"
+                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
+            <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding"
+                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
+            <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding"
+                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
+            <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
+            <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-users fa-fw"></i>  Assessment</a>
         </div>
     </nav>
 
     <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+        title="close side menu" id="myOverlay"></div>
 
     <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
@@ -61,46 +78,47 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <h5><b><i class="fa fa-dashboard"></i> My Profile </b></h5>
         </header>
 
-        <div class = "w3-row-padding w3-margin-bottom">
-            <form id = "crs-form" rolw = "form">
+        <div class="w3-row-padding w3-margin-bottom">
+            <form id="crs-form" rolw="form">
                 <!-- Marital Status -->
-                <div id = "q1-marital-status" class="w3-container w3-padding-16">
-                    <label for = "q1"> 1) What is your marital status? </label>
-                    <select id = "q1" name = "q1">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> Annulled Marriage </option>
-                        <option value = "B"> Common-Law </option>
-                        <option value = "C"> Divorced / Separated </option>
-                        <option value = "D"> Legally Separated </option>
-                        <option value = "E"> Married </option>
-                        <option value = "F"> Never Married / Single </option>
-                        <option value = "G"> Widowed </option>
+                <div id="q1-marital-status" class="w3-container w3-padding-16">
+                    <label for="q1"> 1) What is your marital status? </label>
+                    <select id="q1" name="q1">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> Annulled Marriage </option>
+                        <option value="B"> Common-Law </option>
+                        <option value="C"> Divorced / Separated </option>
+                        <option value="D"> Legally Separated </option>
+                        <option value="E"> Married </option>
+                        <option value="F"> Never Married / Single </option>
+                        <option value="G"> Widowed </option>
                     </select>
                 </div>
 
                 <!-- Spouse -->
-                <div id = "q2i-spouse-cit" class = "w3-container w3-padding-16">
-                    <label for = "q2i"> 2) i. Is your spouse or common-law partner a citizen or permanent resident of Canada? </label>
-                    <select id = "q2i" name = "q2i">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                <div id="q2i-spouse-cit" class="w3-container w3-padding-16">
+                    <label for="q2i"> 2) i. Is your spouse or common-law partner a citizen or permanent resident of
+                        Canada? </label>
+                    <select id="q2i" name="q2i">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Spouse Join -->
-                <div id = "q2ii-spouse-joining" class = "w3-container w3-padding-16">
-                    <label for = "q2ii"> 2) ii. Will your spouse or common-law partner come with you to Canada? </label>
-                    <select id = "q2ii" name = "q2ii">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                <div id="q2ii-spouse-joining" class="w3-container w3-padding-16">
+                    <label for="q2ii"> 2) ii. Will your spouse or common-law partner come with you to Canada? </label>
+                    <select id="q2ii" name="q2ii">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Age -->
-                <div id = "q3-age" class = "w3-container w3-padding-16">
-                    <label for = "q3"> 3) How old are you? </label>
+                <div id="q3-age" class="w3-container w3-padding-16">
+                    <label for="q3"> 3) How old are you? </label>
                     <p> Choose the best answer: </p>
                     <ul>
                         <li>
@@ -113,14 +131,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                         </li>
                     </ul>
 
-                    <select id = "q3" name = "q3">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
+                    <select id="q3" name="q3">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
                     </select>
                 </div>
 
                 <!-- Education -->
-                <div id = "q4-education" class = "w3-container w3-padding-16">
-                    <label for = "q4"> 4) What is your level of education? </label>
+                <div id="q4-education" class="w3-container w3-padding-16">
+                    <label for="q4"> 4) What is your level of education? </label>
                     <p> Enter the highest level of education for which you: </p>
                     <ul>
                         <li>
@@ -130,222 +148,249 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                             OR
                         </li>
                         <li>
-                            had an Educational Credential Assessment (ECA) if you did your study outside Canada. (ECAs must be from an approved agency, in the last five years)
+                            had an Educational Credential Assessment (ECA) if you did your study outside Canada. (ECAs
+                            must be from an approved agency, in the last five years)
                         </li>
                     </ul>
 
 
-                    <p> Note: a Canadian degree, diploma or certificate must either have been earned at an accredited Canadian university, college, trade or technical school, or other institute in Canada. Distance learning counts, but only if it made up less than half your study. </p>
-                    <select id = "q4" name = "q4">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
+                    <p> Note: a Canadian degree, diploma or certificate must either have been earned at an accredited
+                        Canadian university, college, trade or technical school, or other institute in Canada. Distance
+                        learning counts, but only if it made up less than half your study. </p>
+                    <select id="q4" name="q4">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
                     </select>
                 </div>
 
                 <!-- Education CA -->
-                <div id = "q4b-education" class = "w3-container w3-padding-16">
-                    <label for = "q4b"> 4b) Have you earned a Canadian degree, diploma or certificate?  </label>
+                <div id="q4b-education" class="w3-container w3-padding-16">
+                    <label for="q4b"> 4b) Have you earned a Canadian degree, diploma or certificate? </label>
                     <p> Note: to answer yes: </p>
                     <ul>
-                        <li> English or French as a Second Language must not have made up more than half your study </li>
-                        <li> you must not have studied under an award that required you to return to your home country after graduation to apply your skills and knowledge </li>
+                        <li> English or French as a Second Language must not have made up more than half your study
+                        </li>
+                        <li> you must not have studied under an award that required you to return to your home country
+                            after graduation to apply your skills and knowledge </li>
                         <li> you must have studied at a school within Canada (foreign campuses don't count) </li>
-                        <li> you had to be enrolled full time for at least eight months, and have been physically present in Canada for at least eight months. </li>
+                        <li> you had to be enrolled full time for at least eight months, and have been physically
+                            present in Canada for at least eight months. </li>
                     </ul>
 
-                    <select id = "q4b" name = "q4b">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                    <select id="q4b" name="q4b">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Education CA -->
-                <div id = "q4c-education" class = "w3-container w3-padding-16">
-                    <label for = "q4c"> 4c) Choose the best answer to describe this level of education. </label>
-                    <select id = "q4c" name = "q4c">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> Secondary (high school) or less </option>
-                        <option value = "B"> One- or two-year diploma or certificate </option>
-                        <option value = "C"> Degree, diploma or certificate of three years or longer OR a Master's, professional or doctoral degree of at least one academic year </option>
+                <div id="q4c-education" class="w3-container w3-padding-16">
+                    <label for="q4c"> 4c) Choose the best answer to describe this level of education. </label>
+                    <select id="q4c" name="q4c">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> Secondary (high school) or less </option>
+                        <option value="B"> One- or two-year diploma or certificate </option>
+                        <option value="C"> Degree, diploma or certificate of three years or longer OR a Master's,
+                            professional or doctoral degree of at least one academic year </option>
                     </select>
                 </div>
 
                 <!-- Language Test -->
-                <div id = "q5-ol" class = "w3-container w3-padding-16">
+                <div id="q5-ol" class="w3-container w3-padding-16">
                     <p> <strong> 5) Official language: Canada's official languages are English and French. </strong></p>
-                    <p> <strong> You need to submit language test results that are less than two years old for all programs under Express Entry, even if English or French is your first language. </strong></p>
+                    <p> <strong> You need to submit language test results that are less than two years old for all
+                            programs under Express Entry, even if English or French is your first language. </strong>
+                    </p>
 
                     <!-- First Language Test -->
-                    <div id = "q5i-fol" class = "w3-container w3-padding-16">
-                        <label for = "q5i"> i. Are your test results less than two years old? </label>
-                        <select id = "q5i" name = "q5i">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
-                            <option value = "A"> No </option>
-                            <option value = "B"> Yes </option>
+                    <div id="q5i-fol" class="w3-container w3-padding-16">
+                        <label for="q5i"> i. Are your test results less than two years old? </label>
+                        <select id="q5i" name="q5i">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
+                            <option value="A"> No </option>
+                            <option value="B"> Yes </option>
                         </select>
                     </div>
 
                     <!-- First Language Test Result -->
-                    <div id = "q5i-a-fol" class = "w3-container w3-padding-16">
-                        <label for = "q5i-a"> ii.  Which language test did you take for you first official language? </label>
-                        <select id = "q5i-a" name = "q5i-a">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
-                            <option value = "A"> CELPIP </option>
-                            <option value = "B"> IELTS </option>
-                            <option value = "C"> TEF </option>
+                    <div id="q5i-a-fol" class="w3-container w3-padding-16">
+                        <label for="q5i-a"> ii. Which language test did you take for you first official language?
+                        </label>
+                        <select id="q5i-a" name="q5i-a">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
+                            <option value="A"> CELPIP </option>
+                            <option value="B"> IELTS </option>
+                            <option value="C"> TEF </option>
                         </select>
                     </div>
 
                     <!-- First Language Test Result -->
-                    <div id = "q5i-b-fol" class = "w3-container w3-padding-16">
+                    <div id="q5i-b-fol" class="w3-container w3-padding-16">
                         <p><strong> Enter your test scores: </strong></p>
-                        <label for = "q5i-b-speaking"> Speaking: </label>
-                        <select id = "q5i-b-speaking" name = "q5i-b-speaking">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5i-b-speaking"> Speaking: </label>
+                        <select id="q5i-b-speaking" name="q5i-b-speaking">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5i-b-listening" > Listening: </label>
-                        <select id = "q5i-b-listening" name = "q5i-b-listening">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5i-b-listening"> Listening: </label>
+                        <select id="q5i-b-listening" name="q5i-b-listening">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5i-b-reading"> Reading: </label>
-                        <select id = "q5i-b-reading" name = "q5i-b-reading">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5i-b-reading"> Reading: </label>
+                        <select id="q5i-b-reading" name="q5i-b-reading">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5i-b-writing"> Writing </label>
-                        <select id = "q5i-b-writing" name = "q5i-b-writing">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5i-b-writing"> Writing </label>
+                        <select id="q5i-b-writing" name="q5i-b-writing">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
 
                     <!-- Second Language Test -->
-                    <div id = "q5ii-sol" class = "w3-container w3-padding-16">
-                        <label for = "q5ii"> iii. Do you have other language results? </label>
+                    <div id="q5ii-sol" class="w3-container w3-padding-16">
+                        <label for="q5ii"> iii. Do you have other language results? </label>
                         <p> If so, which language test did you take for your second official language? </p>
                         <p> Test results must be less than two years old.</p>
-                        <select id = "q5ii" name = "q5ii">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <select id="q5ii" name="q5ii">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
 
                     <!-- Second Language Test Result -->
-                    <div id = "q5ii-b-sol" class = "w3-container w3-padding-16">
+                    <div id="q5ii-b-sol" class="w3-container w3-padding-16">
                         <p><strong> Enter your test scores for: </strong></p>
-                        <label for = "q5ii-sol-speaking"> Speaking: </label>
-                        <select id = "q5ii-sol-speaking" name = "q5ii-sol-speaking">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5ii-sol-speaking"> Speaking: </label>
+                        <select id="q5ii-sol-speaking" name="q5ii-sol-speaking">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5ii-sol-listening"> Listening: </label>
-                        <select id = "q5ii-sol-listening" name = "q5ii-sol-listening">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5ii-sol-listening"> Listening: </label>
+                        <select id="q5ii-sol-listening" name="q5ii-sol-listening">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5ii-sol-reading"> Reading: </label>
-                        <select id = "q5ii-sol-reading" name = "q5ii-sol-reading">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5ii-sol-reading"> Reading: </label>
+                        <select id="q5ii-sol-reading" name="q5ii-sol-reading">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
-                        <label for = "q5ii-sol-writing"> Writing </label>
-                        <select id = "q5ii-sol-writing" name = "q5ii-sol-writing">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q5ii-sol-writing"> Writing </label>
+                        <select id="q5ii-sol-writing" name="q5ii-sol-writing">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Work Exp -->
-                <div id = "q6-work-exp" class = "w3-container w3-padding-16">
+                <div id="q6-work-exp" class="w3-container w3-padding-16">
                     <!-- CA Work Exp -->
                     <p><strong> 6) Work Experience </strong></p>
-                    <div id = "q6i-canada">
-                        <label for = "q6i"> i. In the last ten years, how many years of skilled work experience in Canada do you have? </label>
+                    <div id="q6i-canada">
+                        <label for="q6i"> i. In the last ten years, how many years of skilled work experience in Canada
+                            do you have? </label>
                         <p>It must have been paid and full-time (or an equal amount in part-time).</p>
-                        <p><strong>Note:</strong> In Canada, the National Occupational Classification (NOC) is the official list of all the jobs in the Canadian labour market. It describes each job according to skill type, group and level.</p>
+                        <p><strong>Note:</strong> In Canada, the National Occupational Classification (NOC) is the
+                            official list of all the jobs in the Canadian labour market. It describes each job according
+                            to skill type, group and level.</p>
                         <p>&quot;Skilled work&quot; in the NOC is:</p>
                         <ul>
                             <li>managerial jobs (NOC Skill Level 0)</li>
                             <li>professional jobs (NOC Skill Type A)</li>
                             <li>technical jobs and skilled trades/manual work (NOC Skill Type B)</li>
                         </ul>
-                        <p> If you aren’t sure of the NOC level for this job, you can <strong> <a href="/english/immigrate/skilled/noc.asp"> </strong> find your NOC</a>.</p>
+                        <p> If you aren’t sure of the NOC level for this job, you can <strong> <a
+                                    href="/english/immigrate/skilled/noc.asp"> </strong> find your NOC</a>.</p>
 
-                        <select id = "q6i" name = "q6i">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <select id="q6i" name="q6i">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
 
                     <!-- Foreign Work Exp -->
-                    <div id = "q6ii-foreign">
-                        <label for = "q6ii"> ii. In the last 10 years, how many total years of skilled work experience do you have? </label>
-                        <p>It must have been paid, full-time (or an equal amount in part-time), and in only one occupation (NOC skill type 0, A or B).</p>
-                        <select id = "q6ii" name = "q6ii">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
-                            <option value = "A"> None or less than a year </option>
-                            <option value = "B"> 1 year </option>
-                            <option value = "C"> 2 years </option>
-                            <option value = "D"> 3 years or more </option>
+                    <div id="q6ii-foreign">
+                        <label for="q6ii"> ii. In the last 10 years, how many total years of skilled work experience do
+                            you have? </label>
+                        <p>It must have been paid, full-time (or an equal amount in part-time), and in only one
+                            occupation (NOC skill type 0, A or B).</p>
+                        <select id="q6ii" name="q6ii">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
+                            <option value="A"> None or less than a year </option>
+                            <option value="B"> 1 year </option>
+                            <option value="C"> 2 years </option>
+                            <option value="D"> 3 years or more </option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Certification -->
-                <div id = "q7-certificate" class = "w3-container w3-padding-16">
-                    <label for = "q7"> 7) Do you have a certificate of qualification from a Canadian province, territory or federal body? </label>
-                    <p><strong> Note: </strong>A certificate of qualification lets people work in some skilled trades in Canada. Only the provinces, territories and a federal body can issue these certificates. To get one, a person must have them assess their training, trade experience and skills to and then pass a certificate exam.</p>
-                    <p> People usually have to go to the province or territory to be assessed. They may also need experience and training from an employer in Canada. </p>
+                <div id="q7-certificate" class="w3-container w3-padding-16">
+                    <label for="q7"> 7) Do you have a certificate of qualification from a Canadian province, territory
+                        or federal body? </label>
+                    <p><strong> Note: </strong>A certificate of qualification lets people work in some skilled trades in
+                        Canada. Only the provinces, territories and a federal body can issue these certificates. To get
+                        one, a person must have them assess their training, trade experience and skills to and then pass
+                        a certificate exam.</p>
+                    <p> People usually have to go to the province or territory to be assessed. They may also need
+                        experience and training from an employer in Canada. </p>
                     <p> This isn't the same as a nomination from a province or territory.</p>
-                    <select id = "q7" name = "q7">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                    <select id="q7" name="q7">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Job Offer -->
-                <div id = "q8-offer" class = "w3-container w3-padding-16">
+                <div id="q8-offer" class="w3-container w3-padding-16">
                     <p><strong> Additional Points </strong></p>
-                    <label for = "q8"> 8) Do you have a valid job offer supported by a Labour Market Imapact Assessment (<a href="/english/immigrate/skilled/exempt.asp">if needed</a>)?</label>
+                    <label for="q8"> 8) Do you have a valid job offer supported by a Labour Market Imapact Assessment
+                        (<a href="/english/immigrate/skilled/exempt.asp">if needed</a>)?</label>
                     <p> A valid job offer must be </p>
                     <ul>
-                            <li>full-time</li>
-                            <li>in a skilled job listed as Skill Type 0, or Skill Level A or B in the 2011 National Occupational Classification</li>
-                            <li>supported by a Labour Market Impact Assessment (LMIA) or exempt from needing one</li>
-                            <li>for one year from the time you become a permanent resident</li>
+                        <li>full-time</li>
+                        <li>in a skilled job listed as Skill Type 0, or Skill Level A or B in the 2011 National
+                            Occupational Classification</li>
+                        <li>supported by a Labour Market Impact Assessment (LMIA) or exempt from needing one</li>
+                        <li>for one year from the time you become a permanent resident</li>
                     </ul>
                     <p>A job offer isn’t valid if your employer is:</p>
                     <ul>
-                            <li>an embassy, high commission or consulate in Canada or</li>
-                            <li>on the list of ineligible employers.</li>
+                        <li>an embassy, high commission or consulate in Canada or</li>
+                        <li>on the list of ineligible employers.</li>
                     </ul>
-                    <p>Whether an offer is valid or not also depends on different factors, depending on your case. See a <a href="/english/immigrate/skilled/offer.asp">full list of criteria for valid job offers</a>.</p>
-                    <select id = "q8" name = "q8">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                    <p>Whether an offer is valid or not also depends on different factors, depending on your case. See a
+                        <a href="/english/immigrate/skilled/offer.asp">full list of criteria for valid job offers</a>.
+                    </p>
+                    <select id="q8" name="q8">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- NOC Type -->
-                <div id = "q8-noc" class = "w3-container w3-padding-16">
-                    <label for = "q8a"> 8a) Which NOC skill type or level is the job offer? </label>
+                <div id="q8-noc" class="w3-container w3-padding-16">
+                    <label for="q8a"> 8a) Which NOC skill type or level is the job offer? </label>
                     <p> You can use our online tool to find out if you don't know. </p>
-                    <select id = "q8a" name = "q8a">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> NOC Skill Type 00 </option>
-                        <option value = "B"> NOC Skill Level A or B or any Type 0 other than 00 </option>
-                        <option value = "C"> NOC Skill Level C or D</option>
+                    <select id="q8a" name="q8a">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> NOC Skill Type 00 </option>
+                        <option value="B"> NOC Skill Level A or B or any Type 0 other than 00 </option>
+                        <option value="C"> NOC Skill Level C or D</option>
                     </select>
                 </div>
 
                 <!-- Nomination -->
-                <div id = "q9-nomination" class = "w3-container w3-padding-16">
-                    <label for = "q9"> 9) Do you have a nomination certificate from a province or territory? </label>
-                    <select id = "q9" name = "q9">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                <div id="q9-nomination" class="w3-container w3-padding-16">
+                    <label for="q9"> 9) Do you have a nomination certificate from a province or territory? </label>
+                    <select id="q9" name="q9">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Siblings in CA -->
-                <div id = "q10-sibling" class = "w3-container w3-padding-16">
-                    <label for = "q10"> 10) Do you or your spouse or common law partner (if they will come with you to Canada) have at least one brother or sister living in Canada who is a citizen or permanent resident? </label>
+                <div id="q10-sibling" class="w3-container w3-padding-16">
+                    <label for="q10"> 10) Do you or your spouse or common law partner (if they will come with you to
+                        Canada) have at least one brother or sister living in Canada who is a citizen or permanent
+                        resident? </label>
                     <p><strong> Note: to answer yes, the brother or sister must be: </strong></p>
                     <ul>
                         <li>18 years old or older</li>
@@ -359,75 +404,83 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                         <li>marriage (step-brother or step-sister)</li>
                     </ul>
 
-                    <select id = "q10" name = "q10">
-                        <option value = "badvalue" selected disabled hidden> Select... </option>
-                        <option value = "A"> No </option>
-                        <option value = "B"> Yes </option>
+                    <select id="q10" name="q10">
+                        <option value="badvalue" selected disabled hidden> Select... </option>
+                        <option value="A"> No </option>
+                        <option value="B"> Yes </option>
                     </select>
                 </div>
 
                 <!-- Spouse Questions -->
-                <div id = "spouse-questions" class = "w3-container w3-padding-16">
+                <div id="spouse-questions" class="w3-container w3-padding-16">
 
                     <!-- Spouse Education -->
-                    <div id = "q11-s-education" class = "w3-container w3-padding-16">
-                        <label for = "q11"> 11) What is the highest level of education for which your spouse or common-law partner's has: </label>
+                    <div id="q11-s-education" class="w3-container w3-padding-16">
+                        <label for="q11"> 11) What is the highest level of education for which your spouse or common-law
+                            partner's has: </label>
                         <ul>
                             <li><strong>earned a Canadian degree, diploma or certificate; or</strong></li>
-                            <li><strong>had an Educational Credential Assessment (ECA)? (ECAs must be from an approved agency, in the last five years)</strong></li>
+                            <li><strong>had an Educational Credential Assessment (ECA)? (ECAs must be from an approved
+                                    agency, in the last five years)</strong></li>
                         </ul>
-                        <p>To get the correct number of points, make sure you choose the answer that best reflects your case. For example:</p>
-                        <p> If you have TWO Bachelor's degrees, or one Bachelor's AND a two year college diploma, choose – Two or more certificates, diplomas, or degrees. One must be for a program of three or more years. </p>
+                        <p>To get the correct number of points, make sure you choose the answer that best reflects your
+                            case. For example:</p>
+                        <p> If you have TWO Bachelor's degrees, or one Bachelor's AND a two year college diploma, choose
+                            – Two or more certificates, diplomas, or degrees. One must be for a program of three or more
+                            years. </p>
 
-                        <select id = "q11" name = "q11">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <select id="q11" name="q11">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
 
                     <!-- Spouse Work Exp -->
-                    <div id = "q12-s-work-xp" class = "w3-container w3-padding-16">
-                        <label for = "q12"> 12) In the last ten years, how many years of skilled work experience in Canada does your spouse/common-law partner have? </label>
-                        <p> It must have been paid, full-time (or an equal amount in part-time), and in one ore more NOC 0, A or B jobs. </p>
-                        <select id = "q12" name = "q12">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                    <div id="q12-s-work-xp" class="w3-container w3-padding-16">
+                        <label for="q12"> 12) In the last ten years, how many years of skilled work experience in Canada
+                            does your spouse/common-law partner have? </label>
+                        <p> It must have been paid, full-time (or an equal amount in part-time), and in one ore more NOC
+                            0, A or B jobs. </p>
+                        <select id="q12" name="q12">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
                     </div>
 
                     <!-- Spouse Language Test -->
-                    <div id = "q13i-s-fol" class = "w3-container w3-padding-16">
-                        <label for = "q13i"> 13) i) Did your spouse or common-law partner take a language test? If so, which one? </label>
+                    <div id="q13i-s-fol" class="w3-container w3-padding-16">
+                        <label for="q13i"> 13) i) Did your spouse or common-law partner take a language test? If so,
+                            which one? </label>
                         <p> Test results must be less than two years old. </p>
-                        <select id = "q13i" name = "q13i">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
-                            <option value = "A"> CELPIP </option>
-                            <option value = "B"> IELTS </option>
-                            <option value = "C"> TEF </option>
-                            <option value = "D"> N/A </option>
+                        <select id="q13i" name="q13i">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
+                            <option value="A"> CELPIP </option>
+                            <option value="B"> IELTS </option>
+                            <option value="C"> TEF </option>
+                            <option value="D"> N/A </option>
                         </select>
                     </div>
 
                     <!-- Spouse Language Test -->
-                    <div id = "q13ii-s-fol" class = "w3-container w3-padding-16">
+                    <div id="q13ii-s-fol" class="w3-container w3-padding-16">
 
                         <p><strong> ii) Enter the test scores for: </strong></p>
-                        <label for = "q13ii-fol-speaking"> Speaking: </label>
-                        <select id = "q13ii-fol-speaking" name = "q13ii-fol-speaking">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q13ii-fol-speaking"> Speaking: </label>
+                        <select id="q13ii-fol-speaking" name="q13ii-fol-speaking">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
 
-                        <label for = "q13ii-fol-listening"> Listening: </label>
-                        <select id = "q13ii-fol-listening" name = "q13ii-fol-listening">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q13ii-fol-listening"> Listening: </label>
+                        <select id="q13ii-fol-listening" name="q13ii-fol-listening">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
 
-                        <label for = "q13ii-fol-reading"> Reading: </label>
-                        <select id = "q13ii-fol-reading" name = "q13ii-fol-reading">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q13ii-fol-reading"> Reading: </label>
+                        <select id="q13ii-fol-reading" name="q13ii-fol-reading">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
 
-                        <label for = "q13ii-fol-writing"> Writing </label>
-                        <select id = "q13ii-fol-writing" name = "q13ii-fol-writing">
-                            <option value = "badvalue" selected disabled hidden> Select... </option>
+                        <label for="q13ii-fol-writing"> Writing </label>
+                        <select id="q13ii-fol-writing" name="q13ii-fol-writing">
+                            <option value="badvalue" selected disabled hidden> Select... </option>
                         </select>
 
                     </div>
@@ -436,15 +489,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <!-- End Form-->
 
             <!-- Design Error Message @@@@@@ NEED TO MODIFY-->
-            <div id = "Error-message" class = "w3-container w3-padding-16">
-              <h5 class="w3-text-white" style="text-align:left;display:inline-block;background-color:red;padding:20px;border-radius:15px;"> It seems at this point, you are not ready to apply for PR express entry.<br> You need to take at least one language aptitude test in order for you to apply.
-              </h5>
+            <div id="Error-message" class="w3-container w3-padding-16">
+                <h5 class="w3-text-white"
+                    style="text-align:left;display:inline-block;background-color:red;padding:20px;border-radius:15px;">
+                    It seems at this point, you are not ready to apply for PR express entry.<br> You need to take at
+                    least one language aptitude test in order for you to apply.
+                </h5>
             </div>
 
             <!-- Design Success Message @@@@@ NEED TO MODIFY-->
-            <div id = "Finish-message" class = "w3-container w3-padding-16">
+            <div id="Finish-message" class="w3-container w3-padding-16">
                 <h5> Application finished. Submit the form to see the points. </h5>
-                <a class = "w3-button w3-dark-grey w3-light-grey" onclick = "calculate();" href = "{{ url_for('summary')}}">Submit</a>
+                <a class="w3-button w3-dark-grey w3-light-grey" onclick="calculate();"
+                    href="{{ url_for('summary')}}">Submit</a>
             </div>
         </div>
 
@@ -456,6 +513,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div> <!-- End page content -->
 </body>
 
-<script type="text/javascript" charset="UTF-8" src="{{ url_for('static', filename='js/questions_functions.js')}}" ></script>
+<script type="text/javascript" charset="UTF-8"
+    src="{{ url_for('static', filename='js/questions_functions.js')}}"></script>
 <!-- ./../js/questions_functions.js -->
+
 </html>

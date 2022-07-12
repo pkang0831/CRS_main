@@ -49,22 +49,10 @@ def summary():
 def Improve_My_CRS():
     return render_template('Improve_My_CRS.html')
 
-@app2.context_processor()
-def context_processor():
-    return dict()
+# @app2.context_processor()
+# def context_processor():
+#     return dict()
 
-# @app2.route('/')
-# def practice_passing_num():
-#     data = {'dummydata':'Hellolllll'}
-#     return render_template('index_practice.html', data = make_response(jsonify(data),201))
-
-# conn = pyodbc.connect(
-#     'Driver = {SQL Server};'
-#     'Server= sqldevarmsvruw2002.database.windows.net;'
-#     'Database = edsdevarmsqluw2005;'
-#     'Trusted_Connection=yes;'
-# )
-# cursor = conn.cursor()
 
 if __name__=="__main__":
     app2.run(debug=True)
