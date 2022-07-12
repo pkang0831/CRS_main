@@ -13,9 +13,8 @@ def databaseCreate():
     cursor = connection.cursor()
     cursor.execute("CREATE DATABASE data_db")
     print("Connection to MySQL Established!")
-    insert_data()
 
-def insert_data():
+def crs_insert_data():
     # Configure connection
     connection = mysql.connector.connect(
         host = 'localhost',
@@ -50,18 +49,19 @@ def insert_data():
     INSERT INTO data_table(id, date_str, prgm_name, inv_num, crs_score, date_form, prgm_name2, day_num, month_num, year_num)
     VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
-    for i in range(len(crs_scraper.id_inv)):
+    id_inv, date_str, prgm_name, inv_num, crs_score, date_form, prgm_name2, day_date_form, month_date_form, year_date_form = crs_scraper.run()
+    for i in range(len(id_inv)):
         records = (
-            crs_scraper.id_inv[i],
-            crs_scraper.date_str[i],
-            crs_scraper.prgm_name[i],
-            crs_scraper.inv_num[i],
-            crs_scraper.crs_score[i],
-            crs_scraper.date_form[i],
-            crs_scraper.prgm_name2[i],
-            crs_scraper.day_date_form[i],
-            crs_scraper.month_date_form[i],
-            crs_scraper.year_date_form[i]
+            id_inv[i],
+            date_str[i],
+            prgm_name[i],
+            inv_num[i],
+            crs_score[i],
+            date_form[i],
+            prgm_name2[i],
+            day_date_form[i],
+            month_date_form[i],
+            year_date_form[i]
         )
         cursor.execute(insert_query, records)
         connection.commit()
@@ -104,5 +104,5 @@ def get_data():
 
 # Test the functions
 if __name__ == "__main__":
-    # insert_data()
+    crs_insert_data()
     print(get_data())
