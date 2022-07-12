@@ -16,6 +16,10 @@ from datetime import datetime
 import re, json
 
 app2 = Flask(__name__)
+username_ = ''
+password_ = ''
+email_ = ''
+new_user = 'False'
 
 def mysql_connection_data_db():
     connection = mysql.connector.connect(

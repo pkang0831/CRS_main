@@ -62,28 +62,43 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
   }
 
-  button[type = submit], button[type=back_to_login] {
+  .submit_login {
     background-color: #04AA6D;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px auto;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     justify-content: center;
     align-items: center;
+    display: block;
   }
 
-  button[type = signup] {
+ .submit_signup {
     background-color: blue;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px auto;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     justify-content: center;
     align-items: center;
+    display: block;
+  }
+
+  .back_to_login {
+    background-color: grey;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px auto;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    display: block;
   }
 
   button:hover {

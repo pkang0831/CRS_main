@@ -46,11 +46,7 @@ var total = Core + Spouse + Skill + Bonus;
 var CRS_Predict = parseInt(passed_data['crs_score'][0]) + 10;
 var last_CRS = parseInt(passed_data['crs_score'][0]);
 var data_table_timeline_chart = [
-<<<<<<< Updated upstream
-    ['Date','# of ITA issued','CRS cut off','CRS cut off prediction','# of ITA issuance prediction','Your CRS']
-=======
     ['Date', '# of ITA issued', 'CRS cut off', 'Your CRS']
->>>>>>> Stashed changes
 ];
 for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
     data_table_timeline_chart.push(
@@ -67,8 +63,6 @@ for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
     )
 };
 
-<<<<<<< Updated upstream
-=======
 var data_table_for_div5 = [];
 for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
     data_table_for_div5.push(
@@ -77,17 +71,12 @@ for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
 };
 
 
->>>>>>> Stashed changes
 // temporary data point to make the chart visible
 data_table_timeline_chart.push(
     [new Date(2022,07,14),3900,445,445,3900,total]
 )
 
-<<<<<<< Updated upstream
-google.charts.load('current', {'packages':['line','corechart','bar','gantt']});
-=======
 google.charts.load('current', { 'packages': ['line', 'corechart', 'bar', 'gantt', 'table'] });
->>>>>>> Stashed changes
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     //Misc variable creation
@@ -191,9 +180,6 @@ function drawChart() {
             maxValue: 460
         },
         crosshair: {
-<<<<<<< Updated upstream
-        trigger: 'both'
-=======
             trigger: 'both'
         },
         explorer: {
@@ -201,7 +187,6 @@ function drawChart() {
             axis: 'horizontal',
             keepInBounds: true,
             maxZoomIn: 4.0
->>>>>>> Stashed changes
         }
     };
     var options4 = {
@@ -214,14 +199,9 @@ function drawChart() {
     var Chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
     var Chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
     var Chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
-<<<<<<< Updated upstream
-    if (total <= CRS_Predict - 2){
-
-=======
     if (total <= CRS_Predict - 2) {
         var Chart4 = new google.visualization.Gantt(document.getElementById('chart_div4'));
         Chart4.draw(data4, options4);
->>>>>>> Stashed changes
     } else {
         var Chart4 = new google.visualization.Gantt(document.getElementById('chart_div4'));
         Chart4.draw(data4, options4);

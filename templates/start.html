@@ -42,48 +42,24 @@
     </div>
   </div>
 
-  <!-- Model section -->
-
-
-  <script>
-
-    function terms_condition() {
-      document.getElementById('first_popup').style.display = "flex";
-    };
-    function login_page() {
-      document.getElementById('first_popup').style.display = "none";
-      document.getElementById('second_popup').style.display = "flex";
-    };
-    function sign_up() {
-      document.getElementById('second_popup').style.display = "none";
-      document.getElementById('third_popup').style.display = "flex";
-    };
-  </script>
-
-  <div id='first_popup' class="bg-modal" style="display:none">
-    <div id='terms' class="modal-content-terms">
-      <!-- When outside box is clicked, this pop up closes -->
+  <div id='terms' class="bg-modal" style="display:none">
+    <div class="modal-content">
       <h5 class="w3-container" style="text-align:center">
         <b>Message</b>
       </h5>
-      <!-- Welcome page textbox -->
       <p class="w3-container" style="width:490px;height:175px;overflow:auto;">
         This tool is designed to help people who are going through pain in their Canadian Permanent Residency
         Application. Hope it helps.
       </p>
-      <!-- Button to initiate login page input forms -->
-      <!-- <a class = "w3-button w3-xlarge w3-text-black w3-hover-blue" style = "text-align:center; align-items: center; position: center;" href = "{{ url_for('question')}}">
-      Lets Go
-    </a> -->
       <a>
         <button id='open_login' class="w3-button w3-xlarge w3-text-black w3-hover-blue" style="width: 100%;"
-          onclick="login_page()">Lets Go</button>
+          onclick="login_pop()">Lets Go</button>
       </a>
-
     </div>
   </div>
-  <div id='second_popup' class="bg-modal" style="display:none">
-    <div id='login_page' class="modal-content-login">
+
+  <div id='login_popup' class="bg-modal" style="display:none">
+    <div class="modal-content">
       <form action="{{ url_for('login') }}" method="post">
         <label class="w3-container" for="uname">
           <b style="padding-left:20px; float:left;">Username</b>
@@ -93,7 +69,6 @@
         <input class="w3-container" style="width:80%;height:50px;overflow:auto;margin-left:20px;" type="text"
           placeholder="Enter Username (Required)" name="uname" required>
 
-
         <label class="w3-container" for="psw">
           <b style="padding-left:20px; float:left;">Password</b>
           <label id="incorrect_password" style="color:red; display:none; padding-left: 10px;">Incorrect Username or
@@ -102,15 +77,14 @@
         <input class="w3-container" style="width:80%;height:50px;overflow:auto;margin-left:20px;" type="password"
           placeholder="Enter Password (Required)" name="psw" required>
 
-
-        <button type="submit">Log in</button>
+        <button class = "submit_login" type="submit">Log in</button>
       </form>
-      <button type="new_user" id="new_user_tag" onclick="sign_up()">New User</button>
+      <button class = "submit_signup" type="new_user" id="new_user_tag" onclick="signup_pop()">New User</button>
     </div>
   </div>
 
-  <div id='third_popup' class="bg-modal" style="display:none">
-    <div id='sign_up_page' class="modal-content-login">
+  <div id='signup_popup' class="bg-modal" style="display:none">
+    <div class="modal-content" style = "height:420px">
       <form action="{{ url_for('signup') }}" method="post">
         <label class="w3-container" for="uname_signup">
           <b style="padding-left:20px; float:left;">New Username</b>
@@ -135,44 +109,15 @@
         </label>
         <input class="w3-container" style="width:80%;height:50px;overflow:auto;margin-left:20px;" type="text"
           placeholder="Enter Email (Required)" name="email_signup" required>
-
-        <button type="submit">Sign up</button>
+        <button class = "submit_signup" type="submit">Sign up</button>
       </form>
+      <button class = "back_to_login" type = "back_to_login" onclick = "back_to_login()"> Back to Log in</button>
     </div>
   </div>
 
 
   <script>
     var msg = "{{ msg }}";
-    if (msg == "Incorrect username or password") {
-      document.getElementById('second_popup').style.display = "flex";
-      document.getElementById('incorrect_username').style.display = "flex";
-      document.getElementById('incorrect_password').style.display = "flex";
-    } else if (msg == "Username already exists") {
-      document.getElementById('third_popup').style.display = "flex";
-      document.getElementById('account_exists').style.display = "flex";
-    } else if (msg == "Registered email") {
-      document.getElementById('third_popup').style.display = "flex";
-      document.getElementById('email_exists').style.display = "flex";
-    } else if (msg == "Invalid email address!") {
-      document.getElementById('third_popup').style.display = "flex";
-      document.getElementById('invalid_email').style.display = "flex";
-    } else if (msg == "Username must contain only characters and numbers!") {
-      document.getElementById('third_popup').style.display = "flex";
-      document.getElementById('username_specialChar').style.display = "flex";
-    }
-
-
-    var modal = document.getElementById('first_popup');
-    var modal2 = document.getElementById('second_popup');
-    var modal3 = document.getElementById('third_popup');
-    window.onclick = function (event) {
-      if (event.target == modal | event.target == modal2 | event.target == modal3) {
-        modal.style.display = "none";
-        modal2.style.display = "none";
-        modal3.style.display = "none";
-      }
-    };
   </script>
 
 </body>

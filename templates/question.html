@@ -61,15 +61,6 @@
         <div class="w3-bar-block">
             <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
                 onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-<<<<<<< Updated upstream
-            <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding"
-                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
-            <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding"
-                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
-            <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding"
-                onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
-            <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i
-=======
             <a id="my_score_analysis" href="{{ url_for('summary', _anchor='My_Score_Analysis')}}"
                 class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My
                 Score Analysis</a>
@@ -80,7 +71,6 @@
                 class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My
                 Path to PR landing</a>
             <a id="improve_my_crs" href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i
->>>>>>> Stashed changes
                     class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
             <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i
                     class="fa fa-users fa-fw"></i>  Assessment</a>
@@ -100,11 +90,7 @@
         </header>
 
         <div class="w3-row-padding w3-margin-bottom">
-<<<<<<< Updated upstream
-            <form id="crs-form" rolw="form">
-=======
             <form id="crs-form" rolw="form" action="{{ url_for('crs_form') }}" method="post">
->>>>>>> Stashed changes
                 <!-- Marital Status -->
                 <div id="q1-marital-status" class="w3-container w3-padding-16">
                     <label for="q1"> 1) What is your marital status? </label>
@@ -518,30 +504,12 @@
                     </h5>
                 </div>
 
-<<<<<<< Updated upstream
-            <!-- Design Error Message @@@@@@ NEED TO MODIFY-->
-            <div id="Error-message" class="w3-container w3-padding-16">
-                <h5 class="w3-text-white"
-                    style="text-align:left;display:inline-block;background-color:red;padding:20px;border-radius:15px;">
-                    It seems at this point, you are not ready to apply for PR express entry.<br> You need to take at
-                    least one language aptitude test in order for you to apply.
-                </h5>
-            </div>
-
-            <!-- Design Success Message @@@@@ NEED TO MODIFY-->
-            <div id="Finish-message" class="w3-container w3-padding-16">
-                <h5> Application finished. Submit the form to see the points. </h5>
-                <a class="w3-button w3-dark-grey w3-light-grey" onclick="calculate();"
-                    href="{{ url_for('summary')}}">Submit</a>
-            </div>
-=======
                 <div id="Finish-message" class="w3-container w3-padding-16">
                     <h5>
                         Application finished. Submit the form to see the points.
                     </h5>
                     <button type="submit" class="w3-button w3-dark-grey w3-light-grey" onclick = "calculate()">Submit</button>
                 </div>
->>>>>>> Stashed changes
         </div>
 
         </form>

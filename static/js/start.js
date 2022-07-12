@@ -24,7 +24,24 @@ function back_to_login(){
     modal_login.style.display = "flex";
 }
 
-
 function terms_condition() {
     document.getElementById('terms').style.display = "flex";
 };
+
+if (msg == "Incorrect username or password") {
+    document.getElementById('login_popup').style.display = "flex";
+    document.getElementById('incorrect_username').style.display = "flex";
+    document.getElementById('incorrect_password').style.display = "flex";
+  } else if (msg == "Username already exists") {
+    document.getElementById('signup_popup').style.display = "flex";
+    document.getElementById('account_exists').style.display = "flex";
+  } else if (msg == "Registered email") {
+    document.getElementById('signup_popup').style.display = "flex";
+    document.getElementById('email_exists').style.display = "flex";
+  } else if (msg == "Invalid email address!") {
+    document.getElementById('signup_popup').style.display = "flex";
+    document.getElementById('invalid_email').style.display = "flex";
+  } else if (msg == "Username must contain only characters and numbers!") {
+    document.getElementById('signup_popup').style.display = "flex";
+    document.getElementById('username_specialChar').style.display = "flex";
+  }
