@@ -8,22 +8,15 @@
 
 from flask import Flask, redirect, url_for, render_template, request, jsonify, make_response
 from flask.templating import render_template_string
-<<<<<<< Updated upstream
 import mysql_connect, crs_scraper
-=======
-import json
-import mysql_connect
-import crs_scraper
->>>>>>> Stashed changes
 import mysql
 from werkzeug import datastructures
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import re
+import re, json
 
 app2 = Flask(__name__)
 
-<<<<<<< Updated upstream
 def mysql_connection_data_db():
     connection = mysql.connector.connect(
         host = 'localhost',
@@ -32,41 +25,11 @@ def mysql_connection_data_db():
         database = 'data_db'
     )
     return connection
-=======
-# Global variable declarations
-username_ = ''
-email_ = ''
-new_user = 'False'
-
->>>>>>> Stashed changes
 
 @app2.route('/')
 def welcome():
     return render_template('start.html')
 
-<<<<<<< Updated upstream
-@app2.route('/login', methods = ['POST'])
-def login():
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        connection = mysql_connection_data_db()
-        cursor = connection.cursor()
-        cursor.execute('SELECT * FROM user_accounts WHERE username = %s AND password = %s',([username, password]))
-        account = cursor.fetchone()
-        if account:
-            msg = 'login successful'
-            return render_template('summary.html', msg = msg)
-        else:
-            msg = 'Incorrect password or username or not registered'
-
-    return render_template('start.html', msg = msg)
-
-@app2.route('/signup', methods = ['POST'])
-def signup():
-    return None
-=======
 
 def mysql_connection_data_db():
     connection = mysql.connector.connect(
@@ -154,7 +117,6 @@ def signup():
             msg = 'You have successfully registered !'
             return render_template('question.html', username=username_, msg=msg, new_user=new_user)
 
->>>>>>> Stashed changes
 
 @app2.route('/question')
 def question():
@@ -254,10 +216,6 @@ def summary():
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
     return render_template('Improve_My_CRS.html')
-
-# @app2.context_processor()
-# def context_processor():
-#     return dict()
 
 @app2.context_processor
 def context_processor():
