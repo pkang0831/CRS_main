@@ -6,41 +6,11 @@
 // 'id': ['225', ...]
 // 'inv_num': ['636', ...]
 // 'prgm_name': ['Provincial Nominee Program', ...]
-var total = 445;
-var temp1 = [
-    ['Date','# of ITA issued','CRS cut off','CRS cut off prediction','# of ITA issuance prediction','Your CRS'],
-    [new Date(2018,0,10),2750,446,,,total],
-    [new Date(2018,0,24),2750,444,,,total],
-    [new Date(2018,1,7),3000,442,,,total],
-    [new Date(2018,1,21),3000,442,,,total],
-    [new Date(2018,2,14),3000,456,,,total],
-    [new Date(2018,2,26),3000,446,,,total],
-    [new Date(2018,3,11),3500,444,,,total],
-    [new Date(2018,3,25),3500,441,,,total],
-    [new Date(2018,4,9),3500,441,,,total],
-    [new Date(2018,4,23),3500,440,,,total],
-    [new Date(2018,5,13),3750,451,,,total],
-    [new Date(2018,5,25),3750,442,,,total],
-    [new Date(2018,6,11),0,0,,,total],
-    [new Date(2018,6,25),3750,0,,,total],
-    [new Date(2018,7,8),3750,440,,,total],
-    [new Date(2018,7,22),3750,440,,,total],
-    [new Date(2018,8,5),3900,440,,,total],
-    [new Date(2018,8,19),3500,441,,,total],
-    [new Date(2018,9,03),3900,445,,,total],
-    [new Date(2018,9,15),3900,440,,,total],
-    [new Date(2018,9,29),3900,442,,,total],
-    [new Date(2018,10,14),3900,449,,,total],
-    [new Date(2018,10,28),3900,445,445,3900,total],
-    // [new Date(2018,11,17),,,440,3900,total],
-    // [new Date(2018,11,31),,,439,3900,total],
-    // [new Date(2019,0,15),,,440,3900,total],
-]
 
-var Core = parseInt(localStorage.getItem('Core_factors'));
-var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
-var Skill = parseInt(localStorage.getItem('Skill_factors'));
-var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
+var Core = crs_form_answers['Core_factors'];
+var Spouse = crs_form_answers['Spouse_factors'];
+var Skill = crs_form_answers['Skill_factors'];
+var Bonus = crs_form_answers['Bonus_factors'];
 var total = Core + Spouse + Skill + Bonus;
 
 var CRS_Predict = parseInt(passed_data['crs_score'][0]) + 10;
@@ -58,23 +28,17 @@ for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
             ),
             parseInt(passed_data['inv_num'][i]),
             parseInt(passed_data['crs_score'][i]),
-            ,,total
+            total
         ]
     )
 };
 
-var data_table_for_div5 = [];
+var data_table_for_div5 = [['Date', '# of ITA issued', 'Program Category', 'CRS cut off']];
 for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
     data_table_for_div5.push(
         [passed_data['date_str'][i], passed_data['inv_num'][i], passed_data['prgm_name'][i], passed_data['crs_score'][i]]
     )
 };
-
-
-// temporary data point to make the chart visible
-data_table_timeline_chart.push(
-    [new Date(2022,07,14),3900,445,445,3900,total]
-)
 
 google.charts.load('current', { 'packages': ['line', 'corechart', 'bar', 'gantt', 'table'] });
 google.charts.setOnLoadCallback(drawChart);
@@ -110,9 +74,6 @@ function drawChart() {
 
     // var data3 = new google.visualization.arrayToDataTable(temp1);
 
-
-
-
     var data4 = new google.visualization.DataTable();
     data4.addColumn('string', 'Task ID');
     data4.addColumn('string', 'Task Name');
@@ -129,6 +90,9 @@ function drawChart() {
         ['Step_5', '5. Medical Exam', Med_exam_start, null, DTM(7), 0, null],
         ['Step_6', '6. PR landing', PR_landing_total, null, DTM(7), 0, null]
     ]);
+
+    var data5 = new google.visualization.arrayToDataTable(data_table_for_div5);
+
     // Set chart options
     var options1 = {
         height: 400,
@@ -195,10 +159,17 @@ function drawChart() {
         backgroundColor: '#f1f1f1',
         title: 'Your plan'
     };
+    var options5 = {
+        height: 275,
+        width: 1150,
+        backgroundColor: '#f1f1f1',
+        title: 'Past Invitation Records'
+    }
     // Instantiate and draw our chart, passing in some options.
     var Chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
     var Chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
     var Chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
+    var Chart5 = new google.visualization.Table(document.getElementById('chart_div5'))
     if (total <= CRS_Predict - 2) {
         var Chart4 = new google.visualization.Gantt(document.getElementById('chart_div4'));
         Chart4.draw(data4, options4);
@@ -209,4 +180,5 @@ function drawChart() {
     Chart1.draw(dataview1, options1)
     Chart2.draw(data2, options2);
     Chart3.draw(data3, options3);
+    Chart5.draw(data5, options5);
 };

@@ -5,10 +5,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" async></script>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     var passed_data = {{ scraped_data | tojson }};
     var crs_form_answers = {{ crs_form_data | tojson }};
@@ -16,10 +16,6 @@
   </script>
   <script type="text/javascript" charset="UTF-8"
     src="{{ url_for('static', filename='js/summary_functions.js')}}"></script>
-  <script type="text/javascript" charset="UTF-8"
-    src="{{ url_for('static', filename='js/data.js')}}"></script>
-  <script type="text/javascript" charset="UTF-8"
-    src="{{ url_for('static', filename='js/crs_calculate.js')}}"></script>
 </head>
 <style>
   html,
@@ -34,6 +30,7 @@
 </style>
 
 <body class="w3-light-grey">
+
   <!-- Top container -->
   <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i
@@ -83,10 +80,10 @@
         style="font-size:30px;text-align:center;display:inline-block;background-color:skyblue;padding:20px;border-radius:15px;">Your
         CRS points:<b>
           <script>
-            var Core = parseInt(localStorage.getItem('Core_factors'));
-            var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
-            var Skill = parseInt(localStorage.getItem('Skill_factors'));
-            var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
+            var Core = crs_form_answers['Core_factors'];
+            var Spouse = crs_form_answers['Spouse_factors'];
+            var Skill = crs_form_answers['Skill_factors'];
+            var Bonus = crs_form_answers['Bonus_factors'];
             var total = Core + Spouse + Skill + Bonus;
             document.write(total);
           </script>
@@ -304,5 +301,6 @@
   </div>
 </body>
 <script type="text/javascript" charset="UTF-8"
-src="{{ url_for('static', filename='js/summary_functions.js')}}"></script>
+  src="{{ url_for('static', filename='js/summary_functions.js')}}"></script>
+
 </html>

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/data.js')}}"></script>
+<script src="{{ url_for('static', filename='js/data.js')}}" async></script>
 
 <script>
     var new_user = "{{ new_user }}"
@@ -90,7 +90,18 @@
         </header>
 
         <div class="w3-row-padding w3-margin-bottom">
-            <form id="crs-form" rolw="form" action="{{ url_for('crs_form') }}" method="post">
+
+            <!-- <form id="crs-form" rolw="form" action="{{ url_for('crs_form') }}" method="post"> -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
                 <!-- Marital Status -->
                 <div id="q1-marital-status" class="w3-container w3-padding-16">
                     <label for="q1"> 1) What is your marital status? </label>
@@ -509,10 +520,11 @@
                         Application finished. Submit the form to see the points.
                     </h5>
                     <button type="submit" class="w3-button w3-dark-grey w3-light-grey" onclick = "calculate()">Submit</button>
+
                 </div>
         </div>
 
-        </form>
+        <!-- </form> -->
         <!-- End Form-->
 
 
@@ -525,7 +537,7 @@
 </body>
 
 <script type="text/javascript" charset="UTF-8"
-    src="{{ url_for('static', filename='js/questions_functions.js')}}"></script>
+    src="{{ url_for('static', filename='js/questions_functions.js')}}" async></script>
 <!-- ./../js/questions_functions.js -->
 
 </html>
