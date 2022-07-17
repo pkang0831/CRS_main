@@ -4,8 +4,6 @@
 {{...}} for expressions to print output
 {#...#} for comments
 '''
-
-
 from flask import Flask, redirect, url_for, render_template, request, jsonify, make_response
 from flask.templating import render_template_string
 import mysql_connect, crs_scraper
@@ -234,9 +232,8 @@ def crs_form():
                 email_ = %s,\
                 username_ = %s', (list(crs_form_dict.values())))
     mysql_connect.crs_insert_data()
-    scraped_data = mysql_connect.get_data()
 
-    return render_template('summary.html', crs_form_data = crs_form_dict, scraped_data = scraped_data, new_user = new_user)
+    return jsonify(request.get_json())
 
 
 @app2.route('/summary')
@@ -249,6 +246,8 @@ def summary():
 
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
+    scraped_data = mysql_connect.get_data()
+    crs_form_data = crs_form_dict
     return render_template('Improve_My_CRS.html')
 
 @app2.context_processor

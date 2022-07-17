@@ -869,51 +869,6 @@ function calculate() {
 
     total = core_factors + spouse_factors + skill_factors + bonus_factors;
 
-    // localStorage.setItem("Core_factors", core_factors);
-    // localStorage.setItem("Spouse_factors", spouse_factors);
-    // localStorage.setItem("Skill_factors", skill_factors);
-    // localStorage.setItem("Bonus_factors", bonus_factors);
-    // // core factors details
-    // localStorage.setItem("q3_age", q3_age);
-    // localStorage.setItem("q4_education", q4_education);
-    // localStorage.setItem("q5_fol_point", q5_fol_point);
-    // localStorage.setItem("q5_sol_point", q5_sol_point);
-    // localStorage.setItem("q6_canada_xp", q6_canada_xp);
-    // // spouse factors details
-    // localStorage.setItem("q11_spouse_education", q11_spouse_education);
-    // localStorage.setItem("q12_spouse_xp", q12_spouse_xp);
-    // localStorage.setItem("q13_spouse_fol", q13_spouse_fol);
-    // // skill factors details
-    // localStorage.setItem("q4_q5", q4_q5);
-    // localStorage.setItem("q4_q6i", q4_q6i);
-    // localStorage.setItem("q6ii_q5", q6ii_q5);
-    // localStorage.setItem("q6ii_q6i", q6ii_q6i);
-    // localStorage.setItem("q7_q5", q7_q5);
-    // // bonus factors details
-    // localStorage.setItem("q10_sibling", q10_sibling);
-    // localStorage.setItem("french", french);
-    // localStorage.setItem("canada_education", canada_education);
-    // localStorage.setItem("job", job);
-    // localStorage.setItem("nomination", nomination);
-    // // Each Maxiumn set details
-    // localStorage.setItem("q3_age_max", q3_age_max);
-    // localStorage.setItem("q4_education_max", q4_education_max);
-    // localStorage.setItem("q5_fol_point_max", q5_fol_point_max);
-    // localStorage.setItem("q5_sol_point_max", q5_sol_point_max);
-    // localStorage.setItem("q6_canada_xp_max", q6_canada_xp_max);
-    // localStorage.setItem("q11_spouse_education_max", q11_spouse_education_max);
-    // localStorage.setItem("q12_spouse_xp_max", q12_spouse_xp_max);
-    // localStorage.setItem("q13_spouse_fol_max", q13_spouse_fol_max);
-    // localStorage.setItem("q4_q5_max", q4_q5_max);
-    // localStorage.setItem("q4_q6i_max", q4_q6i_max);
-    // localStorage.setItem("q6ii_q5_max", q6ii_q5_max);
-    // localStorage.setItem("q6ii_q6i_max", q6ii_q6i_max);
-    // localStorage.setItem("q7_q5_max", q7_q5_max);
-    // localStorage.setItem("q10_sibling_max", q10_sibling_max);
-    // localStorage.setItem("french_max", french_max);
-    // localStorage.setItem("canada_education_max", canada_education_max);
-    // localStorage.setItem("job_max", job_max);
-    // localStorage.setItem("nomination_max", nomination_max);
     var spouse_check = 0;
     var spouse_check_number = 0;
 
@@ -930,238 +885,236 @@ function calculate() {
             spouse_check_number = 0;
         }
     }
-    // localStorage.setItem("spouse_check", spouse_check);
-    // localStorage.setItem("spouse_check_number", spouse_check_number);
 
     try {
         q1 = $("#q1 option:selected").val();
-    } catch{
+    } catch {
         q1 = 'badvalue'
     }
 
     try {
         q2i = $("#q2i option:selected").val();
-    } catch{
+    } catch {
         q2i = 'badvalue'
     }
-    
+
     try {
         q2ii = $("#q2ii option:selected").val();
-    } catch{
+    } catch {
         q2ii = 'badvalue'
     }
 
     try {
         q3 = $("#q3 option:selected").val();
-    } catch{
+    } catch {
         q3 = 'badvalue'
     }
-    
+
     try {
         q4 = $("#q4 option:selected").val();
-    } catch{
+    } catch {
         q4 = 'badvalue'
     }
 
     try {
         q4b = $("#q4b option:selected").val();
-    } catch{
+    } catch {
         q4b = 'badvalue'
     }
 
     try {
         q4c = $("#q4c option:selected").val();
-    } catch{
+    } catch {
         q4c = 'badvalue'
     }
 
     try {
         q5i = $("#q5i option:selected").val();
-    } catch{
+    } catch {
         q5i = 'badvalue'
     }
 
     try {
         q5i_a = $("#q5i-a option:selected").val();
-    } catch{
+    } catch {
         q5i_a = 'badvalue'
     }
 
     try {
         q5i_b_speaking = $("#q5i-b-speaking option:selected").val();
-    } catch{
+    } catch {
         q5i_b_speaking = 'badvalue'
     }
 
     try {
         q5i_b_listening = $("#q5i-b-listening option:selected").val();
-    } catch{
+    } catch {
         q5i_b_listening = 'badvalue'
     }
 
     try {
         q5i_b_reading = $("#q5i-b-reading option:selected").val();
-    } catch{
+    } catch {
         q5i_b_reading = 'badvalue'
     }
 
     try {
         q5i_b_writing = $("#q5i-b-writing option:selected").val();
-    } catch{
+    } catch {
         q5i_b_writing = 'badvalue'
     }
 
     try {
         q5ii = $("#q5ii option:selected").val();
-    } catch{
+    } catch {
         q5ii = 'badvalue'
     }
 
     try {
         q5ii_sol_speaking = $("#q5ii-sol-speaking option:selected").val();
-    } catch{
+    } catch {
         q5ii_sol_speaking = 'badvalue'
     }
 
     try {
         q5ii_sol_listening = $("#q5ii-sol-listening option:selected").val();
-    } catch{
+    } catch {
         q5ii_sol_listening = 'badvalue'
     }
 
     try {
         q5ii_sol_reading = $("#q5ii-sol-reading option:selected").val();
-    } catch{
+    } catch {
         q5ii_sol_reading = 'badvalue'
     }
 
     try {
         q5ii_sol_writing = $("#q5ii-sol-writing option:selected").val();
-    } catch{
+    } catch {
         q5ii_sol_writing = 'badvalue'
     }
 
     try {
         q6i = $("#q6i option:selected").val();
-    } catch{
+    } catch {
         q6i = 'badvalue'
     }
 
     try {
         q6ii = $("#q6i option:selected").val();
-    } catch{
+    } catch {
         q6ii = 'badvalue'
     }
 
     try {
         q7 = $("#q7 option:selected").val();
-    } catch{
+    } catch {
         q7 = 'badvalue'
     }
 
     try {
         q8 = $("#q8 option:selected").val();
-    } catch{
+    } catch {
         q8 = 'badvalue'
     }
 
     try {
         q8a = $("#q8a option:selected").val();
-    } catch{
+    } catch {
         q8a = 'badvalue'
     }
 
     try {
         q9 = $("#q9 option:selected").val();
-    } catch{
+    } catch {
         q9 = 'badvalue'
-    } 
+    }
 
     try {
         q10 = $("#q10 option:selected").val();
-    } catch{
+    } catch {
         q10 = 'badvalue'
-    } 
+    }
 
     try {
         q11 = $("#q11 option:selected").val();
-    } catch{
+    } catch {
         q11 = 'badvalue'
-    } 
+    }
 
     try {
         q12 = $("#q12 option:selected").val();
-    } catch{
+    } catch {
         q12 = 'badvalue'
-    } 
+    }
 
     try {
         q13i = $("#q13i option:selected").val();
-    } catch{
+    } catch {
         q13i = 'badvalue'
-    } 
+    }
 
     try {
         q13ii_fol_speaking = $("#q13ii-fol-speaking option:selected").val();
-    } catch{
+    } catch {
         q13ii_fol_speaking = 'badvalue'
-    } 
+    }
 
     try {
         q13ii_fol_listening = $("#q13ii-fol-listening option:selected").val();
-    } catch{
+    } catch {
         q13ii_fol_listening = 'badvalue'
-    } 
+    }
 
     try {
         q13ii_fol_reading = $("#q13ii-fol-reading option:selected").val();
-    } catch{
+    } catch {
         q13ii_fol_reading = 'badvalue'
-    } 
+    }
 
     try {
         q13ii_fol_writing = $("#q13ii-fol-writing option:selected").val();
-    } catch{
+    } catch {
         q13ii_fol_writing = 'badvalue'
-    } 
+    }
 
     var question2flask_dict = {
         'q1': q1,
-        'q2i': q2i, 
-        'q2ii': q2ii, 
+        'q2i': q2i,
+        'q2ii': q2ii,
         'q3': q3,
-        'q4': q4, 
+        'q4': q4,
         'q4b': q4b,
         'q4c': q4c,
         'q5i': q5i,
         'q5i_a': q5i_a,
-        'q5i_b_speaking': q5i_b_speaking, 
-        'q5i_b_listening': q5i_b_listening, 
+        'q5i_b_speaking': q5i_b_speaking,
+        'q5i_b_listening': q5i_b_listening,
         'q5i_b_reading': q5i_b_reading,
-        'q5i_b_writing': q5i_b_writing, 
-        'q5ii': q5ii, 
-        'q5ii_sol_speaking': q5ii_sol_speaking, 
+        'q5i_b_writing': q5i_b_writing,
+        'q5ii': q5ii,
+        'q5ii_sol_speaking': q5ii_sol_speaking,
         'q5ii_sol_listening': q5ii_sol_listening,
-        'q5ii_sol_reading': q5ii_sol_reading, 
+        'q5ii_sol_reading': q5ii_sol_reading,
         'q5ii_sol_writing': q5ii_sol_writing,
-        'q6i': q6i, 
-        'q6ii': q6ii, 
+        'q6i': q6i,
+        'q6ii': q6ii,
         'q7': q7,
-        'q8': q8, 
-        'q8a': q8a, 
-        'q9': q9, 
-        'q10': q10, 
-        'q11': q11, 
-        'q12': q12, 
-        'q13i': q13i, 
+        'q8': q8,
+        'q8a': q8a,
+        'q9': q9,
+        'q10': q10,
+        'q11': q11,
+        'q12': q12,
+        'q13i': q13i,
         'q13ii_fol_speaking': q13ii_fol_speaking,
-        'q13ii_fol_listening': q13ii_fol_listening, 
-        'q13ii_fol_reading': q13ii_fol_reading, 
+        'q13ii_fol_listening': q13ii_fol_listening,
+        'q13ii_fol_reading': q13ii_fol_reading,
         'q13ii_fol_writing': q13ii_fol_writing,
         'Core_factors': core_factors,
         'Spouse_factors': spouse_factors,
         'Skill_factors': skill_factors,
-        'Bonus_factors':bonus_factors,
+        'Bonus_factors': bonus_factors,
         // core factors details
         'q3_age': q3_age,
         'q4_education': q4_education,
@@ -1206,11 +1159,11 @@ function calculate() {
     }
     var temp_dict = JSON.stringify(question2flask_dict)
     $.ajax({
-        url:"/crs_form",
-        type:"POST",
+        url: "/crs_form",
+        type: "POST",
         contentType: "application/json",
         data: JSON.stringify(temp_dict),
-        success: function(response){
+        success: function (response) {
             document.write(response);
         }
     });
