@@ -5,12 +5,13 @@ from collections import deque
 from bs4 import BeautifulSoup as bs
 import calendar
 
-url = "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html"
+
 
 # Checking if the website response correctly
 
 abbr_to_num = {name: num for num, name in enumerate(calendar.month_abbr) if num}
 def run():
+    url = "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html"
     with requests.session() as s:
         res = s.get(url)
 

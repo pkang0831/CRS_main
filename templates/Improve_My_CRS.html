@@ -1,313 +1,211 @@
 <!DOCTYPE html>
 <html>
 <title>Canada PR Estimator</title>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart','bar']});
-  google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var Core = parseInt(localStorage.getItem('Core_factors'));
-        var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
-        var Skill = parseInt(localStorage.getItem('Skill_factors'));
-        var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
-        // core factors details
-        var q3_age = parseInt(localStorage.getItem("q3_age"));
-        var q4_education = parseInt(localStorage.getItem("q4_education"));
-        var q5_fol_point = parseInt(localStorage.getItem("q5_fol_point"));
-        var q5_sol_point = parseInt(localStorage.getItem("q5_sol_point"));
-        var q6_canada_xp = parseInt(localStorage.getItem("q6_canada_xp"));
-        // spouse factors details
-        var q11_spouse_education = parseInt(localStorage.getItem("q11_spouse_education"));
-        var q12_spouse_xp = parseInt(localStorage.getItem("q12_spouse_xp"));
-        var q13_spouse_fol = parseInt(localStorage.getItem("q13_spouse_fol"));
-        // skill factors details
-        var q4_q5 = parseInt(localStorage.getItem("q4_q5"));
-        var q4_q6i = parseInt(localStorage.getItem("q4_q6i"));
-        var q6ii_q5 = parseInt(localStorage.getItem("q6ii_q5"));
-        var q6ii_q6i = parseInt(localStorage.getItem("q6ii_q6i"));
-        var q7_q5 = parseInt(localStorage.getItem("q7_q5"));
-        // bonus factors details
-        var q10_sibling = parseInt(localStorage.getItem("q10_sibling"));
-        var french = parseInt(localStorage.getItem("french"));
-        var canada_education = parseInt(localStorage.getItem("canada_education"));
-        var job = parseInt(localStorage.getItem("job"));
-        var nomination = parseInt(localStorage.getItem("nomination"));
-        var main_columns = new google.visualization.arrayToDataTable([
-        ['Category','Point_contribution',{ role:"style"}],
-        ['A. Core Factors',Core,'blue'],
-        ['B. Spouse Factors',Spouse,'green'],
-        ['C. Skill Factors',Skill,'red'],
-        ['D. Bonus Factors',Bonus,'orange']
-      ]);
-      var options_columns = {
-          height: 500,
-          width: 1200,
-          backgroundColor: '#f1f1f1',
-          title: 'How can I change?',
-          bar: {groupWidth: "20%"},
-          legend: {position:'none'}
-        };
-      var main_comparison = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-      main_comparison.draw(main_columns,options_columns);
-      }
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    var crs_form_answers = {{ crs_form_data | tojson }};
+    var new_user = "{{ new_user }}"
+  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'js/improve_my_crs_functions.js')}}"></script>
 </head>
 <style>
-  html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Raleway", sans-serif
+  }
 </style>
+
 <body class="w3-light-grey">
-<!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &#9776; Menu</button>
-  <img src="{{ url_for('static', filename = 'image/logo.png')}}" style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
-  <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
-</div>
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container w3-row">
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Immigrant</strong></span><br>
+  <!-- Top container -->
+  <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i
+        class="fa fa-bars"></i> &#9776; Menu</button>
+    <img src="{{ url_for('static', filename = 'image/logo.png')}}"
+      style="position:absolute;width:auto;height:100%;top:0px;right:0px;">
+    <span class="w3-bar-item w3-right w3-text-black" style="opacity:0;">""</span>
+  </div>
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container w3-row">
+      <div class="w3-col s8 w3-bar">
+        <span>Welcome, <strong>Immigrant</strong></span><br>
+      </div>
     </div>
-  </div>
-  <hr>
-  <div class="w3-container">
-    <h5>Dashboard</h5>
-  </div>
-  <div class="w3-bar-block">
-    <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
-    <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
-    <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
-    <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
-    <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Assessment</a>
-</div>
-</nav>
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-<!-- PAGE CONTENT -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+    <hr>
+    <div class="w3-container">
+      <h5>Dashboard</h5>
+    </div>
+    <div class="w3-bar-block">
+      <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()"
+        title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+      <a href="{{ url_for('summary', _anchor='My_Score_Analysis')}}" class="w3-bar-item w3-button w3-padding"
+        onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Analysis</a>
+      <a href="{{ url_for('summary', _anchor='My_Score_Examination')}}" class="w3-bar-item w3-button w3-padding"
+        onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Score Examination</a>
+      <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding"
+        onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
+      <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i
+          class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
+      <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 
+        Assessment</a>
+    </div>
+  </nav>
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+    title="close side menu" id="myOverlay"></div>
+  <!-- PAGE CONTENT -->
+  <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
-<h3 class = "w3-container"><b>Improve My CRS</b></h3>
-<h4 class = "w3-container" style = "font-style:italic">My Profile At-A-Glance</h4>
-<div id = "chart_div1" class = "w3-container" style = "float:center"></div>
-<!-- buttons (scores in details) -->
-<div class="w3-row-padding w3-margin-bottom">
-  <p class = "w3-container">Click on the buttons below for more details of each category</p>
-  <div class="w3-quarter">
-    <div class = "w3-container">
-    <button class="w3-container w3-red w3-padding-16" style = "border-radius:30px;outline:none;width:275px" onclick="core_open()">
-      <div class="w3-left"></div>
-      <h4>A. Core Human Capital</h4>
-      <div class="w3-right">
-        <h3>
-          <script>
-          var single_status = parseInt(localStorage.getItem('spouse_check_number'));
-          var single_point
-          if (single_status == 1) {
-            single_point = 460;
-          } else {
-            single_point = 500;
-          }
-          var Core = parseInt(localStorage.getItem('Core_factors'));
-          document.write(Core + ' / ' + single_point);
-            function core_open(){
-              var core_button = document.getElementById('core_details');
-              if (core_button.style.display == "none") {
-                core_button.style.display = "block";
-              } else {
-                core_button.style.display = "none";
-              }
-            }
-          </script>
-        </h3>
+    <h3 class="w3-container"><b>Improve My CRS</b></h3>
+    <h4 class="w3-container" style="font-style:italic">My Profile At-A-Glance</h4>
+    <div id="chart_div1" class="w3-container" style="float:center"></div>
+    <!-- buttons (scores in details) -->
+    <div class="w3-row-padding w3-margin-bottom">
+      <p class="w3-container">Click on the buttons below for more details of each category</p>
+      <div class="w3-quarter">
+        <div class="w3-container">
+          <button class="w3-container w3-red w3-padding-16" style="border-radius:30px;outline:none;width:275px"
+            onclick="core_open()">
+            <div class="w3-left"></div>
+            <h4>A. Core Human Capital</h4>
+            <div class="w3-right">
+              <h3>
+                <script>
+                  document.write(Core + ' / ' + single_point);
+                </script>
+              </h3>
+            </div>
+            <div class="w3-clear"></div>
+          </button>
+          <div id="core_details" class="answer_list" style="display:none">
+            <script>
+              document.write("Age : <strong>" + q3_age + "</strong> <br>");
+              document.write("Education : <strong>" + q4_education + "</strong> <br>");
+              document.write("First official language : <strong>" + q5_fol_point + "</strong> <br>");
+              document.write("Second official language : <strong>" + q5_sol_point + "</strong>  <br>");
+              document.write("Canadian work experience : <strong>" + q6_canada_xp + "</strong> ");
+            </script>
+          </div>
+        </div>
       </div>
-      <div class="w3-clear"></div>
-    </button>
-    <div id = "core_details" class = "answer_list" style = "display:none">
-    <script>
-      // core factors details
-      var q3_age = parseInt(localStorage.getItem("q3_age"));
-      var q4_education = parseInt(localStorage.getItem("q4_education"));
-      var q5_fol_point = parseInt(localStorage.getItem("q5_fol_point"));
-      var q5_sol_point = parseInt(localStorage.getItem("q5_sol_point"));
-      var q6_canada_xp = parseInt(localStorage.getItem("q6_canada_xp"));
-
-      document.write("Age : <strong>" + q3_age + "</strong> <br>");
-      document.write("Education : <strong>" + q4_education + "</strong> <br>");
-      document.write("First official language : <strong>" + q5_fol_point + "</strong> <br>");
-      document.write("Second official language : <strong>" + q5_sol_point + "</strong>  <br>");
-      document.write("Canadian work experience : <strong>" + q6_canada_xp + "</strong> ");
-    </script>
-    </div>
-    </div>
-  </div>
-  <div class="w3-quarter">
-    <div class = "w3-container">
-    <button class="w3-container w3-blue w3-padding-16" style = "border-radius:30px;outline:none;width:275px" onclick = "spouse_open()">
-      <div class="w3-left"></div>
-      <h4>B. Spouse Common-law</h4>
-      <div class="w3-right">
-        <h3>
-          <script>
-            var single_status = parseInt(localStorage.getItem('spouse_check_number'));
-            if (single_status == 1) {
-              var Spouse = parseInt(localStorage.getItem('Spouse_factors'));
-              document.write(Spouse + '/40 Points');
-            } else {
-              var Spouse = 'Not Applicable'
-              document.write(Spouse)
-            }
-          function spouse_open(){
-            var spouse_button = document.getElementById('spouse_details');
-            if (spouse_button.style.display == "none") {
-              spouse_button.style.display = "block";
-            } else {
-              spouse_button.style.display = "none";
-            }
-          }
-          </script>
-        </h3>
+      <div class="w3-quarter">
+        <div class="w3-container">
+          <button class="w3-container w3-blue w3-padding-16" style="border-radius:30px;outline:none;width:275px"
+            onclick="spouse_open()">
+            <div class="w3-left"></div>
+            <h4>B. Spouse Common-law</h4>
+            <div class="w3-right">
+              <h3>
+                <script>
+                  document.write(scorecard_str)
+                </script>
+              </h3>
+            </div>
+            <div class="w3-clear"></div>
+          </button>
+          <div id="spouse_details" class="answer_list" style="display:none;">
+            <script>
+              document.write("Education : <strong>" + q11_spouse_education + "</strong> <br>");
+              document.write("Canadian Work experience : <strong>" + q12_spouse_xp + "</strong> <br>");
+              document.write("First official language : <strong>" + q13_spouse_fol + "</strong> ");
+            </script>
+          </div>
+        </div>
       </div>
-      <div class="w3-clear"></div>
-    </button>
-    <div id = "spouse_details" class = "answer_list" style = "display:none;">
-    <script>
-      // spouse factors details
-      var q11_spouse_education = parseInt(localStorage.getItem("q11_spouse_education"));
-      var q12_spouse_xp = parseInt(localStorage.getItem("q12_spouse_xp"));
-      var q13_spouse_fol = parseInt(localStorage.getItem("q13_spouse_fol"));
-      document.write("Education : <strong>" + q11_spouse_education + "</strong> <br>");
-      document.write("Canadian Work experience : <strong>" + q12_spouse_xp + "</strong> <br>");
-      document.write("First official language : <strong>" + q13_spouse_fol + "</strong> ");
-    </script>
-    </div>
-    </div>
-  </div>
-  <div class="w3-quarter">
-    <div class = "w3-container">
-    <button class="w3-container w3-teal w3-padding-16" style = "border-radius:30px;outline:none;width:275px" onclick = "skill_open()">
-      <div class="w3-left"></div>
-      <h4>C. Skill Transferability</h4>
-      <div class="w3-right">
-        <h3>
-          <script>
-          var Skill = parseInt(localStorage.getItem('Skill_factors'));
-          document.write(Skill + '/100 Points');
-          function skill_open(){
-              var skill_button = document.getElementById('skill_details');
-              if (skill_button.style.display == "none") {
-                skill_button.style.display = "block";
-              } else {
-                skill_button.style.display = "none";
-              }
-            }
-          </script>
-        </h3>
+      <div class="w3-quarter">
+        <div class="w3-container">
+          <button class="w3-container w3-teal w3-padding-16" style="border-radius:30px;outline:none;width:275px"
+            onclick="skill_open()">
+            <div class="w3-left"></div>
+            <h4>C. Skill Transferability</h4>
+            <div class="w3-right">
+              <h3>
+                <script>
+                  document.write(Skill + '/100 Points');
+                </script>
+              </h3>
+            </div>
+            <div class="w3-clear"></div>
+          </button>
+          <div id="skill_details" class="answer_list" style="display:none;">
+            <script>
+              document.write("Language & education : <strong>" + q4_q5 + "</strong> <br>");
+              document.write("Canadian experience & education : <strong>" + q4_q6i + "</strong> <br>");
+              document.write("Lanuage & foreign experience : <strong>" + q6ii_q5 + "</strong> <br>");
+              document.write("Canadian & foreign experience : <strong>" + q6ii_q6i + "</strong> <br>");
+              document.write("Certification of qualification : <strong>" + q7_q5 + "</strong> <br>");
+            </script>
+          </div>
+        </div>
       </div>
-      <div class="w3-clear"></div>
-    </button>
-    <div id = "skill_details" class = "answer_list" style = "display:none;">
-    <script>
-      // skill factors details
-      var q4_q5 = parseInt(localStorage.getItem("q4_q5"));
-      var q4_q6i = parseInt(localStorage.getItem("q4_q6i"));
-      var q6ii_q5 = parseInt(localStorage.getItem("q6ii_q5"));
-      var q6ii_q6i = parseInt(localStorage.getItem("q6ii_q6i"));
-      var q7_q5 = parseInt(localStorage.getItem("q7_q5"));
-      document.write("Language & education : <strong>" + q4_q5 + "</strong> <br>");
-      document.write("Canadian experience & education : <strong>" + q4_q6i + "</strong> <br>");
-      document.write("Lanuage & foreign experience : <strong>" + q6ii_q5 + "</strong> <br>");
-      document.write("Canadian & foreign experience : <strong>" + q6ii_q6i + "</strong> <br>");
-      document.write("Certification of qualification : <strong>" + q7_q5 + "</strong> <br>");
-    </script>
-    </div>
-    </div>
-  </div>
-  <div class="w3-quarter">
-    <button class="w3-container w3-orange w3-text-white w3-padding-16" style = "border-radius:30px;outline:none;width:275px" onclick = "bonus_open()">
-      <div class="w3-left"></div>
-      <h4>D. Additional Points</h4>
-      <div class="w3-right">
-        <h3>
+      <div class="w3-quarter">
+        <button class="w3-container w3-orange w3-text-white w3-padding-16"
+          style="border-radius:30px;outline:none;width:275px" onclick="bonus_open()">
+          <div class="w3-left"></div>
+          <h4>D. Additional Points</h4>
+          <div class="w3-right">
+            <h3>
+              <script>
+                document.write(Bonus + '/600 Points');
+              </script>
+            </h3>
+          </div>
+          <div class="w3-clear"></div>
+        </button>
+        <div id="bonus_details" class="answer_list" style="display:none;">
           <script>
-          var Bonus = parseInt(localStorage.getItem('Bonus_factors'));
-          document.write(Bonus + '/600 Points');
-          function bonus_open(){
-              var bonus_button = document.getElementById('bonus_details');
-              if (bonus_button.style.display == "none") {
-                bonus_button.style.display = "block";
-              } else {
-                bonus_button.style.display = "none";
-              }
-            }
+            document.write("Siblings in Canada : <strong>" + q10_sibling + "</strong> <br>");
+            document.write("French language : <strong>" + french + "</strong> <br>");
+            document.write("Canadian education : <strong>" + canada_education + "</strong> <br>");
+            document.write("Job offer : <strong>" + job + "</strong> <br>");
+            document.write("Nomination : <strong>" + nomination + "</strong> <br>");
           </script>
-        </h3>
+        </div>
       </div>
-      <div class="w3-clear"></div>
-    </button>
-    <div id = "bonus_details" class = "answer_list" style = "display:none;">
-    <script>
-      // skill factors details
-      var q10_sibling = parseInt(localStorage.getItem("q10_sibling"));
-      var french = parseInt(localStorage.getItem("french"));
-      var canada_education = parseInt(localStorage.getItem("canada_education"));
-      var job = parseInt(localStorage.getItem("job"));
-      var nomination = parseInt(localStorage.getItem("nomination"));
-      document.write("Siblings in Canada : <strong>" + q10_sibling + "</strong> <br>");
-      document.write("French language : <strong>" + french + "</strong> <br>");
-      document.write("Canadian education : <strong>" + canada_education + "</strong> <br>");
-      document.write("Job offer : <strong>" + job + "</strong> <br>");
-      document.write("Nomination : <strong>" + nomination + "</strong> <br>");
-    </script>
+      <div class="w3-container">
+        <h3><b>Ways to improve CRS score</b></h3>
+        <h5>1. Improve your language scores</h5>
+        One of the easiest ways to raise your CRS score is to focus on the language scores. Prepare for language tests
+        such as IELTS, if you are able to score a Canadian Language Benchmark (CLB) of 9 in the language test, you can
+        get up to 136 direct points under the language section and up to 100 points under the sub-factors of the Skill
+        Transferability section. You can also earn up to 24 points by appearing for a language test in French if your
+        first language is English and vice versa.
+        <h5>2. Apply through Provincial Nominee Program (PNP)</h5>
+        If you are nominated by one of the Canadian provinces or territories under Canada’s PNP, you will receive up to
+        600 CRS points. This will increase your chances of getting an ITA. You can apply for a Provincial Nominee
+        Program before or after you create your Express Entry profile
+        <h5>3. Secure LMIA jobs</h5>
+        Another way to increase your CRS score and get up to 600 points is to secure a job offer, recognized by the
+        Labor Market Impact Assessment (LMIA), from an employer in Canada. This will make a candidate from the Express
+        Entry pool more eligible to receive an ITA.
+        <h5>4. Make your spouse (wife or common-law partnership) to be primary applicant</h5>
+        If you are applying for Canada immigration with your spouse or common-law partner and he/she can score more CRS
+        points, it is advised to make them the primary applicant. However, if you have already started your application,
+        it is not possible to change the primary applicant in an existing Express Entry profile. So, you will have to
+        create a new profile with your partner as the primary applicant and yourself as a dependent.
+        <h5>5. Continue working</h5>
+        If you have less than three years of full-time work experience, it is ideal to continue working. You will
+        receive points under the Skill Transferability section, the more the work experience, the better.
+      </div>
     </div>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-16 w3-dark-grey">
+      <h4>Last updated on 2022</h4>
+      <p>Developed by Paul Kang</p>
+    </footer>
   </div>
-  <div class="w3-container">
-    <h3><b>Ways to improve CRS score</b></h3>
-    <h5>1. Improve your language scores</h5>
-    One of the easiest ways to raise your CRS score is to focus on the language scores. Prepare for language tests such as IELTS, if you are able to score a Canadian Language Benchmark (CLB) of 9  in the language test, you can get up to 136 direct points under the language section and up to 100 points under the sub-factors of the Skill Transferability section. You can also earn up to 24 points by appearing for a language test in French if your first language is English and vice versa.
-    <h5>2. Apply through Provincial Nominee Program (PNP)</h5>
-    If you are nominated by one of the Canadian provinces or territories under Canada’s PNP, you will receive up to 600 CRS points. This will increase your chances of getting an ITA. You can apply for a Provincial Nominee Program before or after you create your Express Entry profile
-    <h5>3. Secure LMIA jobs</h5>
-    Another way to increase your CRS score and get up to 600 points is to secure a job offer, recognized by the Labor Market Impact Assessment (LMIA), from an employer in Canada. This will make a candidate from the Express Entry pool more eligible to receive an ITA.
-    <h5>4. Make your spouse (wife or common-law partnership) to be primary applicant</h5>
-    If you are applying for Canada immigration with your spouse or common-law partner and he/she can score more CRS points, it is advised to make them the primary applicant. However, if you have already started your application, it is not possible to change the primary applicant in an existing Express Entry profile. So, you will have to create a new profile with your partner as the primary applicant and yourself as a dependent.
-    <h5>5. Continue working</h5>
-    If you have less than three years of full-time work experience, it is ideal to continue working. You will receive points under the Skill Transferability section, the more the work experience, the better.
-  </div>
-</div>
-<!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-dark-grey">
-    <h4>Copyright 2018</h4>
-    <p>Powered by KWK, SMJ, JCS, DHK</p>
-  </footer>
-  <!-- End page content -->
-</div>
 </body>
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-    overlayBg.style.display = "none";
-}
-</script>
+
 </html>

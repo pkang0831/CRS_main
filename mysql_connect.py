@@ -105,4 +105,3 @@ def get_data():
 # Test the functions
 if __name__ == "__main__":
     crs_insert_data()
-    print(get_data())

@@ -233,7 +233,8 @@ def crs_form():
                 username_ = %s', (list(crs_form_dict.values())))
     mysql_connect.crs_insert_data()
 
-    return jsonify(request.get_json())
+    # return jsonify(request.get_json())
+    # return redirect(url_for('summary'))
 
 
 @app2.route('/summary')
@@ -246,9 +247,7 @@ def summary():
 
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
-    scraped_data = mysql_connect.get_data()
-    crs_form_data = crs_form_dict
-    return render_template('Improve_My_CRS.html')
+    return render_template('Improve_My_CRS.html', crs_form_data = crs_form_dict)
 
 @app2.context_processor
 def context_processor():
