@@ -8,7 +8,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime as dt
 import warnings
-import math
 # Import ML libraries
 from sklearn.model_selection import GridSearchCV
 from sklearn import linear_model, svm, neighbors, gaussian_process, tree, ensemble
@@ -19,7 +18,7 @@ from sklearn import preprocessing, metrics
 # ML pickle file generation
 import joblib
 # Import in-house scripts
-import mysql_connect, crs_scraper
+import mysql_connect
 warnings.filterwarnings('ignore')
 # Visualizations
 import matplotlib.pyplot as plt
@@ -60,6 +59,7 @@ class data_landing():
         df = df.iloc[::-1].reset_index(drop = True)
 
         return df
+
 
     def featureEngineering(self, df: pd.DataFrame, init_point = 20) -> pd.DataFrame:
         """
@@ -121,8 +121,8 @@ class model(data_landing):
                 - y_test: pd.DataFrame == test response variable dataframe
         """
         X_train, X_test, Y_train, Y_test, = train_test_split(df.drop(columns='crs_score',axis=1),df['crs_score'], test_size = frac)
-        
         return X_train, X_test, Y_train, Y_test
+
 
     def scalings(self, X_train, X_test):
         """
@@ -214,6 +214,7 @@ class model(data_landing):
 
         return MLA_compare
 
+
     def fitModel(self, model, X_train_scaled, Y_train):
         """
         Model fitting method
@@ -225,6 +226,7 @@ class model(data_landing):
          - model: fitted model
         """
         return model.fit(X_train_scaled, Y_train)
+
 
     def performance(self, fitted_model, X_train_scaled, Y_train, X_test_scaled, Y_test):
         """
@@ -245,6 +247,7 @@ class model(data_landing):
         test_r2 = metrics.r2_score(Y_test,test_pred)
         return train_r2, test_r2
     
+
     def pastPred(self, scaler, fitted_model, df, init_point = 20):
         # Original dataframe
         df_original = self.df.copy(deep = True)
@@ -271,7 +274,7 @@ class model(data_landing):
         # second correction
         last1st = returned_df['prediction'].iloc[-1]
         last1st_actual = returned_df['actual'].iloc[-1]
-        last2nddiff = last2nd = last2nd_actual
+        last2nddiff = last2nd - last2nd_actual
         last1stdiff = last1st - last1st_actual
         if last2nddiff > 0:
             last2nd_new = last2nd - correction_1
@@ -286,14 +289,45 @@ class model(data_landing):
         correction_3 = abs(last1st - last1st_actual)
         returned_df['prediction'].iloc[-2] = last2nd_new
         returned_df['prediction'].iloc[-1] = last1st_new
-        return returned_df
+        return returned_df, correction_3
 
 
-    def updateDBonPred(self):
-        pass
+    def updateDBonPred(self, predictions: pd.DataFrame):
+        # cast predictions to all strings
+        predictions = predictions.applymap(lambda x: str(x))
+        connection = mysql_connect.connect_to_data_db()
+        cursor = connection.cursor()
+        truncate_query = """
+        TRUNCATE TABLE data_db.prediction
+        """
+        cursor.execute(truncate_query)
+        connection.commit()
 
-    def currentPred(self, scaler, fitted_model, dp):
-        pass
+        query = """
+        INSERT INTO data_db.prediction(id, actual, prediction)
+        VALUES (%s, %s, %s)
+        """
+        for i in range(len(predictions)):
+            records = (
+                str(i), # id
+                predictions.iloc[i,0], # actual
+                predictions.iloc[i,1]  # prediction
+            )
+            cursor.execute(query, records)
+            connection.commit()
+        cursor.close()
+        connection.close()
+
+    def visual_check(self, predictions: pd.DataFrame, corrections_3):
+        plt.figure(figsize= (20,5))
+        sns.lineplot(x = predictions.index, y = 'actual',data = predictions, color = 'green', label = 'actual')
+        sns.lineplot(x = predictions.index, y = 'prediction',data = predictions, color = 'red', label = 'prediction')
+        plt.show()
+
+    def save_model(self, scaler, fitted_model):
+        joblib.dump(scaler, 'std_scaler.bin')
+        joblib.dump(fitted_model, 'regressor.pkl')
+        
 
 if __name__ == "__main__":
     data = mysql_connect.get_data()
@@ -320,11 +354,13 @@ if __name__ == "__main__":
         scaler, X_train_scaled, X_test_scaled = initializer.scalings(X_train, X_test)
         mlModel = initializer.fitModel(ensemble.GradientBoostingRegressor(), X_train_scaled, Y_train)
         train_r2, test_r2 = initializer.performance(mlModel,X_train_scaled, Y_train, X_test_scaled, Y_test)
+    print(f'train_r2: {train_r2}')
+    print(f'test_r2: {test_r2}')
     # Perform prediction on past data
-    prediction_table = initializer.pastPred(scaler, mlModel, _load2model, trim_init_point_for_modeling)
-    prediction_table = prediction_table.applymap(lambda x: int(x))
-    plt.figure(figsize= (20,5))
-    sns.lineplot(x = prediction_table.index, y = 'actual',data = prediction_table, color = 'green', label = 'actual')
-    sns.lineplot(x = prediction_table.index, y = 'prediction',data = prediction_table, color = 'red', label = 'prediction')
-    plt.show()
-    # Perform prediction on current & N+1 data
+    prediction_table, correction_3 = initializer.pastPred(scaler, mlModel, _load2model, trim_init_point_for_modeling)
+    # Save the prediction result to the database
+    initializer.updateDBonPred(prediction_table)
+    # Visual checks #### uncomment to visual check the performance of a trained model.
+    initializer.visual_check(prediction_table, correction_3)
+    # Save model and scaler
+    initializer.save_model(scaler, mlModel)

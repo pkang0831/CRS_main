@@ -1,6 +1,17 @@
 # MySQL connection to database
+from matplotlib.pyplot import connect
 import crs_scraper
 import mysql.connector
+
+
+def connect_to_data_db():
+    connection = mysql.connector.connect(
+        host = 'localhost',
+        user = 'root',
+        password = '@Rkdrmsdn0831',
+        database = 'data_db'
+    )
+    return connection
 
 def databaseCreate():
     # Configure connection
@@ -16,12 +27,7 @@ def databaseCreate():
 
 def crs_insert_data():
     # Configure connection
-    connection = mysql.connector.connect(
-        host = 'localhost',
-        user = 'root',
-        password = '@Rkdrmsdn0831',
-        database = 'data_db'
-    )
+    connection = connect_to_data_db()
     print("Connected to Database")
     cursor = connection.cursor()
     # Configuring data schema
@@ -70,12 +76,7 @@ def crs_insert_data():
     print('Data Inserted, Connection closed')
 
 def get_data():
-    connection = mysql.connector.connect(
-        host = 'localhost',
-        user = 'root',
-        password = '@Rkdrmsdn0831',
-        database = 'data_db'
-    )
+    connection = connect_to_data_db()
     cursor = connection.cursor()
     DDL_query = """
     SELECT * FROM data_table
