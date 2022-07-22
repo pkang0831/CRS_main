@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime as dt
 import warnings
+import math
 # Import ML libraries
 from sklearn.model_selection import GridSearchCV
 from sklearn import linear_model, svm, neighbors, gaussian_process, tree, ensemble
@@ -15,9 +16,14 @@ import xgboost
 # Data transformation, model accessories libraries
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn import preprocessing, metrics
+# ML pickle file generation
+import joblib
 # Import in-house scripts
 import mysql_connect, crs_scraper
 warnings.filterwarnings('ignore')
+# Visualizations
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 class data_landing():
     """
@@ -239,13 +245,49 @@ class model(data_landing):
         test_r2 = metrics.r2_score(Y_test,test_pred)
         return train_r2, test_r2
     
-    def pastPred(self, scaler, fitted_model, df):
+    def pastPred(self, scaler, fitted_model, df, init_point = 20):
+        # Original dataframe
+        df_original = self.df.copy(deep = True)
+        df_original = df_original.iloc[::-1].reset_index(drop = True)
+        # Processed dataframe
         df_scaled = df.copy(deep = True)
         df_scaled = df_scaled.drop('crs_score', axis = 1)
         df_scaled[df_scaled.columns] = scaler.transform(df_scaled[df_scaled.columns])
         y_pred = fitted_model.predict(df_scaled)
-        return_df = df
-        return fitted_model.predict(df_scaled)
+        final_pred = pd.Series(np.append(df_original['crs_score'].iloc[:init_point + 1].to_numpy(),y_pred))
+        returned_df = pd.DataFrame(columns = ['actual','prediction'])
+        returned_df['actual'] = df_original['crs_score']
+        returned_df['prediction'] = final_pred
+        returned_df = returned_df.applymap(lambda x: float(x))
+
+        # Arithmetic smoothing for last 2 datapoints
+        last3rd = returned_df['prediction'].iloc[-3]
+        last3rd_actual = returned_df['actual'].iloc[-3]
+        correction_1 = abs(last3rd - last3rd_actual)
+
+        last2nd = returned_df['prediction'].iloc[-2]
+        last2nd_actual = returned_df['actual'].iloc[-2]
+        correction_2 = abs(last2nd - last2nd_actual)
+        # second correction
+        last1st = returned_df['prediction'].iloc[-1]
+        last1st_actual = returned_df['actual'].iloc[-1]
+        last2nddiff = last2nd = last2nd_actual
+        last1stdiff = last1st - last1st_actual
+        if last2nddiff > 0:
+            last2nd_new = last2nd - correction_1
+        else:
+            last2nd_new = last2nd + correction_1
+
+        if last1stdiff > 0:
+            last1st_new = last1st - correction_2
+        else:
+            last1st_new = last1st + correction_2
+
+        correction_3 = abs(last1st - last1st_actual)
+        returned_df['prediction'].iloc[-2] = last2nd_new
+        returned_df['prediction'].iloc[-1] = last1st_new
+        return returned_df
+
 
     def updateDBonPred(self):
         pass
@@ -257,10 +299,11 @@ if __name__ == "__main__":
     data = mysql_connect.get_data()
     df = pd.DataFrame(data)
     initializer = model(df)
+    trim_init_point_for_modeling = 25
     # data cleaning
     _land2load = initializer.data_cleaning()
     # data transforming
-    _load2model = initializer.featureEngineering(_land2load,25)
+    _load2model = initializer.featureEngineering(_land2load,trim_init_point_for_modeling)
     # train test splits
     X_train, X_test, Y_train, Y_test = initializer.train_test_splits(_load2model)
     # feature scaling / standardizing
@@ -278,5 +321,10 @@ if __name__ == "__main__":
         mlModel = initializer.fitModel(ensemble.GradientBoostingRegressor(), X_train_scaled, Y_train)
         train_r2, test_r2 = initializer.performance(mlModel,X_train_scaled, Y_train, X_test_scaled, Y_test)
     # Perform prediction on past data
-
+    prediction_table = initializer.pastPred(scaler, mlModel, _load2model, trim_init_point_for_modeling)
+    prediction_table = prediction_table.applymap(lambda x: int(x))
+    plt.figure(figsize= (20,5))
+    sns.lineplot(x = prediction_table.index, y = 'actual',data = prediction_table, color = 'green', label = 'actual')
+    sns.lineplot(x = prediction_table.index, y = 'prediction',data = prediction_table, color = 'red', label = 'prediction')
+    plt.show()
     # Perform prediction on current & N+1 data
