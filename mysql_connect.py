@@ -1,8 +1,6 @@
 # MySQL connection to database
-from matplotlib.pyplot import connect
 import crs_scraper
 import mysql.connector
-
 
 def connect_to_data_db():
     connection = mysql.connector.connect(
@@ -49,7 +47,7 @@ def crs_insert_data():
     )
     """
     cursor.execute(mySql_Drop_Table_Query)
-    result = cursor.execute(mySql_Create_Table_Query)
+    cursor.execute(mySql_Create_Table_Query)
     # Configuring Insert format with the value tyes (%s -> string)
     insert_query = """
     INSERT INTO data_table(id, date_str, prgm_name, inv_num, crs_score, date_form, prgm_name2, day_num, month_num, year_num)
@@ -58,7 +56,7 @@ def crs_insert_data():
     id_inv, date_str, prgm_name, inv_num, crs_score, date_form, prgm_name2, day_date_form, month_date_form, year_date_form = crs_scraper.run()
     for i in range(len(id_inv)):
         records = (
-            id_inv[i],
+            str(len(id_inv) - i - 1).replace('.0',''),
             date_str[i],
             prgm_name[i],
             inv_num[i],
@@ -79,7 +77,7 @@ def get_data():
     connection = connect_to_data_db()
     cursor = connection.cursor()
     DDL_query = """
-    SELECT * FROM data_table
+    SELECT * FROM data_with_predictions
     """
     cursor.execute(DDL_query)
     records = cursor.fetchall()
@@ -90,19 +88,19 @@ def get_data():
         'id': [row[0] for row in records],
         'date_str': [row[1] for row in records],
         'prgm_name': [row[2] for row in records],
-        'inv_num': [row[3] for row in records],
-        'crs_score': [row[4] for row in records],
+        'inv_num': [row[4] for row in records],
+        'crs_score': [row[3] for row in records],
         'date_form': [row[5] for row in records],
         'prgm_name2': [row[6] for row in records],
         'day_num': [row[7] for row in records],
         'month_num': [row[8] for row in records],
         'year_num': [row[9] for row in records],
+        'prediction': [row[10] for row in records]
     })
 
     cursor.close()
     connection.close()
     return data_to_pass
 
-# Test the functions
 if __name__ == "__main__":
     crs_insert_data()

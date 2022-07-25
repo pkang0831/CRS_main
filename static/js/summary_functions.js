@@ -13,12 +13,12 @@ var Skill = crs_form_answers['Skill_factors'];
 var Bonus = crs_form_answers['Bonus_factors'];
 var total = Core + Spouse + Skill + Bonus;
 
-var CRS_Predict = parseInt(passed_data['crs_score'][0]) + 10;
-var last_CRS = parseInt(passed_data['crs_score'][0]);
+var CRS_Predict = parseInt(crs_predictions['next_prediction'][0])
+var last_CRS = parseInt(passed_data['crs_score'][passed_data['crs_score'].length - 1])
 var data_table_timeline_chart = [
-    ['Date', '# of ITA issued', 'CRS cut off', 'Your CRS']
+    ['Date', '# of ITA issued', 'CRS cut off', 'CRS Prediction']
 ];
-for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
+for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
     data_table_timeline_chart.push(
         [
             new Date(
@@ -28,10 +28,23 @@ for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
             ),
             parseInt(passed_data['inv_num'][i]),
             parseInt(passed_data['crs_score'][i]),
-            total
+            parseInt(passed_data['prediction'][i])
         ]
     )
 };
+var last_date = new Date(data_table_timeline_chart[data_table_timeline_chart.length - 1][0]);
+for (let i = 0; i <= crs_predictions['next_prediction'].length - 1; i++) {
+    var new_date_to_add = new Date(last_date.setDate(last_date.getDate() + 14));
+    data_table_timeline_chart.push(
+        [
+            last_date,
+            ,
+            ,
+            parseInt(crs_predictions['next_prediction'][i])
+        ]
+    )
+    last_date = new_date_to_add
+}
 
 var data_table_for_div5 = [['Date', '# of ITA issued', 'Program Category', 'CRS cut off']];
 for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {

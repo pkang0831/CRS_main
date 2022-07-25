@@ -1,17 +1,15 @@
-
 '''
 {%...%} for statements
 {{...}} for expressions to print output
 {#...#} for comments
 '''
-from flask import Flask, redirect, url_for, render_template, request, jsonify, make_response
-from flask.templating import render_template_string
-import mysql_connect, crs_scraper
+from flask import Flask, redirect, url_for, render_template, request, jsonify
+import mysql_connect
 import mysql
-from werkzeug import datastructures
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+import ml_model
+import joblib
 import re, json
+import pandas as pd
 
 app2 = Flask(__name__)
 username_ = ''
@@ -31,6 +29,7 @@ def mysql_connection_data_db():
 
 @app2.route('/')
 def welcome():
+    mysql_connect.crs_insert_data()
     return render_template('start.html')
 
 
@@ -231,18 +230,37 @@ def crs_form():
                 nomination_max = %s,\
                 email_ = %s,\
                 username_ = %s', (list(crs_form_dict.values())))
-    mysql_connect.crs_insert_data()
-
-    # return jsonify(request.get_json())
-    # return redirect(url_for('summary'))
+    
+    return redirect(url_for('summary'))
 
 
 @app2.route('/summary')
 def summary():
     global scraped_data
-    mysql_connect.crs_insert_data()
+    
     scraped_data = mysql_connect.get_data()
-    return render_template('summary.html', scraped_data = scraped_data, crs_form_data = crs_form_dict)
+    # Statsmodels Holt's linear trend to implement time series MA calculations
+    forecast_inv = ml_model.invitation_timeseries(scraped_data)
+    # Assuming the program is "No program specified" and date difference is 14 days, we use the model pickles
+    # to scale this data and use ml pickle to generate prediction on next CRS.
+    program_assumption = [0 for i in range(len(forecast_inv))] # No program specified
+    datedelta = [14.0 for i in range(len(forecast_inv))]
+    predict_dataset = pd.DataFrame(
+            {
+                'prgm_name': program_assumption,
+                'inv_num': forecast_inv,
+                'dateDelta': datedelta
+            }
+        )
+    scaler = joblib.load('std_scaler.bin')
+    regressor = joblib.load('regressor.pkl')
+    correction_factor = joblib.load('correction_factor.pkl')
+    scaled_dataset = scaler.transform(predict_dataset)
+    next_prediction = [i + correction_factor for i in regressor.predict(scaled_dataset)]
+    next_prediction_to_pass = {
+        'next_prediction': next_prediction
+    }
+    return render_template('summary.html', scraped_data = scraped_data, crs_form_data = crs_form_dict, crs_predict = next_prediction_to_pass)
 
 
 @app2.route('/Improve_My_CRS')

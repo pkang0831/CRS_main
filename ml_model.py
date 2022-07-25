@@ -15,6 +15,7 @@ import xgboost
 # Data transformation, model accessories libraries
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn import preprocessing, metrics
+from statsmodels.tsa.api import Holt
 # ML pickle file generation
 import joblib
 # Import in-house scripts
@@ -56,7 +57,7 @@ class data_landing():
         # Dropping unused columns for modelling
         df = df.drop(['date_str','date_form','prgm_name2','day_num','month_num','year_num'], axis = 1)
         # Reverse the order so that the most recent data can come down bottom
-        df = df.iloc[::-1].reset_index(drop = True)
+        df = df.reset_index(drop = True)
 
         return df
 
@@ -251,7 +252,6 @@ class model(data_landing):
     def pastPred(self, scaler, fitted_model, df, init_point = 20):
         # Original dataframe
         df_original = self.df.copy(deep = True)
-        df_original = df_original.iloc[::-1].reset_index(drop = True)
         # Processed dataframe
         df_scaled = df.copy(deep = True)
         df_scaled = df_scaled.drop('crs_score', axis = 1)
@@ -295,6 +295,8 @@ class model(data_landing):
     def updateDBonPred(self, predictions: pd.DataFrame):
         # cast predictions to all strings
         predictions = predictions.applymap(lambda x: str(x))
+        predictions['actual'] = predictions['actual'].apply(lambda x: x.replace('.0',''))
+        predictions['prediction'] = predictions['prediction'].apply(lambda x: x[:7])
         connection = mysql_connect.connect_to_data_db()
         cursor = connection.cursor()
         truncate_query = """
@@ -324,14 +326,29 @@ class model(data_landing):
         sns.lineplot(x = predictions.index, y = 'prediction',data = predictions, color = 'red', label = 'prediction')
         plt.show()
 
-    def save_model(self, scaler, fitted_model):
+    def save_model(self, scaler, fitted_model, correction_factor):
         joblib.dump(scaler, 'std_scaler.bin')
         joblib.dump(fitted_model, 'regressor.pkl')
-        
+        joblib.dump(correction_factor, 'correction_factor.pkl')
+
+
+def invitation_timeseries(data: dict):
+    df = pd.DataFrame(data)
+    fit_model = Holt(
+            df['inv_num'].astype(float), 
+            initialization_method = "estimated"
+        ).fit(
+            smoothing_level = 1,
+            smoothing_trend = 0.2,
+            optimized = False
+        )
+    forecasting = fit_model.forecast(3).tolist()
+    return forecasting
 
 if __name__ == "__main__":
     data = mysql_connect.get_data()
     df = pd.DataFrame(data)
+    df = df.drop('prediction', axis = 1)
     initializer = model(df)
     trim_init_point_for_modeling = 25
     # data cleaning
@@ -361,6 +378,6 @@ if __name__ == "__main__":
     # Save the prediction result to the database
     initializer.updateDBonPred(prediction_table)
     # Visual checks #### uncomment to visual check the performance of a trained model.
-    initializer.visual_check(prediction_table, correction_3)
+    # initializer.visual_check(prediction_table, correction_3)
     # Save model and scaler
-    initializer.save_model(scaler, mlModel)
+    initializer.save_model(scaler, mlModel, correction_3)

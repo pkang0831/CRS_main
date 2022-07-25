@@ -12,6 +12,7 @@
   <script type="text/javascript">
     var passed_data = {{ scraped_data | tojson }};
     var crs_form_answers = {{ crs_form_data | tojson }};
+    var crs_predictions = {{ crs_predict | tojson}};
     var new_user = "{{ new_user }}"
   </script>
   <script type="text/javascript" charset="UTF-8"
@@ -300,7 +301,7 @@
     <!-- End page content -->
   </div>
 </body>
-<script type="text/javascript" charset="UTF-8"
-  src="{{ url_for('static', filename='js/summary_functions.js')}}"></script>
+<!-- <script type="text/javascript" charset="UTF-8"
+  src="{{ url_for('static', filename='js/summary_functions.js')}}"></script> -->
 
 </html>
