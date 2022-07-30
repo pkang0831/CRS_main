@@ -29,8 +29,135 @@ var canada_education = crs_form_answers["canada_education"];
 var job = crs_form_answers["job"];
 var nomination = crs_form_answers["nomination"];
 
+// Recorded answers:
+var q1_resp = crs_form_answers['q1'];
+var q2i_resp = crs_form_answers['q2i'];
+var q2ii_resp = crs_form_answers['q2ii'];
+var q3_resp = crs_form_answers['q3'];
+var q4_resp = crs_form_answers['q4'];
+var q4b_resp = crs_form_answers['q4b'];
+var q4c_resp = crs_form_answers['q4c'];
+var q5i_resp = crs_form_answers['q5i'];
+var q5ia_resp = crs_form_answers['q5i_a'];
+var q5ib_s_resp = crs_form_answers['q5i_b_speaking'];
+var q5ib_l_resp = crs_form_answers['q5i_b_listening'];
+var q5ib_r_resp = crs_form_answers['q5i_b_reading'];
+var q5ib_w_resp = crs_form_answers['q5i_b_writing'];
+var q5ii_resp = crs_form_answers['q5ii'];
+var q5ii_s_resp = crs_form_answers['q5ii_sol_speaking'];
+var q5ii_l_resp = crs_form_answers['q5ii_sol_listening'];
+var q5ii_r_resp = crs_form_answers['q5ii_sol_reading'];
+var q5ii_w_resp = crs_form_answers['q5ii_sol_writing'];
+var q6i_resp = crs_form_answers['q6i'];
+var q6ii_resp = crs_form_answers['q6ii'];
+var q7_resp = crs_form_answers['q7'];
+var q8_resp = crs_form_answers['q8'];
+var q8a_resp = crs_form_answers['q8a'];
+var q9_resp = crs_form_answers['q9'];
+var q10_resp = crs_form_answers['q10'];
+var q11_resp = crs_form_answers['q11'];
+var q12_resp = crs_form_answers['q12'];
+var q13i_resp = crs_form_answers['q13i'];
+var q13ii_s_resp = crs_form_answers['q13ii_fol_speaking'];
+var q13ii_l_resp = crs_form_answers['q13ii_fol_listening'];
+var q13ii_r_resp = crs_form_answers['q13ii_fol_reading'];
+var q13ii_w_resp = crs_form_answers['q13ii_fol_writing'];
+
+var q1_resp_converted = find_string_from_table(q1_resp, q1_response_conv, 1)
+var q2i_resp_converted = find_string_from_table(q2i_resp, q2i_response_conv, 1)
+var q2ii_resp_converted = find_string_from_table(q2ii_resp, q2ii_response_conv, 1)
+var q3_resp_converted = find_string_from_table(q3_resp, q3_response_conv, 1)
+var q4_resp_converted = find_string_from_table(q4_resp, q4_response_conv, 1)
+var q4b_resp_converted = find_string_from_table(q4b_resp, q4b_response_conv, 1)
+var q4c_resp_converted = find_string_from_table(q4c_resp, q4c_response_conv, 1)
+var q5i_resp_converted = find_string_from_table(q5i_resp, q5i_response_conv, 1)
+var q5ia_resp_converted = find_string_from_table(q5ia_resp, q5ia_response_conv, 1);
+var q5ib_s_resp_converted = find_string_from_table(q5ib_s_resp, q5ib_speaking_response_conv, 1);
+var q5ib_l_resp_converted = find_string_from_table(q5ib_l_resp, q5ib_listening_response_conv, 1);
+var q5ib_r_resp_converted = find_string_from_table(q5ib_r_resp, q5ib_reading_response_conv, 1);
+var q5ib_w_resp_converted = find_string_from_table(q5ib_w_resp, q5ib_writing_response_conv, 1);
+var q5ii_resp_converted = find_string_from_table(q5ii_resp, q5ii_response_conv, 1);
+var q5ii_s_resp_converted = find_string_from_table(q5ii_s_resp, q5ii_b_speaking_response_conv, 1);
+var q5ii_l_resp_converted = find_string_from_table(q5ii_l_resp, q5ii_b_listening_response_conv, 1);
+var q5ii_r_resp_converted = find_string_from_table(q5ii_r_resp, q5ii_b_reading_response_conv, 1);
+var q5ii_w_resp_converted = find_string_from_table(q5ii_w_resp, q5ii_b_writing_response_conv, 1);
+var q6i_resp_converted = find_string_from_table(q6i_resp, q6i_response_conv, 1);
+var q6ii_resp_converted = find_string_from_table(q6ii_resp, q6ii_response_conv, 1);
+var q7_resp_converted = find_string_from_table(q7_resp, q7_response_conv, 1);
+var q8_resp_converted = find_string_from_table(q8_resp, q8_response_conv, 1);
+var q8a_resp_converted = find_string_from_table(q8a_resp, q8a_response_conv, 1);
+var q9_resp_converted = find_string_from_table(q9_resp, q9_response_conv, 1);
+var q10_resp_converted = find_string_from_table(q10_resp, q10_response_conv, 1);
+var q11_resp_converted = find_string_from_table(q11_resp, q11_response_conv, 1);
+var q12_resp_converted = find_string_from_table(q12_resp, q12_response_conv, 1);
+var q13i_resp_converted = find_string_from_table(q13i_resp, q13i_response_conv, 1);
+var q13ii_s_resp_converted = find_string_from_table(q13ii_s_resp, q13ii_b_speaking_response_conv, 1);
+var q13ii_l_resp_converted = find_string_from_table(q13ii_l_resp, q13ii_b_listening_response_conv, 1);
+var q13ii_r_resp_converted = find_string_from_table(q13ii_r_resp, q13ii_b_reading_response_conv, 1);
+var q13ii_w_resp_converted = find_string_from_table(q13ii_w_resp, q13ii_b_writing_response_conv, 1);
+
+var table_vars = [q1_resp_converted, q2i_resp_converted, q2ii_resp_converted, q3_resp_converted,
+    q4_resp_converted, q4b_resp_converted, q4c_resp_converted, q5i_resp_converted, q5ia_resp_converted, q5ib_s_resp_converted,
+    q5ib_l_resp_converted, q5ib_r_resp_converted, q5ib_w_resp_converted, q5ii_resp_converted, q5ii_s_resp_converted,
+    q5ii_l_resp_converted, q5ii_r_resp_converted, q5ii_w_resp_converted, q6i_resp_converted, q6ii_resp_converted,
+    q7_resp_converted, q8_resp_converted, q8a_resp_converted, q9_resp_converted, q10_resp_converted, q11_resp_converted,
+    q12_resp_converted, q13i_resp_converted, q13ii_s_resp_converted, q13ii_l_resp_converted, q13ii_r_resp_converted,
+    q13ii_w_resp_converted
+];
+var table_vars_id = ["q1_ans", "q2i_ans", 'q2ii_ans', 'q3_ans',
+    'q4_ans', 'q4b_ans', 'q4c_ans', 'q5i_ans', 'q5ia_ans', 'q5ib_s_ans',
+    'q5ib_l_ans', 'q5ib_r_ans', 'q5ib_w_ans', 'q5ii_ans', 'q5ii_s_ans',
+    'q5ii_l_ans', 'q5ii_r_ans', 'q5ii_w_ans', 'q6i_ans', 'q6ii_ans',
+    'q7_ans', 'q8_ans', 'q8a_ans', 'q9_ans', 'q10_ans', 'q11_ans',
+    'q12_ans', 'q13i_ans', 'q13ii_s_ans', 'q13ii_l_ans', 'q13ii_r_ans',
+    'q13ii_w_ans'
+];
+
+window.onload = function NA_opac() {
+    table_vars.forEach((response, idx) => {
+        var html_id = table_vars_id[idx];
+        if (response == "Not Applicable") {
+            document.getElementById(html_id).style.opacity = 0.4;
+        }
+    });
+    // Add_options
+    $("#q1").append(get_option(q1_response_conv, 0, 1));
+    $("#q2i").append(get_option(q2i_response_conv, 0, 1));
+    $("#q2ii").append(get_option(q2ii_response_conv, 0, 1));
+    $("#q3").append(get_option(q3_response_conv, 0, 1));
+    $("#q4").append(get_option(q4_response_conv, 0, 1));
+    $("#q4b").append(get_option(q4b_response_conv, 0, 1));
+    $("#q4c").append(get_option(q4c_response_conv, 0, 1));
+    $("#q5i").append(get_option(q5i_response_conv, 0, 1));
+    $("#q5ia").append(get_option(q5ia_response_conv, 0, 1));
+    $("#q5ib").append(get_option(q5ib_response_conv, 0, 1));
+    $("#q5ib_s").append(get_option(q5ib_speaking_response_conv, 0, 1));
+    $("#q5ib_l").append(get_option(q5ib_listening_response_conv, 0, 1));
+    $("#q5ib_r").append(get_option(q5ib_reading_response_conv, 0, 1));
+    $("#q5ib_w").append(get_option(q5ib_writing_response_conv, 0, 1));
+    $("#q5ii").append(get_option(q5ii_response_conv, 0, 1));
+    $("#q5ii_s").append(get_option(q5ii_b_speaking_response_conv, 0, 1));
+    $("#q5ii_l").append(get_option(q5ii_b_listening_response_conv, 0, 1));
+    $("#q5ii_r").append(get_option(q5ii_b_reading_response_conv, 0, 1));
+    $("#q5ii_w").append(get_option(q5ii_b_writing_response_conv, 0, 1));
+    $("#q6i").append(get_option(q6i_response_conv, 0, 1));
+    $("#q6ii").append(get_option(q6ii_response_conv, 0, 1));
+    $("#q7").append(get_option(q7_response_conv, 0, 1));
+    $("#q8").append(get_option(q8_response_conv, 0, 1));
+    $("#q8a").append(get_option(q8a_response_conv, 0, 1));
+    $("#q9").append(get_option(q9_response_conv, 0, 1));
+    $("#q10").append(get_option(q10_response_conv, 0, 1));
+    $("#q11").append(get_option(q11_response_conv, 0, 1));
+    $("#q12").append(get_option(q12_response_conv, 0, 1));
+    $("#q13i").append(get_option(q13i_response_conv, 0, 1));
+    $("#q13ii_s").append(get_option(q13ii_b_speaking_response_conv, 0, 1));
+    $("#q13ii_l").append(get_option(q13ii_b_listening_response_conv, 0, 1));
+    $("#q13ii_r").append(get_option(q13ii_b_reading_response_conv, 0, 1));
+    $("#q13ii_w").append(get_option(q13ii_b_writing_response_conv, 0, 1));
+}
+
 // check if there is a spouse or not
-if (crs_form_answers['q2i'] == "badvalue"){ // means this individual is single applicant
+if (crs_form_answers['q2i'] == "badvalue") { // means this individual is single applicant
     var spouse_check_number = 1
 } else {
     var spouse_check_number = 0
@@ -139,3 +266,45 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
+
+function find_string_from_table(value, table, column_i) {
+    for (i = 0; i < table.length; i++) {
+        if (value == table[i][0]) { return table[i][column_i]; }
+    }
+}
+
+
+function get_option(table, f_column_i, s_column_i) {
+    var options;
+    for (i = 0; i < table.length; i++) {
+        options += '<option value="' + table[i][f_column_i] + '"">' + table[i][s_column_i] + '</option>';
+    }
+
+    return options;
+}
+
+
+
+
+
+
+// // jquery for the functionalities
+// $(document).ready(function () {
+//     if (spouse_check_number == 1) {
+//         $("#singleOrCoupleOptionsdiv input[type=radio]:eq(0)").click(function () {
+//             console.log("single clicked");
+//         });
+//         $("#singleOrCoupleOptionsdiv input[type=radio]:eq(1)").click(function () {
+//             console.log("couple clicked");
+//         });
+//         $("input[type=radio]:eq(0)").prop("checked", true).trigger("click");
+//     } else {
+//         $("#singleOrCoupleOptionsdiv input[type=radio]:eq(0)").click(function () {
+//             console.log("single clicked");
+//         });
+//         $("#singleOrCoupleOptionsdiv input[type=radio]:eq(1)").click(function () {
+//             console.log("couple clicked");
+//         });
+//         $("input[type=radio]:eq(1)").prop("checked", true).trigger("click");
+//     }
+// });

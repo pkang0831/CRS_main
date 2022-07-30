@@ -1,0 +1,33 @@
+.table_simulator_crs {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 1200px;
+}
+
+.th_simulator {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    width: 40%;
+}
+
+.td_simulator {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 9px;
+    width: 40%;
+}
+.td_simulator_q {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 9px;
+    width: 20%;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+select {
+    width:40%;
+}

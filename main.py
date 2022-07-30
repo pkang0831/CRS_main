@@ -27,6 +27,23 @@ def mysql_connection_data_db():
     )
     return connection
 
+def retrieve_profile_data(username, email):
+    connection = mysql_connection_data_db()
+    cursor = connection.cursor()
+    query = """
+    SELECT * FROM data_db.data_table_qna WHERE email_ = %s OR username_ = %s
+    """
+    cursor.execute(query, ([email, username]))
+    columns = [fields_name for fields_name in cursor.description]
+    returnData = cursor.fetchone()
+    returndicts = dict()
+    for i, val in zip(columns, returnData):
+        returndicts.update({i:val})
+    if not returnData:
+        return None
+    else:
+        return returndicts
+
 @app2.route('/')
 def welcome():
     mysql_connect.crs_insert_data()
@@ -39,7 +56,7 @@ def login():
     connection = mysql_connection_data_db()
     msg = ''
     if request.method == 'POST' and 'uname' in request.form and 'psw' in request.form:
-        global username_, new_user, email_
+        global username_, new_user, email_, crs_form_dict
         new_user = 'False'
         username_ = request.form['uname']
         password = request.form['psw']
@@ -49,13 +66,15 @@ def login():
         account = cursor.fetchone()
         session = dict()
         if account:
-            session['loggedin'] = True
-            session['id'] = account[0]
-            session['username'] = account[1]
-            session['password'] = account[2]
-            session['email'] = account[3]
+            # session['loggedin'] = True
+            # session['id'] = account[0]
+            # session['username'] = account[1]
+            # session['password'] = account[2]
+            # session['email'] = account[3]
+            crs_form_dict = retrieve_profile_data(username_, email_)
             msg = 'Log in successful!'
-            return render_template('question.html', username=username_, new_user=new_user)
+            # return render_template('question.html', username=username_, new_user=new_user)
+            return redirect(url_for('summary'), username = username_, email = email_)
         else:
             msg = "Incorrect username or password"
 
@@ -236,7 +255,10 @@ def crs_form():
 
 @app2.route('/summary')
 def summary():
-    global scraped_data
+    # global scraped_data
+    print(username_)
+    print(email_)
+    print(crs_form_dict)
     
     scraped_data = mysql_connect.get_data()
     # Statsmodels Holt's linear trend to implement time series MA calculations
@@ -265,6 +287,9 @@ def summary():
 
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
+    # TODO: 시뮬레이터 만들기 - questions_functions.js 를 가져와서 조금 변형시키면 됨. onclick event 사용해서 function calculate (without ajax) trigger
+    # TODO: improve_my_crs.html -> 좀 이쁜 시뮬레이터 유저 인터페이스 만들기 - 설명들 다 지우셈
+    # TODO: AWS cloud EC2 그리고 web app deployment 어떻게 하는지 찾아보기
     return render_template('Improve_My_CRS.html', crs_form_data = crs_form_dict)
 
 @app2.context_processor

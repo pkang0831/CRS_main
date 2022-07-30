@@ -16,7 +16,7 @@ var total = Core + Spouse + Skill + Bonus;
 var CRS_Predict = parseInt(crs_predictions['next_prediction'][0])
 var last_CRS = parseInt(passed_data['crs_score'][passed_data['crs_score'].length - 1])
 var data_table_timeline_chart = [
-    ['Date', '# of ITA issued', 'CRS cut off', 'CRS Prediction']
+    ['Date', '# of ITA issued', 'CRS cut off', 'Past CRS prediction records','Future Prediction (under dev)']
 ];
 for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
     data_table_timeline_chart.push(
@@ -28,16 +28,26 @@ for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
             ),
             parseInt(passed_data['inv_num'][i]),
             parseInt(passed_data['crs_score'][i]),
-            parseInt(passed_data['prediction'][i])
+            parseInt(passed_data['prediction'][i]),null
         ]
     )
 };
+data_table_timeline_chart.push(
+    [
+        new Date(data_table_timeline_chart[data_table_timeline_chart.length - 1][0]),
+        ,
+        ,
+        ,
+        parseInt(data_table_timeline_chart[data_table_timeline_chart.length - 1][3])
+    ]
+)
 var last_date = new Date(data_table_timeline_chart[data_table_timeline_chart.length - 1][0]);
 for (let i = 0; i <= crs_predictions['next_prediction'].length - 1; i++) {
     var new_date_to_add = new Date(last_date.setDate(last_date.getDate() + 14));
     data_table_timeline_chart.push(
         [
             last_date,
+            ,
             ,
             ,
             parseInt(crs_predictions['next_prediction'][i])
@@ -47,7 +57,7 @@ for (let i = 0; i <= crs_predictions['next_prediction'].length - 1; i++) {
 }
 
 var data_table_for_div5 = [['Date', '# of ITA issued', 'Program Category', 'CRS cut off']];
-for (let i = 0; i <= passed_data['crs_score'].length - 1; i++) {
+for (let i = passed_data['crs_score'].length - 1; i >= 0; i--) {
     data_table_for_div5.push(
         [passed_data['date_str'][i], passed_data['inv_num'][i], passed_data['prgm_name'][i], passed_data['crs_score'][i]]
     )
@@ -145,8 +155,7 @@ function drawChart() {
             0: { targetAxisIndex: 1, color: 'blue' },
             1: { targetAxisIndex: 0, color: 'red' },
             2: { targetAxisIndex: 0, lineDashStyle: [4, 4], color: 'green' },
-            3: { targetAxisIndex: 1, lineDashStyle: [4, 4], color: 'blue' },
-            4: { targetAxisIndex: 0, lineDashStyle: [14, 7, 7, 2], color: 'purple' }
+            3: { targetAxisIndex: 0, lineDashStyle: [4, 4], color: 'purple' }
         },
         vAxes: {
             1: { title: 'ITA issued' },

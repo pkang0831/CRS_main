@@ -8,11 +8,14 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/my_crs_style.css')}}">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
     var crs_form_answers = {{ crs_form_data | tojson }};
     var new_user = "{{ new_user }}"
   </script>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'js/data_improve_crs.js')}}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename = 'js/improve_my_crs_functions.js')}}"></script>
 </head>
 <style>
@@ -173,6 +176,310 @@
             document.write("Nomination : <strong>" + nomination + "</strong> <br>");
           </script>
         </div>
+      </div>
+      <div class="w3-container">
+        <h3><b>What if?</b></h3>
+        <h5>This section is simulation if you make any improvement/change for your profile</h5>
+        <table class = "table_simulator_crs">
+          <tr>
+            <td class = "td_simulator_q">Questions</td>
+            <td class = "th_simulator">Saved response</td>
+            <td class = "th_simulator">Simulate
+              <!-- <div id = "singleOrCoupleOptionsdiv" class = "w3-container">
+                <input id = "singleOption" type = "radio" name = "singleOrDouble" value = "Singles"> Single applicant
+                <input id = "coupleOption" type = "radio" name = "singleOrDouble" value = "Couples"> Couple applicant
+              </div> -->
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Marital Status</td>
+            <td id = "q1_ans" class = "td_simulator"><script>document.write(q1_resp_converted)</script></td>
+            <td id = "q1_simul" class = "td_simulator">
+              <select id="q1" name="q1">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+            </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse PR/Citizen</td>
+            <td id = "q2i_ans" class = "td_simulator"><script>document.write(q2i_resp_converted)</script></td>
+            <td id = "q2i_simul" class = "td_simulator">
+              <select id="q2i" name="q2i">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse Accompanying</td>
+            <td id = "q2ii_ans" class = "td_simulator"><script>document.write(q2ii_resp_converted)</script></td>
+            <td id = "q2ii_simul" class = "td_simulator">
+              <select id="q2ii" name="q2ii">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Applicant's Age</td>
+            <td id = "q3_ans" class = "td_simulator"><script>document.write(q3_resp_converted)</script></td>
+            <td id = "q3_simul" class = "td_simulator">
+              <select id="q3" name="q3">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Highest level of Education</td>
+            <td id = "q4_ans"class = "td_simulator"><script>document.write(q4_resp_converted)</script></td>
+            <td id = "q4_simul" class = "td_simulator">
+              <select id="q4" name="q4">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Canadian Education?</td>
+            <td id = "q4b_ans"class = "td_simulator"><script>document.write(q4b_resp_converted)</script></td>
+            <td id = "q4b_simul" class = "td_simulator">
+              <select id="q4b" name="q4b">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Highest level of Canadian Education</td>
+            <td id = "q4c_ans"class = "td_simulator"><script>document.write(q4c_resp_converted)</script></td>
+            <td id = "q4c_simul" class = "td_simulator">
+              <select id="q4c" name="q4c">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Test result 2 years or less</td>
+            <td id = "q5i_ans" class = "td_simulator"><script>document.write(q5i_resp_converted)</script></td>
+            <td id = "q5i_simul" class = "td_simulator">
+              <select id="q5i" name="q5i">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">First language test choice</td>
+            <td id = "q5ia_ans" class = "td_simulator"><script>document.write(q5ia_resp_converted)</script></td>
+            <td id = "q5ia_simul" class = "td_simulator">
+              <select id="q5ia" name="q5ia">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">First Language Speaking</td>
+            <td id = "q5ib_s_ans" class = "td_simulator"><script>document.write(q5ib_s_resp_converted)</script></td>
+            <td id = "q5ib_simul" class = "td_simulator">
+              <select id="q5ib_s" name="q5ib_s">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">First Language Listening</td>
+            <td id = "q5ib_l_ans" class = "td_simulator"><script>document.write(q5ib_l_resp_converted)</script></td>
+            <td id = "q5ib_l_simul" class = "td_simulator">
+              <select id="q5ib_l" name="q5ib_l">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">First Language Reading</td>
+            <td id = "q5ib_r_ans" class = "td_simulator"><script>document.write(q5ib_r_resp_converted)</script></td>
+            <td id = "q5ib_r_simul" class = "td_simulator">
+              <select id="q5ib_r" name="q5ib_r">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">First Language Writing</td>
+            <td id = "q5ib_w_ans" class = "td_simulator"><script>document.write(q5ib_w_resp_converted)</script></td>
+            <td id = "q5ib_w_simul" class = "td_simulator">
+              <select id="q5ib_w" name="q5ib_w">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Second language test choice</td>
+            <td id = "q5ii_ans"class = "td_simulator"><script>document.write(q5ii_resp_converted)</script></td>
+            <td id = "q5ii_simul" class = "td_simulator">
+              <select id="q5ii" name="q5ii">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Second Language Speaking</td>
+            <td id = "q5ii_s_ans" class = "td_simulator"><script>document.write(q5ii_s_resp_converted)</script></td>
+            <td id = "q5ii_s_simul" class = "td_simulator">
+              <select id="q5ii_s" name="q5ii_s">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Second Language Listening</td>
+            <td id = "q5ii_l_ans" class = "td_simulator"><script>document.write(q5ii_l_resp_converted)</script></td>
+            <td id = "q5ii_l_simul" class = "td_simulator">
+              <select id="q5ii_l" name="q5ii_l">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Second Language Reading</td>
+            <td id = "q5ii_r_ans" class = "td_simulator"><script>document.write(q5ii_r_resp_converted)</script></td>
+            <td id = "q5ii_r_simul" class = "td_simulator">
+              <select id="q5ii_r" name="q5ii_r">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Second Language Writing</td>
+            <td id = "q5ii_w_ans"class = "td_simulator"><script>document.write(q5ii_w_resp_converted)</script></td>
+            <td id = "q5ii_w_simul" class = "td_simulator">
+              <select id="q5ii_w" name="q5ii_w">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Canadian Work Exp Years</td>
+            <td id = "q6i_ans" class = "td_simulator"><script>document.write(q6i_resp_converted)</script></td>
+            <td id = "q6i_simul" class = "td_simulator">
+              <select id="q6i" name="q6i">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Foreign Work Exp Years</td>
+            <td id = "q6ii_ans" class = "td_simulator"><script>document.write(q6ii_resp_converted)</script></td>
+            <td id = "q6ii_simul" class = "td_simulator">
+              <select id="q6ii" name="q6ii">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Certificate of Qualification</td>
+            <td id = "q7_ans" class = "td_simulator"><script>document.write(q7_resp_converted)</script></td>
+            <td id = "q7_simul" class = "td_simulator">
+              <select id="q7" name="q7">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">LMIA?</td>
+            <td id = "q8_ans" class = "td_simulator"><script>document.write(q8_resp_converted)</script></td>
+            <td id = "q8_simul" class = "td_simulator">
+              <select id="q8" name="q8">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">LMIA NOC type</td>
+            <td id = "q8a_ans" class = "td_simulator"><script>document.write(q8a_resp_converted)</script></td>
+            <td id = "q8a_simul" class = "td_simulator">
+              <select id="q8a" name="q8a">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Province Nomination (PNP)</td>
+            <td id = "q9_ans" class = "td_simulator"><script>document.write(q9_resp_converted)</script></td>
+            <td id = "q9_simul" class = "td_simulator">
+              <select id="q9" name="q9">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Siblings/Partner PR?</td>
+            <td id = "q10_ans" class = "td_simulator"><script>document.write(q10_resp_converted)</script></td>
+            <td id = "q10_simul" class = "td_simulator">
+              <select id="q10" name="q10">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse Highest Canadian Education</td>
+            <td id = "q11_ans" class = "td_simulator"><script>document.write(q11_resp_converted)</script></td>
+            <td id = "q11_simul" class = "td_simulator">
+              <select id="q11" name="q11">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse Work Exp</td>
+            <td id = "q12_ans" class = "td_simulator"><script>document.write(q12_resp_converted)</script></td>
+            <td id = "q12_simul" class = "td_simulator">
+              <select id="q12" name="q12">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse First Language Test choice</td>
+            <td id = "q13i_ans" class = "td_simulator"><script>document.write(q13i_resp_converted)</script></td>
+            <td id = "q13i_simul" class = "td_simulator">
+              <select id="q13i" name="q13i">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse First Language Speaking</td>
+            <td id = "q13ii_s_ans" class = "td_simulator"><script>document.write(q13ii_s_resp_converted)</script></td>
+            <td id = "q13ii_s_simul" class = "td_simulator">
+              <select id="q13ii_s" name="q13ii_s">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse First Language Listening</td>
+            <td id = "q13ii_l_ans" class = "td_simulator"><script>document.write(q13ii_l_resp_converted)</script></td>
+            <td id = "q13ii_l_simul" class = "td_simulator">
+              <select id="q13ii_l" name="q13ii_l">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse First Language Reading</td>
+            <td id = "q13ii_r_ans" class = "td_simulator"><script>document.write(q13ii_r_resp_converted)</script></td>
+            <td id = "q13ii_r_simul" class = "td_simulator">
+              <select id="q13ii_r" name="q13ii_r">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class = "td_simulator_q">Spouse First Language Writing</td>
+            <td id = "q13ii_w_ans" class = "td_simulator"><script>document.write(q13ii_w_resp_converted)</script></td>
+            <td id = "q13ii_w_simul" class = "td_simulator">
+              <select id="q13ii_w" name="q13ii_w">
+                <option value="badvalue" selected disabled hidden> Select... </option>
+              </select>
+            </td>
+          </tr>
+        </table>
       </div>
       <div class="w3-container">
         <h3><b>Ways to improve CRS score</b></h3>
