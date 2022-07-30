@@ -113,6 +113,24 @@ var table_vars_id = ["q1_ans", "q2i_ans", 'q2ii_ans', 'q3_ans',
     'q13ii_w_ans'
 ];
 
+var option_select_ids = ["q1", "q2i", 'q2ii', 'q3',
+    'q4', 'q4b', 'q4c', 'q5i', 'q5ia', 'q5ib_s',
+    'q5ib_l', 'q5ib_r', 'q5ib_w', 'q5ii', 'q5ii_s',
+    'q5ii_l', 'q5ii_r', 'q5ii_w', 'q6i', 'q6ii',
+    'q7', 'q8', 'q8a', 'q9', 'q10', 'q11',
+    'q12', 'q13i', 'q13ii_s', 'q13ii_l', 'q13ii_r',
+    'q13ii_w'
+];
+
+var option_tables = [q1_response_conv, q2i_response_conv, q2ii_response_conv, q3_response_conv,
+    q4_response_conv, q4b_response_conv, q4c_response_conv, q5i_response_conv, q5ia_response_conv, q5ib_speaking_response_conv,
+    q5ib_listening_response_conv, q5ib_reading_response_conv, q5ib_writing_response_conv, q5ii_response_conv, q5ii_b_speaking_response_conv,
+    q5ii_b_listening_response_conv, q5ii_b_reading_response_conv, q5ii_b_writing_response_conv, q6i_response_conv, q6ii_response_conv,
+    q7_response_conv, q8_response_conv, q8a_response_conv, q9_response_conv, q10_response_conv, q11_response_conv,
+    q12_response_conv, q13i_response_conv, q13ii_b_speaking_response_conv, q13ii_b_listening_response_conv, q13ii_b_reading_response_conv,
+    q13ii_b_writing_response_conv
+];
+
 window.onload = function NA_opac() {
     table_vars.forEach((response, idx) => {
         var html_id = table_vars_id[idx];
@@ -121,39 +139,16 @@ window.onload = function NA_opac() {
         }
     });
     // Add_options
-    $("#q1").append(get_option(q1_response_conv, 0, 1));
-    $("#q2i").append(get_option(q2i_response_conv, 0, 1));
-    $("#q2ii").append(get_option(q2ii_response_conv, 0, 1));
-    $("#q3").append(get_option(q3_response_conv, 0, 1));
-    $("#q4").append(get_option(q4_response_conv, 0, 1));
-    $("#q4b").append(get_option(q4b_response_conv, 0, 1));
-    $("#q4c").append(get_option(q4c_response_conv, 0, 1));
-    $("#q5i").append(get_option(q5i_response_conv, 0, 1));
-    $("#q5ia").append(get_option(q5ia_response_conv, 0, 1));
-    $("#q5ib").append(get_option(q5ib_response_conv, 0, 1));
-    $("#q5ib_s").append(get_option(q5ib_speaking_response_conv, 0, 1));
-    $("#q5ib_l").append(get_option(q5ib_listening_response_conv, 0, 1));
-    $("#q5ib_r").append(get_option(q5ib_reading_response_conv, 0, 1));
-    $("#q5ib_w").append(get_option(q5ib_writing_response_conv, 0, 1));
-    $("#q5ii").append(get_option(q5ii_response_conv, 0, 1));
-    $("#q5ii_s").append(get_option(q5ii_b_speaking_response_conv, 0, 1));
-    $("#q5ii_l").append(get_option(q5ii_b_listening_response_conv, 0, 1));
-    $("#q5ii_r").append(get_option(q5ii_b_reading_response_conv, 0, 1));
-    $("#q5ii_w").append(get_option(q5ii_b_writing_response_conv, 0, 1));
-    $("#q6i").append(get_option(q6i_response_conv, 0, 1));
-    $("#q6ii").append(get_option(q6ii_response_conv, 0, 1));
-    $("#q7").append(get_option(q7_response_conv, 0, 1));
-    $("#q8").append(get_option(q8_response_conv, 0, 1));
-    $("#q8a").append(get_option(q8a_response_conv, 0, 1));
-    $("#q9").append(get_option(q9_response_conv, 0, 1));
-    $("#q10").append(get_option(q10_response_conv, 0, 1));
-    $("#q11").append(get_option(q11_response_conv, 0, 1));
-    $("#q12").append(get_option(q12_response_conv, 0, 1));
-    $("#q13i").append(get_option(q13i_response_conv, 0, 1));
-    $("#q13ii_s").append(get_option(q13ii_b_speaking_response_conv, 0, 1));
-    $("#q13ii_l").append(get_option(q13ii_b_listening_response_conv, 0, 1));
-    $("#q13ii_r").append(get_option(q13ii_b_reading_response_conv, 0, 1));
-    $("#q13ii_w").append(get_option(q13ii_b_writing_response_conv, 0, 1));
+    option_select_ids.forEach((response, idx) => {
+        var option_tables_vals = option_tables[idx]
+        $("#" + response).append(get_option(option_tables_vals,0,1));
+    });
+    $(function() {
+        option_select_ids.forEach((response, idx) => {
+            var option_vals = table_vars[idx]
+            $('#' + response).val(option_vals).change()
+        });
+    });
 }
 
 // check if there is a spouse or not
@@ -277,7 +272,7 @@ function find_string_from_table(value, table, column_i) {
 function get_option(table, f_column_i, s_column_i) {
     var options;
     for (i = 0; i < table.length; i++) {
-        options += '<option value="' + table[i][f_column_i] + '"">' + table[i][s_column_i] + '</option>';
+        options += '<option value="' + table[i][s_column_i] + '"">' + table[i][s_column_i] + '</option>';
     }
 
     return options;
