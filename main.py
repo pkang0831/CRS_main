@@ -38,7 +38,7 @@ def retrieve_profile_data(username, email):
     returnData = cursor.fetchone()
     returndicts = dict()
     for i, val in zip(columns, returnData):
-        returndicts.update({i:val})
+        returndicts.update({i[0]:val})
     if not returnData:
         return None
     else:
@@ -64,17 +64,12 @@ def login():
         cursor.execute(
             "SELECT * FROM user_accounts WHERE username = %s AND password = %s", ([username_, password]))
         account = cursor.fetchone()
-        session = dict()
         if account:
-            # session['loggedin'] = True
-            # session['id'] = account[0]
-            # session['username'] = account[1]
-            # session['password'] = account[2]
-            # session['email'] = account[3]
+            email_ = account[3]
             crs_form_dict = retrieve_profile_data(username_, email_)
             msg = 'Log in successful!'
             # return render_template('question.html', username=username_, new_user=new_user)
-            return redirect(url_for('summary'), username = username_, email = email_)
+            return redirect(url_for('summary', username = username_, email = email_))
         else:
             msg = "Incorrect username or password"
 
@@ -287,8 +282,6 @@ def summary():
 
 @app2.route('/Improve_My_CRS')
 def Improve_My_CRS():
-    # TODO: 시뮬레이터 만들기 - questions_functions.js 를 가져와서 조금 변형시키면 됨. onclick event 사용해서 function calculate (without ajax) trigger
-    # TODO: improve_my_crs.html -> 좀 이쁜 시뮬레이터 유저 인터페이스 만들기 - 설명들 다 지우셈
     # TODO: AWS cloud EC2 그리고 web app deployment 어떻게 하는지 찾아보기
     return render_template('Improve_My_CRS.html', crs_form_data = crs_form_dict)
 

@@ -604,13 +604,16 @@ if (crs_form_answers['q2i'] == "badvalue") { // means this individual is single 
 }
 
 function drawChart() {
-
+    var core_chart = parseInt(Core)
+    var spouse_chart = parseInt(Spouse)
+    var skill_chart = parseInt(Skill)
+    var bonus_chart = parseInt(Bonus)
     var main_columns = new google.visualization.arrayToDataTable([
         ['Category', 'Point_contribution', { role: "style" }],
-        ['A. Core Factors', Core, 'blue'],
-        ['B. Spouse Factors', Spouse, 'green'],
-        ['C. Skill Factors', Skill, 'red'],
-        ['D. Bonus Factors', Bonus, 'orange']
+        ['A. Core Factors', core_chart, 'blue'],
+        ['B. Spouse Factors', spouse_chart, 'green'],
+        ['C. Skill Factors', skill_chart, 'red'],
+        ['D. Bonus Factors', bonus_chart, 'orange']
     ]);
     var options_columns = {
         height: 500,

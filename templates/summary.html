@@ -61,7 +61,7 @@
       <a href="{{ url_for('summary', _anchor='path_tree')}}" class="w3-bar-item w3-button w3-padding"
         onclick="w3_close()"><i class="fa fa-bullseye fa-fw"></i>  My Path to PR landing</a>
       <a href="{{ url_for('Improve_My_CRS')}}" class="w3-bar-item w3-button w3-padding"><i
-          class="fa fa-users fa-fw"></i>  Improve my CRS points</a>
+          class="fa fa-users fa-fw"></i>  Simulator</a>
       <a href="{{ url_for('question')}}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 
         Assessment</a>
     </div>
@@ -81,10 +81,10 @@
         style="font-size:30px;text-align:center;display:inline-block;background-color:skyblue;padding:20px;border-radius:15px;">Your
         CRS points:<b>
           <script>
-            var Core = crs_form_answers['Core_factors'];
-            var Spouse = crs_form_answers['Spouse_factors'];
-            var Skill = crs_form_answers['Skill_factors'];
-            var Bonus = crs_form_answers['Bonus_factors'];
+            var Core = parseInt(crs_form_answers['Core_factors']);
+            var Spouse = parseInt(crs_form_answers['Spouse_factors']);
+            var Skill = parseInt(crs_form_answers['Skill_factors']);
+            var Bonus = parseInt(crs_form_answers['Bonus_factors']);
             var total = Core + Spouse + Skill + Bonus;
             document.write(total);
           </script>
