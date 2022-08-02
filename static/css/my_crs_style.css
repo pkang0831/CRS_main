@@ -1,31 +1,31 @@
 .table_simulator_crs {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 1200px;
+    width: 1500px;
 }
 
 .th_simulator {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
-    width: 40%;
+    width: 33%;
 }
 
 .td_simulator {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 9px;
-    width: 40%;
+    width: 33%;
 }
 .td_simulator_q {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 9px;
-    width: 20%;
+    width: 10%;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #C8C8C8;
 }
 
 select {

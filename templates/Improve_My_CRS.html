@@ -184,24 +184,25 @@
           <tr>
             <td class = "td_simulator_q">Questions</td>
             <td class = "th_simulator">Saved response</td>
-            <td class = "th_simulator">Simulate
-              <!-- <div id = "singleOrCoupleOptionsdiv" class = "w3-container">
-                <input id = "singleOption" type = "radio" name = "singleOrDouble" value = "Singles"> Single applicant
-                <input id = "coupleOption" type = "radio" name = "singleOrDouble" value = "Couples"> Couple applicant
-              </div> -->
-            </td>
+            <td class = "th_simulator">Simulate</td>
+            <td class = "th_simulator">Simulation Results <br>(Original , <span style = "color:#0400ffe0;">Simulated </span>, <span style = "color:#217334;">+</span>/<span style = "color:#FF0000;">-</span> Changes)</td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Marital Status</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q1. </span>Marital Status</td>
             <td id = "q1_ans" class = "td_simulator"><script>document.write(q1_resp_converted)</script></td>
             <td id = "q1_simul" class = "td_simulator">
               <select id="q1" name="q1">
                 <option value="badvalue" selected disabled hidden> Select... </option>
             </select>
             </td>
+            <td id = "simulate_calculate" 
+                class = "td_simulator" 
+                rowspan = "32"
+                style = "text-align:left; vertical-align: top;">
+            </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse PR/Citizen</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q2i. </span>Spouse PR/Citizen</td>
             <td id = "q2i_ans" class = "td_simulator"><script>document.write(q2i_resp_converted)</script></td>
             <td id = "q2i_simul" class = "td_simulator">
               <select id="q2i" name="q2i">
@@ -210,7 +211,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse Accompanying</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q2ii. </span>Spouse Accompanying</td>
             <td id = "q2ii_ans" class = "td_simulator"><script>document.write(q2ii_resp_converted)</script></td>
             <td id = "q2ii_simul" class = "td_simulator">
               <select id="q2ii" name="q2ii">
@@ -219,7 +220,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Applicant's Age</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q3. </span>Applicant's Age</td>
             <td id = "q3_ans" class = "td_simulator"><script>document.write(q3_resp_converted)</script></td>
             <td id = "q3_simul" class = "td_simulator">
               <select id="q3" name="q3">
@@ -228,7 +229,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Highest level of Education</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q4. </span>Highest level of Education</td>
             <td id = "q4_ans"class = "td_simulator"><script>document.write(q4_resp_converted)</script></td>
             <td id = "q4_simul" class = "td_simulator">
               <select id="q4" name="q4">
@@ -237,7 +238,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Canadian Education?</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q4b. </span>Canadian Education?</td>
             <td id = "q4b_ans"class = "td_simulator"><script>document.write(q4b_resp_converted)</script></td>
             <td id = "q4b_simul" class = "td_simulator">
               <select id="q4b" name="q4b">
@@ -246,7 +247,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Highest level of Canadian Education</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q4c. </span>Highest level of Canadian Education</td>
             <td id = "q4c_ans"class = "td_simulator"><script>document.write(q4c_resp_converted)</script></td>
             <td id = "q4c_simul" class = "td_simulator">
               <select id="q4c" name="q4c">
@@ -255,7 +256,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Test result 2 years or less</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i. </span>Test result 2 years or less</td>
             <td id = "q5i_ans" class = "td_simulator"><script>document.write(q5i_resp_converted)</script></td>
             <td id = "q5i_simul" class = "td_simulator">
               <select id="q5i" name="q5i">
@@ -264,7 +265,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">First language test choice</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i_a. </span>First language test choice</td>
             <td id = "q5ia_ans" class = "td_simulator"><script>document.write(q5ia_resp_converted)</script></td>
             <td id = "q5ia_simul" class = "td_simulator">
               <select id="q5ia" name="q5ia">
@@ -273,7 +274,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">First Language Speaking</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i_b_s. </span>First Language Speaking</td>
             <td id = "q5ib_s_ans" class = "td_simulator"><script>document.write(q5ib_s_resp_converted)</script></td>
             <td id = "q5ib_simul" class = "td_simulator">
               <select id="q5ib_s" name="q5ib_s">
@@ -282,7 +283,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">First Language Listening</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i_b_l. </span>First Language Listening</td>
             <td id = "q5ib_l_ans" class = "td_simulator"><script>document.write(q5ib_l_resp_converted)</script></td>
             <td id = "q5ib_l_simul" class = "td_simulator">
               <select id="q5ib_l" name="q5ib_l">
@@ -291,7 +292,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">First Language Reading</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i_b_r. </span>First Language Reading</td>
             <td id = "q5ib_r_ans" class = "td_simulator"><script>document.write(q5ib_r_resp_converted)</script></td>
             <td id = "q5ib_r_simul" class = "td_simulator">
               <select id="q5ib_r" name="q5ib_r">
@@ -300,7 +301,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">First Language Writing</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5i_b_w. </span>First Language Writing</td>
             <td id = "q5ib_w_ans" class = "td_simulator"><script>document.write(q5ib_w_resp_converted)</script></td>
             <td id = "q5ib_w_simul" class = "td_simulator">
               <select id="q5ib_w" name="q5ib_w">
@@ -309,7 +310,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Second language test choice</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5ii. </span>Second language test choice</td>
             <td id = "q5ii_ans"class = "td_simulator"><script>document.write(q5ii_resp_converted)</script></td>
             <td id = "q5ii_simul" class = "td_simulator">
               <select id="q5ii" name="q5ii">
@@ -318,7 +319,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Second Language Speaking</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5ii_s. </span>Second Language Speaking</td>
             <td id = "q5ii_s_ans" class = "td_simulator"><script>document.write(q5ii_s_resp_converted)</script></td>
             <td id = "q5ii_s_simul" class = "td_simulator">
               <select id="q5ii_s" name="q5ii_s">
@@ -327,7 +328,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Second Language Listening</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5ii_l. </span>Second Language Listening</td>
             <td id = "q5ii_l_ans" class = "td_simulator"><script>document.write(q5ii_l_resp_converted)</script></td>
             <td id = "q5ii_l_simul" class = "td_simulator">
               <select id="q5ii_l" name="q5ii_l">
@@ -336,7 +337,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Second Language Reading</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5ii_r. </span>Second Language Reading</td>
             <td id = "q5ii_r_ans" class = "td_simulator"><script>document.write(q5ii_r_resp_converted)</script></td>
             <td id = "q5ii_r_simul" class = "td_simulator">
               <select id="q5ii_r" name="q5ii_r">
@@ -345,7 +346,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Second Language Writing</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q5ii_w. </span>Second Language Writing</td>
             <td id = "q5ii_w_ans"class = "td_simulator"><script>document.write(q5ii_w_resp_converted)</script></td>
             <td id = "q5ii_w_simul" class = "td_simulator">
               <select id="q5ii_w" name="q5ii_w">
@@ -354,7 +355,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Canadian Work Exp Years</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q6i. </span>Canadian Work Exp Years</td>
             <td id = "q6i_ans" class = "td_simulator"><script>document.write(q6i_resp_converted)</script></td>
             <td id = "q6i_simul" class = "td_simulator">
               <select id="q6i" name="q6i">
@@ -363,7 +364,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Foreign Work Exp Years</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q6ii. </span>Foreign Work Exp Years</td>
             <td id = "q6ii_ans" class = "td_simulator"><script>document.write(q6ii_resp_converted)</script></td>
             <td id = "q6ii_simul" class = "td_simulator">
               <select id="q6ii" name="q6ii">
@@ -372,7 +373,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Certificate of Qualification</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q7. </span>Certificate of Qualification</td>
             <td id = "q7_ans" class = "td_simulator"><script>document.write(q7_resp_converted)</script></td>
             <td id = "q7_simul" class = "td_simulator">
               <select id="q7" name="q7">
@@ -381,7 +382,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">LMIA?</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q8. </span>LMIA?</td>
             <td id = "q8_ans" class = "td_simulator"><script>document.write(q8_resp_converted)</script></td>
             <td id = "q8_simul" class = "td_simulator">
               <select id="q8" name="q8">
@@ -390,7 +391,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">LMIA NOC type</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q8a. </span>LMIA NOC type</td>
             <td id = "q8a_ans" class = "td_simulator"><script>document.write(q8a_resp_converted)</script></td>
             <td id = "q8a_simul" class = "td_simulator">
               <select id="q8a" name="q8a">
@@ -399,7 +400,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Province Nomination (PNP)</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q9. </span>Province Nomination (PNP)</td>
             <td id = "q9_ans" class = "td_simulator"><script>document.write(q9_resp_converted)</script></td>
             <td id = "q9_simul" class = "td_simulator">
               <select id="q9" name="q9">
@@ -408,7 +409,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Siblings/Partner PR?</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q10. </span>Siblings/Partner PR?</td>
             <td id = "q10_ans" class = "td_simulator"><script>document.write(q10_resp_converted)</script></td>
             <td id = "q10_simul" class = "td_simulator">
               <select id="q10" name="q10">
@@ -417,7 +418,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse Highest Canadian Education</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q11. </span>Spouse Highest Canadian Education</td>
             <td id = "q11_ans" class = "td_simulator"><script>document.write(q11_resp_converted)</script></td>
             <td id = "q11_simul" class = "td_simulator">
               <select id="q11" name="q11">
@@ -426,7 +427,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse Work Exp</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q12. </span>Spouse Work Exp</td>
             <td id = "q12_ans" class = "td_simulator"><script>document.write(q12_resp_converted)</script></td>
             <td id = "q12_simul" class = "td_simulator">
               <select id="q12" name="q12">
@@ -435,7 +436,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse First Language Test choice</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q13i. </span>Spouse First Language Test choice</td>
             <td id = "q13i_ans" class = "td_simulator"><script>document.write(q13i_resp_converted)</script></td>
             <td id = "q13i_simul" class = "td_simulator">
               <select id="q13i" name="q13i">
@@ -444,7 +445,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse First Language Speaking</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q13ii_s. </span>Spouse First Language Speaking</td>
             <td id = "q13ii_s_ans" class = "td_simulator"><script>document.write(q13ii_s_resp_converted)</script></td>
             <td id = "q13ii_s_simul" class = "td_simulator">
               <select id="q13ii_s" name="q13ii_s">
@@ -453,7 +454,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse First Language Listening</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q13ii_l. </span>Spouse First Language Listening</td>
             <td id = "q13ii_l_ans" class = "td_simulator"><script>document.write(q13ii_l_resp_converted)</script></td>
             <td id = "q13ii_l_simul" class = "td_simulator">
               <select id="q13ii_l" name="q13ii_l">
@@ -462,7 +463,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse First Language Reading</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q13ii_r. </span>Spouse First Language Reading</td>
             <td id = "q13ii_r_ans" class = "td_simulator"><script>document.write(q13ii_r_resp_converted)</script></td>
             <td id = "q13ii_r_simul" class = "td_simulator">
               <select id="q13ii_r" name="q13ii_r">
@@ -471,7 +472,7 @@
             </td>
           </tr>
           <tr>
-            <td class = "td_simulator_q">Spouse First Language Writing</td>
+            <td class = "td_simulator_q"><span style = "color: #0400ffe0">Q13ii_w. </span>Spouse First Language Writing</td>
             <td id = "q13ii_w_ans" class = "td_simulator"><script>document.write(q13ii_w_resp_converted)</script></td>
             <td id = "q13ii_w_simul" class = "td_simulator">
               <select id="q13ii_w" name="q13ii_w">
