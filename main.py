@@ -52,7 +52,6 @@ def welcome():
 
 @app2.route('/login', methods=['POST'])
 def login():
-    # TODO: Write a script to get the data from data_table_qna to calculate the crs score.
     connection = mysql_connection_data_db()
     msg = ''
     if request.method == 'POST' and 'uname' in request.form and 'psw' in request.form:
@@ -132,12 +131,11 @@ def question():
 @app2.route('/crs_form', methods=['GET','POST'])
 def crs_form():
     global username_, email_, new_user, crs_form_dict
-
     output = request.get_json()
     result_dict = json.loads(output)
     
     result_dict['email'] = email_
-    result_dict['username'] = username_
+    result_dict['username'] =   username_
 
     crs_form_dict = result_dict
 
@@ -149,7 +147,7 @@ def crs_form():
     account = cursor.fetchone()
     if not account:  # if user does not exists: if it is a new user
         # Insert to the data_table_qna
-        new_user = 'False'
+        new_user = 'True'
         connection = mysql_connection_data_db()
         cursor = connection.cursor()
         cursor.execute(
@@ -159,9 +157,7 @@ def crs_form():
                     %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
                     %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
                     %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
-                    %s)',
+                    %s, %s, %s, %s, %s, %s)',
             (list(crs_form_dict.values())))
         connection.commit()
         cursor.close()
@@ -226,34 +222,17 @@ def crs_form():
                 french = %s,\
                 canada_education = %s,\
                 job = %s,\
-                nomination = %s,\
-                q3_age_max = %s,\
-                q4_education_max = %s,\
-                q5_fol_point_max = %s,\
-                q5_sol_point_max = %s,\
-                q6_canada_xp_max = %s,\
-                q4_q5_max = %s,\
-                q4_q6i_max = %s,\
-                q6ii_q5_max = %s,\
-                q6ii_q6i_max = %s,\
-                q7_q5_max = %s,\
-                q10_sibling_max = %s,\
-                french_max = %s,\
-                canada_education_max = %s,\
-                job_max = %s,\
-                nomination_max = %s,\
-                email_ = %s,\
-                username_ = %s', (list(crs_form_dict.values())))
+                nomination = %s \
+                WHERE email_ = %s AND username_ = %s', (list(crs_form_dict.values())))
+        connection.commit()
+        cursor.close()
+        connection.close()
     
     return redirect(url_for('summary'))
 
 
 @app2.route('/summary')
 def summary():
-    # global scraped_data
-    print(username_)
-    print(email_)
-    print(crs_form_dict)
     
     scraped_data = mysql_connect.get_data()
     # Statsmodels Holt's linear trend to implement time series MA calculations
