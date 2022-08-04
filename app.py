@@ -8,21 +8,57 @@ import mysql_connect
 import mysql
 import ml_model
 import joblib
-import re, json
+import re, json, os
 import pandas as pd
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, login_user, LoginManager,login_required,logout_user,current_user
 
-app2 = Flask(__name__)
+app = Flask(__name__)
+
+# Create a session
+app.config['SECRET_KEY'] = os.urandom(32)
+
 username_ = ''
 password_ = ''
 email_ = ''
 new_user = 'False'
 crs_form_dict = ''
 
+# Initialize login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# Loading the user, check if the user is active or not
+@login_manager.user_loader
+def load_user(username):
+    return User(username, True)
+
+# User class
+
+class User(UserMixin):
+    def __init__(self, username, active = True):
+        self.username_ = username
+        self.active = active
+    
+    def is_active(self):
+        return self.active
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return True
+
+    def get_id(self):
+        return self.username_
+
+
 def mysql_connection_data_db():
     connection = mysql.connector.connect(
-        host = 'localhost',
-        user = 'root',
-        password = '@Rkdrmsdn0831',
+        host = 'crs-data-db.cl1rhrzzpuez.us-east-2.rds.amazonaws.com',
+        user = 'pkang0831',
+        password = 'Rkdrmsdn0831',
         database = 'data_db'
     )
     return connection
@@ -44,13 +80,13 @@ def retrieve_profile_data(username, email):
     else:
         return returndicts
 
-@app2.route('/')
+@app.route('/')
 def welcome():
     mysql_connect.crs_insert_data()
     return render_template('start.html')
 
 
-@app2.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     connection = mysql_connection_data_db()
     msg = ''
@@ -67,6 +103,8 @@ def login():
             email_ = account[3]
             crs_form_dict = retrieve_profile_data(username_, email_)
             msg = 'Log in successful!'
+            user_obj = User(username_, True)
+            login_user(user_obj)
             # return render_template('question.html', username=username_, new_user=new_user)
             return redirect(url_for('summary', username = username_, email = email_))
         else:
@@ -75,11 +113,10 @@ def login():
     return render_template('start.html', msg=msg)
 
 
-@app2.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['GET','POST'])
 def signup():
     connection = mysql_connection_data_db()
     msg = ''
-    
     if request.method == 'POST' and 'uname_signup' in request.form and 'psw_signup' in request.form and 'email_signup' in request.form:
         global username_, email_, new_user
         new_user = 'True'
@@ -114,21 +151,30 @@ def signup():
             msg = 'Username must contain only characters and numbers!'
             return render_template('start.html', msg=msg)
         else:
-            cursor.execute('INSERT INTO user_accounts VALUES (NULL, %s, %s, %s)', ([
-                           username_, password, email_]))
+            cursor.execute('INSERT INTO user_accounts VALUES (%s, %s, %s)', ([username_, password, email_]))
             connection.commit()
             cursor.close()
             connection.close()
             msg = 'You have successfully registered !'
+            user_obj = User(username_, True)
+            login_user(user_obj)
             return render_template('question.html', username=username_, msg=msg, new_user=new_user)
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('start.html')
 
-@app2.route('/question')
+
+@app.route('/question')
+@login_required
 def question():
     return render_template('question.html')
 
 
-@app2.route('/crs_form', methods=['GET','POST'])
+@app.route('/crs_form', methods=['GET','POST'])
+@login_required
 def crs_form():
     global username_, email_, new_user, crs_form_dict
     output = request.get_json()
@@ -231,7 +277,8 @@ def crs_form():
     return redirect(url_for('summary'))
 
 
-@app2.route('/summary')
+@app.route('/summary')
+@login_required
 def summary():
     
     scraped_data = mysql_connect.get_data()
@@ -259,15 +306,16 @@ def summary():
     return render_template('summary.html', scraped_data = scraped_data, crs_form_data = crs_form_dict, crs_predict = next_prediction_to_pass)
 
 
-@app2.route('/Improve_My_CRS')
+@app.route('/Improve_My_CRS')
+@login_required
 def Improve_My_CRS():
     # TODO: AWS cloud EC2 그리고 web app deployment 어떻게 하는지 찾아보기
     return render_template('Improve_My_CRS.html', crs_form_data = crs_form_dict)
 
-@app2.context_processor
+@app.context_processor
 def context_processor():
     return dict(username=username_, email=email_, new_user=new_user)
 
 
 if __name__ == "__main__":
-    app2.run(debug=True)
+    app.run(debug=True)

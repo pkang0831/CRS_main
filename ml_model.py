@@ -58,6 +58,7 @@ class data_landing():
         df = df.drop(['date_str','date_form','prgm_name2','day_num','month_num','year_num'], axis = 1)
         # Reverse the order so that the most recent data can come down bottom
         df = df.reset_index(drop = True)
+        df = df.iloc[::-1].reset_index(drop = True)
 
         return df
 
@@ -252,6 +253,7 @@ class model(data_landing):
     def pastPred(self, scaler, fitted_model, df, init_point = 20):
         # Original dataframe
         df_original = self.df.copy(deep = True)
+        df_original = df_original.iloc[::-1].reset_index(drop = True)
         # Processed dataframe
         df_scaled = df.copy(deep = True)
         df_scaled = df_scaled.drop('crs_score', axis = 1)
@@ -331,6 +333,29 @@ class model(data_landing):
         joblib.dump(fitted_model, 'regressor.pkl')
         joblib.dump(correction_factor, 'correction_factor.pkl')
 
+def merge_with_actual_data():
+    connection = mysql_connect.connect_to_data_db()
+    cursor = connection.cursor()
+    query1 = \
+    """
+    DROP TABLE IF EXISTS data_with_predictions;
+    """
+    query2 =\
+    """
+    CREATE TABLE IF NOT EXISTS data_with_predictions (
+        SELECT temp1.id, temp1.date_str, temp1.prgm_name, temp1.crs_score, temp1.inv_num, temp1.date_form, temp1.prgm_name2, temp1.day_num, temp1.month_num, temp1.year_num, prediction.prediction
+        FROM (SELECT id, date_str, prgm_name, crs_score, inv_num,prgm_name2, day_num, month_num, year_num, date_form
+            FROM data_table) AS temp1
+        INNER JOIN prediction 
+        ON prediction.id = temp1.id
+    );
+    """
+    cursor.execute(query1)
+    connection.commit()
+    cursor.execute(query2)
+    connection.commit()
+    cursor.close()
+    connection.close()
 
 def invitation_timeseries(data: dict):
     df = pd.DataFrame(data)
@@ -346,9 +371,8 @@ def invitation_timeseries(data: dict):
     return forecasting
 
 if __name__ == "__main__":
-    data = mysql_connect.get_data()
+    data = mysql_connect.get_actual_data()
     df = pd.DataFrame(data)
-    df = df.drop('prediction', axis = 1)
     initializer = model(df)
     trim_init_point_for_modeling = 25
     # data cleaning
@@ -377,7 +401,8 @@ if __name__ == "__main__":
     prediction_table, correction_3 = initializer.pastPred(scaler, mlModel, _load2model, trim_init_point_for_modeling)
     # Save the prediction result to the database
     initializer.updateDBonPred(prediction_table)
+    merge_with_actual_data()
     # Visual checks #### uncomment to visual check the performance of a trained model.
-    # initializer.visual_check(prediction_table, correction_3)
+    initializer.visual_check(prediction_table, correction_3)
     # Save model and scaler
     initializer.save_model(scaler, mlModel, correction_3)

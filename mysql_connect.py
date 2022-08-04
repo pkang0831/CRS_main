@@ -4,9 +4,9 @@ import mysql.connector
 
 def connect_to_data_db():
     connection = mysql.connector.connect(
-        host = 'localhost',
-        user = 'root',
-        password = '@Rkdrmsdn0831',
+        host = 'crs-data-db.cl1rhrzzpuez.us-east-2.rds.amazonaws.com',
+        user = 'pkang0831',
+        password = 'Rkdrmsdn0831',
         database = 'data_db'
     )
     return connection
@@ -14,9 +14,9 @@ def connect_to_data_db():
 def databaseCreate():
     # Configure connection
     connection = mysql.connector.connect(
-        host = 'localhost',
-        user = 'root',
-        password = '@Rkdrmsdn0831'
+        host = 'crs-data-db.cl1rhrzzpuez.us-east-2.rds.amazonaws.com',
+        user = 'pkang0831',
+        password = 'Rkdrmsdn0831'
     )
     # Create database
     cursor = connection.cursor()
@@ -73,7 +73,7 @@ def crs_insert_data():
     connection.close()
     print('Data Inserted, Connection closed')
 
-def get_data():
+def get_data(): # this is with predictions
     connection = connect_to_data_db()
     cursor = connection.cursor()
     DDL_query = """
@@ -96,6 +96,34 @@ def get_data():
         'month_num': [row[8] for row in records],
         'year_num': [row[9] for row in records],
         'prediction': [row[10] for row in records]
+    })
+
+    cursor.close()
+    connection.close()
+    return data_to_pass
+
+def get_actual_data(): # this is with predictions
+    connection = connect_to_data_db()
+    cursor = connection.cursor()
+    DDL_query = """
+    SELECT * FROM data_db.data_table
+    """
+    cursor.execute(DDL_query)
+    records = cursor.fetchall()
+
+    # Parse the data to dictionary - list format:
+    data_to_pass = dict()
+    data_to_pass.update({
+        'id': [row[0] for row in records],
+        'date_str': [row[1] for row in records],
+        'prgm_name': [row[2] for row in records],
+        'inv_num': [row[3] for row in records],
+        'crs_score': [row[4] for row in records],
+        'date_form': [row[5] for row in records],
+        'prgm_name2': [row[6] for row in records],
+        'day_num': [row[7] for row in records],
+        'month_num': [row[8] for row in records],
+        'year_num': [row[9] for row in records]
     })
 
     cursor.close()
