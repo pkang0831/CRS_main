@@ -1,0 +1,4 @@
+Host: crs-data-db.cl1rhrzzpuez.us-east-2.rds.amazonaws.com
+Port: 3306
+User: pkang0831
+SSL: enabled with TLS_AES_256_GCM_SHA384
