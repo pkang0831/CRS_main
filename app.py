@@ -10,7 +10,6 @@ import ml_model
 import joblib
 import re, json, os
 import pandas as pd
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager,login_required,logout_user,current_user
 
 app = Flask(__name__)
@@ -100,7 +99,7 @@ def login():
             "SELECT * FROM user_accounts WHERE username = %s AND password = %s", ([username_, password]))
         account = cursor.fetchone()
         if account:
-            email_ = account[3]
+            email_ = account[2]
             crs_form_dict = retrieve_profile_data(username_, email_)
             msg = 'Log in successful!'
             user_obj = User(username_, True)
@@ -130,11 +129,11 @@ def signup():
         # Logic to find if the registration failure is coming from email or the username:
         if account:
             error_code = ''
-            if username_ == account[1] and email_ == account[3]:
+            if username_ == account[0] and email_ == account[2]:
                 error_code = 'registered username and email'
-            elif username_ == account[1]:
+            elif username_ == account[0]:
                 error_code = 'registered username'
-            elif email_ == account[3]:
+            elif email_ == account[2]:
                 error_code = 'registered email'
 
         if account:
